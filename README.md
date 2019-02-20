@@ -44,3 +44,14 @@
 ### Modules
 - components
 - screens (connection between componenets and app interface)
+
+---
+---
+## Data Sources
+#### [Spoonacular API](https://spoonacular.com/food-api)
+#### [Yummly API](https://developer.yummly.com/documentation)
+#### [Edamam Recipe Search API](https://developer.edamam.com/edamam-docs-recipe-api)
+#### [Recipe Puppy API](http://www.recipepuppy.com/about/api/)
+#### [ReciPal API](https://www.recipal.com/api-docs#authentication)
+#### [BigOven API](http://api2.bigoven.com/swagger/ui/index#/)
+
