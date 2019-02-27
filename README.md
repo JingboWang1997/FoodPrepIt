@@ -36,6 +36,8 @@
 ## Frontend
 ### Set Up
 - Install [node and npm](https://nodejs.org/en/download/)
+- `npm install --save react react-dom`
+- `npm install @material-ui/icons`
 ### Run
 - `cd frontend`
 - Run `npm install` to install node_modules
@@ -43,6 +45,7 @@
 
 ### Modules
 - components
+- views (pack components in a particular way if needed)
 - screens (connection between componenets and app interface)
 
 ---

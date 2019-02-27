@@ -2,13 +2,16 @@ import React from 'react';
 // import { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
+import ComponentsScreen from './screens/components_screen'
 
 import LoginScreen from './screens/login_screen';
 
 export default class App extends React.Component {
   render() {
     return (
-      <LoginScreen/>
+      <div>
+        <ComponentsScreen/>
+      </div>
     );
   }
 }
