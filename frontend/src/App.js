@@ -5,11 +5,13 @@ import './App.css';
 import ComponentsScreen from './screens/components_screen'
 
 // import LoginScreen from './screens/login_screen';
+import KeywordsearchScreen from './screens/keywordsearch_screen';
 
 export default class App extends React.Component {
   render() {
     return (
       <div>
+        <KeywordsearchScreen/>
         <ComponentsScreen/>
       </div>
     );
