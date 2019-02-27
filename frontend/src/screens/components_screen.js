@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import FPIButton from '../components/fpibutton_component'
+import FPITabs from '../components/fpitabs_component'
 
 class ComponentsScreen extends Component {
   render() {
@@ -9,6 +10,10 @@ class ComponentsScreen extends Component {
         <h3>button</h3>
         &lt;FPIButton text=&#123;&quot;text&quot;&#125;/&gt;
         <FPIButton text={"text"} type={"cancel"}/>
+
+        <h3>tabs</h3>
+        &lt;FPITabs /&gt;
+        <FPITabs />
       </div>
     );
   }

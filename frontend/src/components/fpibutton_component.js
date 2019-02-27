@@ -3,10 +3,6 @@ import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 
 class FPIButton extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     if (this.props.type === "confirm") {
       return (
