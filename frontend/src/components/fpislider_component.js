@@ -13,9 +13,12 @@ const styles = {
 };
 
 class FPISlider extends React.Component {
-  state = {
-    value: 3,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: props.value,
+    };
+  }
 
   handleChange = (event, value) => {
     this.setState({ value });
@@ -34,7 +37,7 @@ class FPISlider extends React.Component {
           max={6}
           step={1}
           onChange={this.handleChange}
-        />
+        />{value}
       </div>
     );
   }
