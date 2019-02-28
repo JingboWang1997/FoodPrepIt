@@ -15,8 +15,9 @@ class MainSearchView extends Component {
 
     return (
 
-      <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', height: window.innerHeight - 300 + 'px'}}>
-        <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
+      // <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', height: window.innerHeight - 300 + 'px'}}>
+        // {/* <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}> */}
+        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
           <img src={logo}/>
           <FPISearchbar />
           <FPISlider />
@@ -25,8 +26,9 @@ class MainSearchView extends Component {
           <FPITaginput />
           <FPIDropdown />
         </div>
+        // {/* </div> */}
 
-      </div>
+      // </div>
     );
   }
 }
