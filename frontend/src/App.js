@@ -2,11 +2,12 @@ import React from 'react';
 // import { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
-// import ComponentsScreen from './screens/components_screen'
+import ComponentsScreen from './screens/components_screen'
 
 // import LoginScreen from './screens/login_screen';
 // import KeywordsearchScreen from './views/mainsearch_view';
 import MainScreen from './screens/main_screen';
+import FPITaginput from './components/fpitaginput_component'
 
 export default class App extends React.Component {
   render() {
@@ -14,31 +15,7 @@ export default class App extends React.Component {
       <div>
         <MainScreen />
       </div>
+
     );
   }
 }
-
-// class App extends Component {
-//   render() {
-//     return (
-//       <div className="App">
-//         <header className="App-header">
-//           <img src={logo} className="App-logo" alt="logo" />
-//           <p>
-//             Edit <code>src/App.js</code> and save to reload.
-//           </p>
-//           <a
-//             className="App-link"
-//             href="https://reactjs.org"
-//             target="_blank"
-//             rel="noopener noreferrer"
-//           >
-//             Learn React
-//           </a>
-//         </header>
-//       </div>
-//     );
-//   }
-// }
-
-// export default App;

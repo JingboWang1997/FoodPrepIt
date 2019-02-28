@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { WithContext as ReactTags } from 'react-tag-input';
-
+import '../styles/fpitaginput_styles.css';
 
 
 class FPITaginput extends Component {
@@ -23,6 +23,7 @@ class FPITaginput extends Component {
   }
 
   handleAddition(tag) {
+    console.log('nancycheck here');
     let { tags } = this.state;
     this.setState({ tags: [...tags, { id: tags.length + 1, text: tag }] });
   }
@@ -45,7 +46,7 @@ class FPITaginput extends Component {
   render() {
     const { tags, suggestions } = this.state;
     return (
-      <div>
+      <div id="app">
         <h4>ReactTags Demo</h4>
         <ReactTags
           tags={tags}
