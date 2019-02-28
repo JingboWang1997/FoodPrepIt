@@ -18,14 +18,16 @@ class MainSearchView extends Component {
 
       // <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', height: window.innerHeight - 300 + 'px'}}>
         // {/* <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}> */}
-        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-          <img src={logo}/>
-          <FPISearchbar />
-          <FPISlider value={2}/>
-          <FPISlider value={1}/>
-          <FPISlider />
-          <FPITaginput />
-          <FPIDropdown />
+        <div style={{marginTop: '5%'}}>
+          <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+            <img src={logo}/>
+            <FPISearchbar />
+            <FPISlider value={2}/>
+            <FPISlider value={1}/>
+            <FPISlider />
+            <FPITaginput />
+            <FPIDropdown />
+          </div>
         </div>
 
 
