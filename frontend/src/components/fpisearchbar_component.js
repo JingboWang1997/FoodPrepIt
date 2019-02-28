@@ -14,8 +14,8 @@ const styles = theme => ({
     '&:hover': {
       backgroundColor: grey[400],
     },
-    marginLeft: 100,
-    width: '60%',
+    marginLeft: 0,
+    width: '80%',
   },
   searchIcon: {
     width: theme.spacing.unit * 9,
