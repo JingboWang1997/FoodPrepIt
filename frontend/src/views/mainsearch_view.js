@@ -21,8 +21,8 @@ class MainSearchView extends Component {
         <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
           <img src={logo}/>
           <FPISearchbar />
-          <FPISlider />
-          <FPISlider />
+          <FPISlider value={2}/>
+          <FPISlider value={1}/>
           <FPISlider />
           <FPITaginput />
           <FPIDropdown />
