@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import green from '@material-ui/core/colors/green';
 
 import FPIButton from '../components/fpibutton_component';
+import MainSearchView from './mainsearch_view'
 
 function TabContainer(props) {
   return (
@@ -29,15 +30,15 @@ function DisplayPage(props) {
     if (props.value === 0) {
         return <FPIButton type="confirm" text="dashboard"/>
     } else if (props.value === 1) {
-        return <FPIButton type="cancel" text="keyword search"/>
+        return <MainSearchView />
     } else if (props.value === 2) {
-        return <FPIButton type="confirm" text="ingredient search"/>
+        return <MainSearchView />
     } else if (props.value === 3) {
         return <FPIButton type="cancel" text="nutrient check"/>
     }
 }
 
-export default class FPITabs extends React.Component {
+export default class FPITabsView extends React.Component {
   state = {
     value: 0,
   };
@@ -71,7 +72,7 @@ export default class FPITabs extends React.Component {
   }
 }
 
-FPITabs.propTypes = {
+FPITabsView.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
