@@ -15,7 +15,7 @@ const styles = theme => ({
       backgroundColor: grey[400],
     },
     marginLeft: 0,
-    width: '80%',
+    width: '50%',
   },
   searchIcon: {
     width: theme.spacing.unit * 9,
