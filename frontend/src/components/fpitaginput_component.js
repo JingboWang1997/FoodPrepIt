@@ -8,7 +8,7 @@ class FPITaginput extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tags: [{ id: 1, text: "Thailand" }, { id: 2, text: "India" }],
+      tags: [],
     };
     this.handleDelete = this.handleDelete.bind(this);
     this.handleAddition = this.handleAddition.bind(this);
