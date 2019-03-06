@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 // import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import green from '@material-ui/core/colors/green';
 
 class FPIButton extends Component {
   render() {
     if (this.props.type === "confirm") {
       return (
-        <div>
-          <Button variant="contained" style={{ backgroundColor: 'rgba(112, 180, 63, 0.7)' }}>
+        <div style={{marginLeft: '2%'}}>
+          <Button variant="contained" style={{ backgroundColor: green[300]}}>
             {this.props.text}
           </Button>
         </div>

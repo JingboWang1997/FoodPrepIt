@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import green from '@material-ui/core/colors/green';
 
 import MainSearchView from './mainsearch_view'
+import AfterSearchView from './aftersearch_view'
 
 function TabContainer(props) {
   return (
@@ -35,7 +36,7 @@ function DisplayPage(props) {
         return <MainSearchView />
     } else if (props.value === 3) {
         // return <FPIButton type="cancel" text="nutrient check"/>
-        return <h1>Currently Not Available</h1>
+        return <AfterSearchView />
     }
 }
 
