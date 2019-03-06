@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { render } from 'react-dom';
 import { WithContext as ReactTags } from 'react-tag-input';
 import '../styles/fpitaginput_styles.css';
 
@@ -44,7 +43,7 @@ class FPITaginput extends Component {
   }
 
   render() {
-    const { tags, suggestions } = this.state;
+    const { tags } = this.state;
     return (
       <div id="app">
         <h4>Input excluded ingredients:</h4>

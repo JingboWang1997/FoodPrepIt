@@ -7,7 +7,6 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import green from '@material-ui/core/colors/green';
 
-import FPIButton from '../components/fpibutton_component';
 import MainSearchView from './mainsearch_view'
 import AfterSearchView from './aftersearch_view'
 

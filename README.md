@@ -4,6 +4,7 @@
 ### Set Up
 - Install [python3](https://www.python.org/downloads/) and django `pip install django`
 - Install rest framework: `pip install djangorestframework`
+- Install API request: `pip install requests`
 ### Run
 - `cd backend`
 - Run `python manage.py runserver`
