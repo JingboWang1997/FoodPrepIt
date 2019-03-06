@@ -20,7 +20,7 @@ class MainSearchView extends Component {
         // {/* <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}> */}
         <div style={{marginTop: '5%'}}>
           <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-            <img src={logo}/>
+            <img src={logo} alt=''/>
             <FPISearchbar />
             <FPISlider value={2}/>
             <FPISlider value={1}/>
