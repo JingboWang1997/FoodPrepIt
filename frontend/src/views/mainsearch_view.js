@@ -7,36 +7,25 @@ import FPIDropdown from '../components/fpidropdown_component'
 import FPIButton from '../components/fpibutton_component'
 import logo from '../resources/logo.jpg';
 
-
-
-class MainSearchView extends Component {
+export default class MainSearchView extends Component {
   render() {
     // let height = window.innerHeight + 'px';
     // console.log(height);
-
     return (
-
-
-      // <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', height: window.innerHeight - 300 + 'px'}}>
-        // {/* <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}> */}
-        <div style={{marginTop: '5%'}}>
-          <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-            <img src={logo}/>
-            <div style={{display: 'flex', flexDirection: 'row', width:'50%', alignItems: 'center'}}>
-              <FPISearchbar />
-              <FPIButton text={"Search"} type={"confirm"}/>
-            </div>
-            <FPISlider value={2}/>
-            <FPISlider value={1}/>
-            <FPISlider />
-            <FPITaginput />
-            <FPIDropdown />
+      <div style={{marginTop: '5%'}}>
+        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+          <img src={logo}/>
+          <div style={{display: 'flex', flexDirection: 'row', width:'50%', alignItems: 'center'}}>
+            <FPISearchbar />
+            <FPIButton text={"Search"} type={"confirm"} callbackFromParent={this.props.callbackFromParent}/>
           </div>
+          <FPISlider value={2}/>
+          <FPISlider value={1}/>
+          <FPISlider />
+          <FPITaginput />
+          <FPIDropdown />
         </div>
-
-
+      </div>
     );
   }
 }
-
-export default MainSearchView;

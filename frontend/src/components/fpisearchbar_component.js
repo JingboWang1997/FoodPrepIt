@@ -48,7 +48,6 @@ const styles = theme => ({
 
 function FPISearchbar(props) {
   const { classes } = props;
-  console.log(classes)
   return (
       <div className={classes.search}>
         <div className={classes.searchIcon}>
