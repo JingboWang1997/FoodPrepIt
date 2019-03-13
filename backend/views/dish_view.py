@@ -37,8 +37,9 @@ def getRecipe(request):
     if sourceAPI == 'Yummly':
         id = request.data['id']
         info = recipe_service.get_yummly_recipe(id)
-    # elif sourceAPI == 'Spoonacular':
-    #     info = request.data['id']
+    elif sourceAPI == 'Spoonacular':
+        id = request.data['id']
+        info = recipe_service.get_spoonacular_recipe(id)
     serializer = dish_serializer.RecipeSerializer(instance=info, many=False)
     return Response(serializer.data)
 

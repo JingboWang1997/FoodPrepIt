@@ -14,3 +14,19 @@ def get_yummly_recipe(id):
     instruction = '',
     ingredients = recipe['ingredientLines'])
     return returned_info
+
+def get_spoonacular_recipe(id):
+    recipe = spoonacular_api.getRecipe(id)
+    ingredients_raw = recipe['extendedIngredients']
+    ingredients_list = []
+    for item in ingredients_raw:
+        ingredients_list.append(item['originalString'])
+
+    returned_info = recipe_summary_dto.RecipeSummary(
+    sourceAPI = 'Spoonacular',
+    recipeLink = recipe['sourceUrl'],
+    title = recipe['title'],
+    readyInMinutes = recipe['readyInMinutes'],
+    instruction = recipe['instructions'],
+    ingredients = ingredients_list)
+    return returned_info
