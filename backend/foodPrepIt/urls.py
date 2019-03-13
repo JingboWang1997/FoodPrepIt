@@ -24,5 +24,6 @@ router = routers.DefaultRouter()
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^', include(router.urls)),
-    path('getDishesByIngredientsDemo', dish_view.getDishByIngredient),
+    path('getDishByIngredientsDemo', dish_view.getDishByIngredient),
+    path('getDishByKeywords', dish_view.getDishByKeywords),
 ]

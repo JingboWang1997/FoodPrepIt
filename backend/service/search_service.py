@@ -4,8 +4,8 @@ from database import yummly_api
 from database import puppy_api
 from dto import dish_summary_dto
 
-def get_spoonacular_data():
-    search_result = spoonacular_api.search()
+def get_spoonacular_data(keywords):
+    search_result = spoonacular_api.search(keywords)
     print(search_result)
     dish_list = search_result['results']
     baseUri = search_result['baseUri']
@@ -16,8 +16,8 @@ def get_spoonacular_data():
         sourceAPI = 'Spoonacular') for i, dish in enumerate(dish_list)]
     return dish_summary_dto_list
 
-def get_edamam_data():
-    dish_list = edamam_api.search()
+def get_edamam_data(keywords):
+    dish_list = edamam_api.search(keywords)
     dish_summary_dto_list = [ dish_summary_dto.DishSummary(
         id = i, 
         title = dish['recipe']['label'], 
@@ -25,8 +25,8 @@ def get_edamam_data():
         sourceAPI = 'Edamam') for i, dish in enumerate(dish_list)]
     return dish_summary_dto_list
 
-def get_yummly_data():
-    dish_list = yummly_api.search()
+def get_yummly_data(keywords):
+    dish_list = yummly_api.search(keywords)
     dish_summary_dto_list = [ dish_summary_dto.DishSummary(
         id = dish['id'], 
         title = dish['recipeName'], 
@@ -34,8 +34,8 @@ def get_yummly_data():
         sourceAPI = 'Yummly') for i, dish in enumerate(dish_list)]
     return dish_summary_dto_list
 
-def get_puppy_data():
-    dish_list = puppy_api.search()
+def get_puppy_data(keywords):
+    dish_list = puppy_api.search(keywords)
     dish_summary_dto_list = [ dish_summary_dto.DishSummary(
         id = i, 
         title = dish['title'],
