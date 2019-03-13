@@ -15,3 +15,13 @@ class DishSummarySerializer(serializers.Serializer):
     title = serializers.CharField(max_length=100)
     image = serializers.URLField(max_length=200, min_length=None, allow_blank=True)
     sourceAPI = serializers.CharField(max_length=20)
+    recipeLink = serializers.CharField(max_length=50)
+
+class RecipeSerializer(serializers.Serializer):
+    sourceAPI = serializers.CharField(max_length=20)
+    recipeLink = serializers.CharField(max_length=50)
+    title = serializers.CharField(max_length=20)
+    readyInMinutes = serializers.CharField(max_length=20)
+    instruction = serializers.CharField(max_length=200)
+    ingredients = serializers.ListField(
+        child=serializers.CharField(max_length=200))

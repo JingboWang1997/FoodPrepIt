@@ -7,3 +7,8 @@ def search(keywords):
 
     response = requests.get(finalURL)
     return response.json()['matches']
+
+def getRecipe(id):
+    finalURL = "http://api.yummly.com/v1/api/recipe/" + id + "?_app_id=e5b85650&_app_key=ff1b1efa50ce7f1eed8e922aafca46a3"
+    response = requests.get(finalURL)
+    return response.json()
