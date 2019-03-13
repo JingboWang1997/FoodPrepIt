@@ -6,7 +6,10 @@ def find_by_ingredients():
     })
     return response.json()
 
-def search():
-    response = requests.get("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search?diet=vegetarian&excludeIngredients=coconut&intolerances=egg%2C+gluten&number=10&offset=0&type=main+course&query=chicken%2C+carrot",
+def search(keywords):
+    baseURL = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search?"
+    addKeywords = "query=" + keywords
+    finalURL = baseURL + addKeywords
+    response = requests.get(finalURL,
         headers={"X-RapidAPI-Key": "e0908c685fmsh31f97109ebb2e50p1372a2jsncb26aea897b1"})
     return response.json()
