@@ -54,6 +54,7 @@ function FPISearchbar(props) {
           <SearchIcon />
         </div>
         <InputBase
+          value={props.input}
           placeholder="Search…"
           classes={{
             root: classes.inputRoot,
@@ -64,10 +65,6 @@ function FPISearchbar(props) {
 
   );
 }
-
-FPISearchbar.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 export default withStyles(styles)(FPISearchbar);
 

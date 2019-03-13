@@ -29,7 +29,7 @@ class FPISlider extends React.Component {
     const { value } = this.state;
 
     return (
-      <div className={classes.root} style={{marginLeft: '2%',marginLeft: '2%'}}>
+      <div className={classes.root} style={{marginLeft: '2%', marginLeft: '2%'}}>
         <Slider
           classes={{ container: classes.slider }}
           value={value}

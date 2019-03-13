@@ -7,8 +7,9 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import green from '@material-ui/core/colors/green';
 
-import MainSearchView from './mainsearch_view'
-import AfterSearchView from './aftersearch_view'
+import MainSearchView from './mainsearch_view';
+import AfterSearchView from './aftersearch_view';
+import FoodDisplay from './food_display';
 
 function TabContainer(props) {
   return (
@@ -27,48 +28,26 @@ function LinkTab(props) {
 }
 
 function DisplayPage(props) {
-  console.log('props searched: ' + props.searched)
-  if (!props.searched) {
-    console.log('not yet searched')
-    if (props.value === 0) {
-        // return <FPIButton type="confirm" text="dashboard"/>
-        return <h1>Currently Not Available</h1>
-    } else if (props.value === 1) {
-        return <MainSearchView callbackFromParent={props.callbackFromParent}/>
-    } else if (props.value === 2) {
-        return <MainSearchView />
-    } else if (props.value === 3) {
-        // return <FPIButton type="cancel" text="nutrient check"/>
-        return <AfterSearchView />
-    }
-  } else {
-    if (props.value === 0) {
+  if (props.value === 0) {
       // return <FPIButton type="confirm" text="dashboard"/>
       return <h1>Currently Not Available</h1>
-    } else if (props.value === 1) {
-        return <h1>searched</h1>
-    } else if (props.value === 2) {
-        return <h1>searched</h1>
-    } else if (props.value === 3) {
-        // return <FPIButton type="cancel" text="nutrient check"/>
-        return <h1>Currently Not Available</h1>
-    }
+  } else if (props.value === 1) {
+      return <MainSearchView />
+  } else if (props.value === 2) {
+      return <MainSearchView />
+  } else if (props.value === 3) {
+      // return <FPIButton type="cancel" text="nutrient check"/>
+      return <FoodDisplay />
   }
 }
 
 export default class FPITabsView extends React.Component {
   state = {
     value: 0,
-    searched: false,
   };
 
   handleChange = (event, value) => {
     this.setState({ value });
-  };
-
-  myCallback = (dataFromChild) => {
-    console.log("passed back: " + dataFromChild)
-    this.setState({ dataFromChild })
   };
 
   render() {
@@ -85,7 +64,7 @@ export default class FPITabsView extends React.Component {
               <LinkTab label="Nutrient Check" href="page4" />
             </Tabs>
           </AppBar>
-          <DisplayPage value={value} callbackFromParent={this.myCallback} searched={this.state.searched}/>
+          <DisplayPage value={value}/>
           {/* {value === 0 && <TabContainer>Dashboard</TabContainer>}
           {value === 1 && <TabContainer>Keyword Search</TabContainer>}
           {value === 2 && <TabContainer>Ingredient Search</TabContainer>}

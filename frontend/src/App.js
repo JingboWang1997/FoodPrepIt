@@ -3,7 +3,7 @@ import React from 'react';
 // import logo from './logo.svg';
 import './App.css';
 import ComponentsScreen from './screens/components_screen'
-import FoodDisplay from './screens/food_display'
+import FoodDisplay from './views/food_display'
 
 // import LoginScreen from './screens/login_screen';
 // import KeywordsearchScreen from './views/mainsearch_view';
@@ -13,9 +13,9 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        {/* <MainScreen /> */}
+        <MainScreen />
         {/* <ComponentsScreen /> */}
-        <FoodDisplay />
+        {/* <FoodDisplay /> */}
       </div>
 
     );

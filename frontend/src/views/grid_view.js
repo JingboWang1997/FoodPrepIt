@@ -34,7 +34,7 @@ export default class FoodGridView extends React.Component {
         return (
             <div className={styles.root}>
                 <GridList cellHeight={500} spacing={20} className={styles.gridList}>
-                    {tileData.map(tile => (
+                    {this.props.data.map(tile => (
                     <GridListTile key={tile.image} cols={0.5} rows={0.5}>
                         <img src={tile.image} alt={tile.title} />
                         <GridListTileBar
