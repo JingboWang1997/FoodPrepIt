@@ -13,3 +13,9 @@ def search(keywords):
     response = requests.get(finalURL,
         headers={"X-RapidAPI-Key": "e0908c685fmsh31f97109ebb2e50p1372a2jsncb26aea897b1"})
     return response.json()
+
+def getRecipe(id):
+    finalURL = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/" + id + "/information"
+    response = requests.get(finalURL,
+        headers={"X-RapidAPI-Key": "e0908c685fmsh31f97109ebb2e50p1372a2jsncb26aea897b1"})
+    return response.json()
