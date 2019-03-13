@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 import { Button } from 'reactstrap';
 
 class FPIButton extends Component {
-  constructor(props) {
-    super(props);
-  }
+	constructor(props) {
+		super(props);
+	}
 
-  render() {
-      return (
-        <div>
-          <Button variant="success">{this.props.text}</Button>
-        </div>
-      );
-  }
+	render() {
+		return (
+			<div>
+				<Button variant="success">{this.props.text}</Button>
+			</div>
+		);
+	}
 }
 
 export default FPIButton;

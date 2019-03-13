@@ -8,31 +8,31 @@ import React from 'react';
 //FPITitle
 
 export default class LoginView extends React.Component {
-    // constructor(props) {
-    //     super(props);
-    // }
+	// constructor(props) {
+	//     super(props);
+	// }
 
-    render() {
-        const divStyle = {
-          position: 'absolute', 
-          top: '30%', 
-          left: '45%', 
-        };
+	render() {
+		const divStyle = {
+			position: 'absolute', 
+			top: '30%', 
+			left: '45%', 
+		};
 
-        return (
-            // <FPITitle text='Login'/>
-            // <FPTTextbox/>
-            // <FPTButton text='register'/>
-            // <FPTButton text='login'/>
+		return (
+		// <FPITitle text='Login'/>
+		// <FPTTextbox/>
+		// <FPTButton text='register'/>
+		// <FPTButton text='login'/>
 
-            <div style={divStyle}>
-                <h1> Login </h1>
-                <input/><br/>
-                <input/><br/>
-                <button>1</button>
-                <button>2</button>
-            </div>
-        );
-    }
+			<div style={divStyle}>
+				<h1> Login </h1>
+				<input/><br/>
+				<input/><br/>
+				<button>1</button>
+				<button>2</button>
+			</div>
+		);
+	}
 
 }

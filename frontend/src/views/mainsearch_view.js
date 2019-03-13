@@ -13,6 +13,7 @@ import InputBase from '@material-ui/core/InputBase';
 import { withStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import grey from '@material-ui/core/colors/grey'
+import AfterSearchView from './aftersearch_view'
 
 const styles = theme => ({
   search: {
@@ -84,7 +85,9 @@ class MainSearchView extends Component {
   }
 
   myCallback = () => {
-    this.setState({ searched: true });
+    if (this.state.userInput !== '') {
+      this.setState({ searched: true });
+    }
   }
 
   render() {
@@ -123,7 +126,10 @@ class MainSearchView extends Component {
       );
     } else {
       return (
-        <FoodDisplay userInput={this.state.userInput}/>
+        <div>
+          <AfterSearchView />
+          <FoodDisplay userInput={this.state.userInput}/>
+        </div>
       );
     }
   }

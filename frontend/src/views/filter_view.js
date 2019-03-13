@@ -4,12 +4,12 @@ import FPISearchbar from '../components/fpisearchbar_component';
 
 export default class FilterView extends React.Component {
 
-    render() {
+	render() {
 
-        return (
-            <FPISearchbar />
-        );
-    }
+		return (
+			<FPISearchbar />
+		);
+	}
 
 }
 
