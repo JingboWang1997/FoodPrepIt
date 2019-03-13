@@ -48,13 +48,13 @@ const styles = theme => ({
 
 function FPISearchbar(props) {
   const { classes } = props;
-  console.log(classes)
   return (
       <div className={classes.search}>
         <div className={classes.searchIcon}>
           <SearchIcon />
         </div>
         <InputBase
+          value={props.input}
           placeholder="Search…"
           classes={{
             root: classes.inputRoot,
@@ -65,10 +65,6 @@ function FPISearchbar(props) {
 
   );
 }
-
-FPISearchbar.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 export default withStyles(styles)(FPISearchbar);
 

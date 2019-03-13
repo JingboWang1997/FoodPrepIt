@@ -5,6 +5,7 @@ import FPIButton from '../components/fpibutton_component'
 import FPISlider from '../components/fpislider_component'
 import FPITaginput from '../components/fpitaginput_component'
 import FPISearchbar from '../components/fpisearchbar_component'
+import FPICard from '../components/fpicard'
 
 
 class ComponentsScreen extends Component {
@@ -21,6 +22,10 @@ class ComponentsScreen extends Component {
         <h3>search bar</h3>
         &lt;FPISearchbar /&gt;
         <FPISearchbar />
+
+        <h3>card</h3>
+        &lt;FPICard title=&#123;&quot;title&quot;&#125; image=&#123;&quot;image&quot;&#125;/&gt;
+        <FPICard title='Food' image='https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'/>
       </div>
     );
   }

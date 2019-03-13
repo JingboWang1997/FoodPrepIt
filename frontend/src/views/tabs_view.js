@@ -7,8 +7,9 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import green from '@material-ui/core/colors/green';
 
-import MainSearchView from './mainsearch_view'
-import AfterSearchView from './aftersearch_view'
+import MainSearchView from './mainsearch_view';
+import AfterSearchView from './aftersearch_view';
+import FoodDisplay from './food_display';
 
 function TabContainer(props) {
   return (
@@ -27,17 +28,17 @@ function LinkTab(props) {
 }
 
 function DisplayPage(props) {
-    if (props.value === 0) {
-        // return <FPIButton type="confirm" text="dashboard"/>
-        return <h1>Currently Not Available</h1>
-    } else if (props.value === 1) {
-        return <MainSearchView />
-    } else if (props.value === 2) {
-        return <MainSearchView />
-    } else if (props.value === 3) {
-        // return <FPIButton type="cancel" text="nutrient check"/>
-        return <AfterSearchView />
-    }
+  if (props.value === 0) {
+      // return <FPIButton type="confirm" text="dashboard"/>
+      return <h1>Currently Not Available</h1>
+  } else if (props.value === 1) {
+      return <MainSearchView />
+  } else if (props.value === 2) {
+      return <MainSearchView />
+  } else if (props.value === 3) {
+      // return <FPIButton type="cancel" text="nutrient check"/>
+      return <FoodDisplay />
+  }
 }
 
 export default class FPITabsView extends React.Component {
