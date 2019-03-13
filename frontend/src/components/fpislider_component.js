@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Slider from '@material-ui/lab/Slider';
 
@@ -29,7 +28,7 @@ class FPISlider extends React.Component {
     const { value } = this.state;
 
     return (
-      <div className={classes.root} style={{marginLeft: '2%', marginLeft: '2%'}}>
+      <div className={classes.root} style={{marginLeft: '2%'}}>
         <Slider
           classes={{ container: classes.slider }}
           value={value}
@@ -42,9 +41,5 @@ class FPISlider extends React.Component {
     );
   }
 }
-
-FPISlider.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 export default withStyles(styles)(FPISlider);

@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Button } from 'reactstrap';
+import { Component } from 'react';
+// import { Button } from 'reactstrap';
 
 class FPIButton extends Component {
 	constructor(props) {

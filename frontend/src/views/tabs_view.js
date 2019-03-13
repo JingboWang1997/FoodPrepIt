@@ -1,27 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import NoSsr from '@material-ui/core/NoSsr';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
 import green from '@material-ui/core/colors/green';
 
 import MainSearchView from './mainsearch_view';
-import AfterSearchView from './aftersearch_view';
 import FoodDisplay from './food_display';
-
-function TabContainer(props) {
-  return (
-    <Typography component="div" style={{ padding: 8 * 3 }}>
-      {props.children}
-    </Typography>
-  );
-}
-
-TabContainer.propTypes = {
-  children: PropTypes.node.isRequired,
-};
 
 function LinkTab(props) {
     return <Tab component="a" onClick={event => event.preventDefault()} {...props} />;
@@ -74,9 +59,5 @@ export default class FPITabsView extends React.Component {
     );
   }
 }
-
-FPITabsView.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 // export default withStyles(styles)(FPITabs);

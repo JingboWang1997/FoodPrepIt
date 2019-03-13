@@ -2,22 +2,22 @@ import React from 'react';
 // import { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
-import ComponentsScreen from './screens/components_screen'
-import FoodDisplay from './views/food_display'
+// import ComponentsScreen from './screens/components_screen';
+// import FoodDisplay from './views/food_display';
 
 // import LoginScreen from './screens/login_screen';
 // import KeywordsearchScreen from './views/mainsearch_view';
 import MainScreen from './screens/main_screen';
 
 export default class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <MainScreen />
-        {/* <ComponentsScreen /> */}
-        {/* <FoodDisplay /> */}
-      </div>
+	render() {
+		return (
+			<div>
+				<MainScreen />
+				{/* <ComponentsScreen /> */}
+				{/* <FoodDisplay /> */}
+			</div>
 
-    );
-  }
+		);
+	}
 }

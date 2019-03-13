@@ -22,7 +22,6 @@ class FPITaginput extends Component {
 	}
 
 	handleAddition(tag) {
-		console.log('nancycheck here');
 		let { tags } = this.state;
 		this.setState({ tags: [...tags, { id: tags.length + 1, text: tag }] });
 	}

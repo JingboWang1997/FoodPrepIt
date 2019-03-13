@@ -1,7 +1,6 @@
 import React from 'react';
 
 import FoodGridView from './grid_view';
-import AfterSearchView from './aftersearch_view';
 
 export default class FoodDisplay extends React.Component {
 
@@ -14,7 +13,9 @@ export default class FoodDisplay extends React.Component {
 	}
 
 	componentDidMount() {
+		// make keyword search call
 		const keywords = this.props.userInput;
+		console.log('fetching data with keywords: ' + keywords);
 		fetch('http://127.0.0.1:8000/getDishByKeywords', {
 			method: 'POST',
 			headers: {
@@ -38,7 +39,7 @@ export default class FoodDisplay extends React.Component {
 
 	render() {
 		return (
-			<FoodGridView data={this.state.data}/>
+			<FoodGridView data={this.state.data} callbackFromParent={this.props.callbackFromParent}/>
 		);
 	}
 }

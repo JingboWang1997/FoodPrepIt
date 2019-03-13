@@ -1,12 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
+import FPICard from '../components/fpicard';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-import IconButton from '@material-ui/core/IconButton';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
-import tileData from '../resources/food_data.json';
 
 const styles = theme => ({
 	root: {
@@ -30,20 +26,29 @@ const styles = theme => ({
 });
 
 export default class FoodGridView extends React.Component {
+	handleClick(key) {
+		console.log('clicked: ' + key);
+	}
+
 	render() {
+		// if no data is fetched yet, use empty list
 		const data = this.props.data == null ? [] : this.props.data;
+		let counter_id = 0;
 		return (
 			<div className={styles.root}>
 				<GridList cellHeight={500} spacing={20} className={styles.gridList}>
 					{data.map(tile => (
-						<GridListTile key={tile.image} cols={0.5} rows={0.5}>
-							<img src={tile.image} alt={tile.title} />
-							<GridListTileBar
-								title={tile.title}
-								titlePosition="top"
-								className={styles.titleBar}
-							/>
-						</GridListTile>
+						<FPICard tile={tile} key={counter_id} counter_id={counter_id++} callbackFromParent={this.props.callbackFromParent}/>
+						// <GridListTile 
+						// 	cols={0.5} 
+						// 	rows={0.5}>
+						// 	<img src={tile.image} alt={tile.title} />
+						// 	<GridListTileBar
+						// 		title={tile.title}
+						// 		titlePosition="top"
+						// 		className={styles.titleBar}
+						// 	/>
+						// </GridListTile>
 					))}
 				</GridList>
 			</div>
