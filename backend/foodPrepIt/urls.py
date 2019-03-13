@@ -26,4 +26,5 @@ urlpatterns = [
     url(r'^', include(router.urls)),
     path('getDishByIngredientsDemo', dish_view.getDishByIngredient),
     path('getDishByKeywords', dish_view.getDishByKeywords),
+    path('getRecipe', dish_view.getRecipe),
 ]

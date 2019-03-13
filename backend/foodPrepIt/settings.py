@@ -25,7 +25,7 @@ SECRET_KEY = 'o9g+7-uhhhb$gs6+go1@$^h2djz4&ax44&gpf0+&on^3ndj^n&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1:8000', '127.0.0.1:3000', '127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1:8000', '127.0.0.1:3000', '127.0.0.1','nancy.localhost.run']
 
 
 # Application definition
