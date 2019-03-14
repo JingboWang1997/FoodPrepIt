@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-# JSON format for circle summary dto
+# JSON format
 class DishSerializer(serializers.Serializer):
     id = serializers.IntegerField()
     title = serializers.CharField(max_length=100)

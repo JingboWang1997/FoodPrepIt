@@ -39,17 +39,17 @@ export default class FoodGridView extends React.Component {
 			<div className={styles.root}>
 				<GridList cellHeight={500} spacing={20} className={styles.gridList}>
 					{data.map(tile => (
-						<FPICard tile={tile} key={counter_id} counter_id={counter_id++} callbackFromParent={this.props.callbackFromParent}/>
-						// <GridListTile 
-						// 	cols={0.5} 
-						// 	rows={0.5}>
-						// 	<img src={tile.image} alt={tile.title} />
-						// 	<GridListTileBar
-						// 		title={tile.title}
-						// 		titlePosition="top"
-						// 		className={styles.titleBar}
-						// 	/>
-						// </GridListTile>
+						// <FPICard tile={tile} key={counter_id} counter_id={counter_id++} callbackFromParent={this.props.callbackFromParent}/>
+						<GridListTile 
+							cols={0.5} 
+							rows={0.5}>
+							<img src={tile.image} alt={tile.title} />
+							<GridListTileBar
+								title={tile.title}
+								titlePosition="top"
+								className={styles.titleBar}
+							/>
+						</GridListTile>
 					))}
 				</GridList>
 			</div>
