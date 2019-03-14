@@ -1,8 +1,9 @@
 import React from 'react';
 import GridList from '@material-ui/core/GridList';
-import FPICard from '../components/fpicard';
+import FPICard from './fpicard';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
+// grid list (will be deprecated)
 
 const styles = theme => ({
 	root: {

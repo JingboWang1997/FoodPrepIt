@@ -1,7 +1,8 @@
 import React from 'react';
-
+// import components
 import FoodGridView from './grid_view';
 
+// display the grid view of food cards 
 export default class FoodDisplay extends React.Component {
 
 	constructor(props) {
@@ -12,6 +13,7 @@ export default class FoodDisplay extends React.Component {
 		};
 	}
 
+	// after component mounting
 	componentDidMount() {
 		// make keyword search call
 		const keywords = this.props.userInput;
@@ -26,15 +28,13 @@ export default class FoodDisplay extends React.Component {
 				keywords
 			}),
 		}).then(response => {
-			console.log(response);
+			console.log('fetched data: ' + response);
 			return response.json();
-		})
-			.then(data => {
-				this.setState({ 
-					data: data
-				});
-				console.log(this.state);
+		}).then(data => {
+			this.setState({ 
+				data: data
 			});
+		});
 	}
 
 	render() {

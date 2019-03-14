@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { WithContext as ReactTags } from 'react-tag-input';
 import '../styles/fpitaginput_styles.css';
-
+// tags input box (may be deprecated)
 
 class FPITaginput extends Component {
 	constructor(props) {

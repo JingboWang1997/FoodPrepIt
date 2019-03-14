@@ -1,6 +1,7 @@
 import React from 'react';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
+// a single food card that handles click (will be deprecated)
 
 const styles = theme => ({
 	root: {

@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-// import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import green from '@material-ui/core/colors/green';
+// a button component (will be deprecated)
 
 class FPIButton extends Component {
-
 	render() {
 		if (this.props.type === 'confirm') {
 			return (

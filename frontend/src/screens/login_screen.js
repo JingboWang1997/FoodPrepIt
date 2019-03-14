@@ -1,14 +1,14 @@
 import React from 'react';
-import LoginView from '../views/login_view.js';
+import LoginView from '../components/login_view.js/index.js';
 
 export default class loginScreen extends React.Component {
-    // constructor(props) {
-    //     super(props);
-    //   }
+	// constructor(props) {
+	//     super(props);
+	//   }
 
-    render() {
-        return (
-            <LoginView />
-        );
-      }
+	render() {
+		return (
+			<LoginView />
+		);
+	}
 }

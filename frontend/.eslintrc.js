@@ -3,11 +3,11 @@ module.exports = {
 		'browser': true,
 		'es6': true
 	},
-	'extends': 'eslint:recommended',
 	'globals': {
 		'Atomics': 'readonly',
 		'SharedArrayBuffer': 'readonly'
 	},
+	"parser": "babel-eslint",
 	'parserOptions': {
 		'ecmaFeatures': {
 			'jsx': true
@@ -36,6 +36,5 @@ module.exports = {
 			'always'
 		],
 		"no-console": "off",
-		"no-unused-vars": ["error", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
 	}
 };

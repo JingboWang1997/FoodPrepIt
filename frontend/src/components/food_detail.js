@@ -1,7 +1,7 @@
 import React from 'react';
 
+// display the page with food details on a user selected food
 export default class FoodDetail extends React.Component {
-
 	constructor(props) {
 		super(props);
     
