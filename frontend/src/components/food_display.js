@@ -68,6 +68,7 @@ export default class FoodDisplay extends React.Component {
 	// 	some uses information in the data for details
 	handleClick(index) {
 		console.log('clicked: ' + this.state.ids[index]);
+		this.props.callbackFromParent(this.state.data[index]);
 	}
 
 	// called in componentDidMount, after the data is retrieved

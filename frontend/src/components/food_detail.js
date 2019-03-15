@@ -38,8 +38,8 @@ export default class FoodDetail extends React.Component {
 	render() {
 		return (
 			<div>
-				<h1>{this.props.title}</h1>
-				<h1>{this.props.sourceAPI}</h1>
+				<h1>{this.props.data.title}</h1>
+				<h1>{this.props.data.sourceAPI}</h1>
 				<h1>time</h1>
 				<h1>ingredient</h1>
 				<h1>instruction</h1>

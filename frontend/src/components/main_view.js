@@ -80,6 +80,8 @@ class MainView extends Component {
 			foodDetail: false,
 			// 'loading' is to handle reloading of page when seach button is clicked in the minimized search view
 			loading: false,
+			// 'foodData' contains foodData if viewing details
+			foodData: null,
 		};
 	}
 
@@ -94,8 +96,11 @@ class MainView extends Component {
 	}
 
 	// called when a food card is clicked
-	foodDetailCallback = () => {
-		this.setState({ foodDetail: true });
+	foodDetailCallback = (data) => {
+		this.setState({ 
+			foodDetail: true,
+			foodData: data,
+		});
 	}
 
 	render() {
@@ -211,7 +216,7 @@ class MainView extends Component {
 				);
 			} else {
 				return (
-					<FoodDetail />
+					<FoodDetail data={this.state.foodData}/>
 				);
 			}
 		} else {
