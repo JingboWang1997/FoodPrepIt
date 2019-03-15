@@ -9,11 +9,12 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Button from '@material-ui/core/Button';
+import green from '@material-ui/core/colors/green';
 // react component import
 import FPISlider from './fpislider_component';
 import FPITaginput from './fpitaginput_component';
 import FPIDropdown from './fpidropdown_component';
-import FPIButton from './fpibutton_component';
 import logo from '../resources/logo.jpg';
 import FoodDisplay from './food_display';
 // resources import
@@ -124,7 +125,12 @@ class MainView extends Component {
 									}}
 								/>
 							</div>
-							<FPIButton text={'Search'} type={'confirm'} callbackFromParent={this.searchButtonCallback}/>
+
+							<div style={{marginLeft: '2%'}}>
+								<Button onClick={this.searchButtonCallback} variant="contained" style={{ backgroundColor: green[300]}}>
+									Search
+								</Button>
+							</div>
 						</div>
 						{/* expandable */}
 						<div className={classes.root}>
@@ -174,7 +180,9 @@ class MainView extends Component {
 										/>
 									</div>
 								</div>
-								<FPIButton style={{ marginLeft: '20%'}} text={'Search'} type={'confirm'} callbackFromParent={this.searchButtonCallback}/>
+								<Button onClick={this.searchButtonCallback} variant="contained" style={{ backgroundColor: green[300], marginLeft: '20%'}}>
+									Search
+								</Button>
 							</div>
 							<div className={classes.root}>
 								<ExpansionPanel>

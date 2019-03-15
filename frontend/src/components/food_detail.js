@@ -5,9 +5,9 @@ export default class FoodDetail extends React.Component {
 	constructor(props) {
 		super(props);
     
-		this.state = {
-			data: null
-		};
+		// this.state = {
+		// 	data: null
+		// };
 	}
 
 	componentDidMount() {
@@ -38,8 +38,8 @@ export default class FoodDetail extends React.Component {
 	render() {
 		return (
 			<div>
-				<h1>title</h1>
-				<h1>source</h1>
+				<h1>{this.props.title}</h1>
+				<h1>{this.props.sourceAPI}</h1>
 				<h1>time</h1>
 				<h1>ingredient</h1>
 				<h1>instruction</h1>
