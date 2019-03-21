@@ -3,7 +3,7 @@ from database import spoonacular_api
 from database import yummly_api
 from database import puppy_api
 from dto import dish_summary_dto
-
+# file for keyword searches
 def get_spoonacular_data(keywords):
     search_result = spoonacular_api.search(keywords)
     print(search_result)
@@ -20,7 +20,7 @@ def get_spoonacular_data(keywords):
 def get_edamam_data(keywords):
     dish_list = edamam_api.search(keywords)
     dish_summary_dto_list = [ dish_summary_dto.DishSummary(
-        id = i, 
+        id = -1, 
         title = dish['recipe']['label'], 
         image = dish['recipe']['image'],
         recipeLink = dish['recipe']['url'],
@@ -40,7 +40,7 @@ def get_yummly_data(keywords):
 def get_puppy_data(keywords):
     dish_list = puppy_api.search(keywords)
     dish_summary_dto_list = [ dish_summary_dto.DishSummary(
-        id = i, 
+        id = -1, 
         title = dish['title'],
         image = dish['thumbnail'],
         recipeLink = dish['href'],
