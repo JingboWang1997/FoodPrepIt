@@ -21,7 +21,7 @@ def getDishByIngredient(request):
 @api_view(['POST'])
 def getDishByKeywords(request):
     keywords = request.data['keywords']
-    dishes = search_service.get_edamam_data(keywords) + search_service.get_yummly_data(keywords) + search_service.get_puppy_data(keywords)
+    dishes = search_service.get_puppy_data(keywords)
     # search_service.get_spoonacular_data(keywords) + search_servisearch_service.get_edamam_data(keywords) + search_service.get_yummly_data(keywords) + search_service.get_puppy_data(keywords)ce.get_edamam_data(keywords) + search_service.get_yummly_data(keywords) + search_service.get_puppy_data(keywords)
 
     serializer = dish_serializer.DishSummarySerializer(

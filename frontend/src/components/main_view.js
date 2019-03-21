@@ -30,7 +30,7 @@ const styles = theme => ({
 		'&:hover': {
 			backgroundColor: grey[400],
 		},
-		width: '80%',
+		width: '100%',
 	},
 	searchIcon: {
 		width: theme.spacing.unit * 9,
@@ -115,7 +115,7 @@ class MainView extends Component {
 							<img src={logo} alt='logo' />
 						</div>
 						{/* search section */}
-						<div style={{ display: 'flex', flexDirection: 'row', width:'80%', alignItems: 'center', marginBottom: 40 }}>
+						<div style={{ display: 'flex', flexDirection: 'row', width:'50%', alignItems: 'center', marginBottom: 40 }}>
 							<div className={classes.search}>
 								<div className={classes.searchIcon}>
 									<SearchIcon />
@@ -138,7 +138,7 @@ class MainView extends Component {
 							</div>
 						</div>
 						{/* expandable */}
-						<div className={classes.root}>
+						<div className={classes.root} style={{ width:'50%'}}>
 							<ExpansionPanel>
 								<ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
 									<Typography className={classes.heading}>Advanced Filters</Typography>
@@ -166,9 +166,9 @@ class MainView extends Component {
 					<div>
 						{/* after search view */}
 						<div style={{marginTop: '1%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-							<div style={{display: 'flex', flexDirection: 'row', width:'90%', alignItems: 'center'}}>
+							<div style={{display: 'flex', flexDirection: 'row', width:'60%', alignItems: 'center'}}>
 								<img src={logo_small} alt='logo'/>
-								<div style={{marginTop: '1%', width:'100%'}}>
+								<div style={{marginTop: '1%', marginLeft: '5%', width:'100%'}}>
 									{/* <FPISearchbar /> */}
 									<div className={classes.search}>
 										<div className={classes.searchIcon}>
@@ -185,11 +185,11 @@ class MainView extends Component {
 										/>
 									</div>
 								</div>
-								<Button onClick={this.searchButtonCallback} variant="contained" style={{ backgroundColor: green[300], marginLeft: '20%'}}>
+								<Button onClick={this.searchButtonCallback} variant="contained" style={{ backgroundColor: green[300], marginLeft: '2%'}}>
 									Search
 								</Button>
 							</div>
-							<div className={classes.root}>
+							<div className={classes.root} style={{marginBottom: '3%'}}>
 								<ExpansionPanel>
 									<ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
 										<Typography className={classes.heading}>Advanced Filters</Typography>
