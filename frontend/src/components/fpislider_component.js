@@ -18,6 +18,9 @@ class FPISlider extends React.Component {
 		this.state = {
 			value: props.value,
 		};
+    this.name = {
+      name: props.name,
+    };
 	}
 
   handleChange = (event, value) => {
@@ -27,17 +30,19 @@ class FPISlider extends React.Component {
   render() {
   	const { classes } = this.props;
   	const { value } = this.state;
+    const { name } = this.name;
 
   	return (
   		<div className={classes.root} style={{marginLeft: '2%'}}>
-  			<Slider
+  			{name}: {value}
+        <Slider
   				classes={{ container: classes.slider }}
   				value={value}
   				min={0}
   				max={6}
   				step={1}
   				onChange={this.handleChange}
-  			/>{value}
+  			/>
   		</div>
   	);
   }
