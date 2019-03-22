@@ -146,11 +146,11 @@ class MainView extends Component {
 								<ExpansionPanelDetails>
 									<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', paddingBottom: '10%'}}>
 										<div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}>
-											<FPISlider value={2}/>
-											<FPISlider value={1}/>
-											<FPISlider value={0}/>
+											<FPISlider value={2} name={"Food Supply Budget ($)"}/>
+											<FPISlider value={1} name={"Preperation Time (minutes)"}/>
+											<FPISlider value={0} name={"Calorie Limit (Cal)"}/>
 										</div>
-										<div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column', paddingLeft: '20%'}}>
+										<div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column', paddingLeft: '100px'}}>
 											<FPITaginput style={{ paddingBottom: '20%'}}/>
 											<FPIDropdown />
 										</div>
@@ -197,11 +197,11 @@ class MainView extends Component {
 									<ExpansionPanelDetails>
 										<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', paddingBottom: '10%'}}>
 											<div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}>
-												<FPISlider value={2}/>
-												<FPISlider value={1}/>
-												<FPISlider value={0}/>
+												<FPISlider value={2} name={"Food Supply Budget ($)"}/>
+												<FPISlider value={1} name={"Preperation Time (minutes)"}/>
+												<FPISlider value={0} name={"Calorie Limit (Cal)"}/>
 											</div>
-											<div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column', paddingLeft: '20%'}}>
+											<div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column', paddingLeft: '100px'}}>
 												<FPITaginput style={{ paddingBottom: '20%'}}/>
 												<FPIDropdown />
 											</div>

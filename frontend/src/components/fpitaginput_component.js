@@ -44,8 +44,8 @@ class FPITaginput extends Component {
 	render() {
 		const { tags } = this.state;
 		return (
-			<div id="app">
-				<h4>Input excluded ingredients:</h4>
+			<div id="app" style={{paddingTop:'0px'}}>
+				<h5>Input excluded ingredients:</h5>
 				<ReactTags
 					tags={tags}
 					handleDelete={this.handleDelete}
