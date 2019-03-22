@@ -6,6 +6,7 @@ import Tab from '@material-ui/core/Tab';
 import green from '@material-ui/core/colors/green';
 
 import MainView from '../components/main_view';
+import LoginView from '../components/login_view';
 
 function LinkTab(props) {
 	return <Tab component="a" onClick={event => event.preventDefault()} {...props} />;
@@ -13,7 +14,7 @@ function LinkTab(props) {
 
 function DisplayPage(props) {
 	if (props.value === 0) {
-		return <h1>Currently Not Available</h1>;
+		return <LoginView />;
 	} else if (props.value === 1) {
 		return <MainView />;
 	} else if (props.value === 2) {
@@ -40,7 +41,7 @@ export default class MainScreen extends React.Component {
   			<div>
   				<AppBar position="static" style={{ backgroundColor: green[300] }}>
   					<Tabs variant="fullWidth" value={value} onChange={this.handleChange}>
-  						<LinkTab label="Not Available" href="page1" disabled="true"/>
+  						<LinkTab label="Dashboard" href="page1"/>
   						<LinkTab label="Keyword Search" href="page2" />
   						<LinkTab label="Ingredient Search" href="page3" />
   						<LinkTab label="Not Available" href="page4" disabled="true"/>
