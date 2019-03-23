@@ -14,7 +14,7 @@ function LinkTab(props) {
 
 function DisplayPage(props) {
 	if (props.value === 0) {
-		return <LoginView />;
+		return <LoginView loginStateCallback={props.loginStateCallback} loggedin={props.loggedin}/>;
 	} else if (props.value === 1) {
 		return <MainView />;
 	} else if (props.value === 2) {
@@ -25,9 +25,22 @@ function DisplayPage(props) {
 }
 
 export default class MainScreen extends React.Component {
-	state = {
-		value: 1,
-	};
+	constructor(props) {
+    super(props);
+    this.state = {
+      value: 1,
+      loggedin: false,
+    };
+  }
+
+  // called when the login button is clicked
+  loginStateCallback = (dataFromChild) => {
+    console.log("datafromchild: ",dataFromChild);
+    this.setState({ 
+      loggedin: dataFromChild,
+    });
+  }
+  
 
 	handleChange = (event, value) => {
 		this.setState({ value });
@@ -47,7 +60,14 @@ export default class MainScreen extends React.Component {
   						<LinkTab label="Not Available" href="page4" disabled="true"/>
   					</Tabs>
   				</AppBar>
-  				<DisplayPage value={value}/>
+  				{<DisplayPage value={value} loginStateCallback={this.loginStateCallback} loggedin={this.state.loggedin}/>}
+
+          {/*{{value} === "0"? (<LoginView loginCallback={this.loginCallback}/>)
+            : {value} === 1? (<MainView />)
+            : {value} === 2? (<MainView />)
+            : {value} === 3?  (<h1>Currently Not Available</h1>)
+            : <div>none</div>}}*/}
+
   				{/* {value === 0 && <TabContainer>Dashboard</TabContainer>}
           		{value === 1 && <TabContainer>Keyword Search</TabContainer>}
           		{value === 2 && <TabContainer>Ingredient Search</TabContainer>}

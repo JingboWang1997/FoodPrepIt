@@ -59,7 +59,7 @@ class LoginView extends Component {
 			email: '',
 			password:'',
 			// 'logedin' indicates whether user has logged in
-			loggedin: false,
+			loggedin: this.props.loggedin,
 			// login errors
 			loginError: false,
 			// register errors
@@ -77,6 +77,7 @@ class LoginView extends Component {
 			this.setState({ 
 				loggedin: true,
 			});
+			this.props.loginStateCallback(true);
 	    }).catch((error) => {
 	        console.log(error);
 	        this.setState({ 
@@ -109,11 +110,12 @@ class LoginView extends Component {
 	// called when the logout button is clicked
     logoutButtonCallback = (e) => {
         e.preventDefault();
-        console.log("logout.");
         fire.auth().signOut();
+        console.log("logout.");	
         this.setState({ 
 			loggedin: false,
 		});
+        this.props.loginStateCallback(false);
     }
 
 	render() {
