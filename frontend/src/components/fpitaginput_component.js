@@ -45,7 +45,7 @@ class FPITaginput extends Component {
 		const { tags } = this.state;
 		return (
 			<div id="app" style={{paddingTop:'0px'}}>
-				<h5>Input excluded ingredients:</h5>
+				<h5>{this.props.text}</h5>
 				<ReactTags
 					tags={tags}
 					handleDelete={this.handleDelete}

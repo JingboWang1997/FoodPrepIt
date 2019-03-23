@@ -7,6 +7,7 @@ import green from '@material-ui/core/colors/green';
 
 import MainView from '../components/main_view';
 import LoginView from '../components/login_view';
+import IngredientsearchView from '../components/ingredientsearch_view';
 
 function LinkTab(props) {
 	return <Tab component="a" onClick={event => event.preventDefault()} {...props} />;
@@ -18,7 +19,7 @@ function DisplayPage(props) {
 	} else if (props.value === 1) {
 		return <MainView />;
 	} else if (props.value === 2) {
-		return <MainView />;
+		return <IngredientsearchView />;
 	} else if (props.value === 3) {
 		return <h1>Currently Not Available</h1>;
 	}

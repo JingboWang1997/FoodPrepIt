@@ -162,7 +162,7 @@ class MainView extends Component {
 											<FPISlider value={0} name={"Calorie Limit (Cal)"}/>
 										</div>
 										<div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column', paddingLeft: '100px'}}>
-											<FPITaginput style={{ paddingBottom: '20%'}}/>
+											<FPITaginput style={{ paddingBottom: '20%'}} text={"Input excluded ingredients:"}/>
 											<FPIDropdown />
 										</div>
 									</div>
