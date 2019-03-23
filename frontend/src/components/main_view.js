@@ -95,6 +95,17 @@ class MainView extends Component {
 		}
 	}
 
+	// called when the search button is clicked
+	gobackButtonCallback = () => {
+		if (this.state.userInput !== '') {
+			this.setState({ 
+				searched: false,
+				loading: false,
+				userInput: ''
+			});
+		}
+	}
+
 	// called when a food card is clicked
 	foodDetailCallback = (data) => {
 		this.setState({ 
@@ -167,7 +178,7 @@ class MainView extends Component {
 						{/* after search view */}
 						<div style={{marginTop: '1%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
 							<div style={{display: 'flex', flexDirection: 'row', width:'60%', alignItems: 'center'}}>
-								<img src={logo_small} alt='logo'/>
+								<img src={logo_small} alt='logo' onClick={this.gobackButtonCallback}/>
 								<div style={{marginTop: '1%', marginLeft: '5%', width:'100%'}}>
 									{/* <FPISearchbar /> */}
 									<div className={classes.search}>
