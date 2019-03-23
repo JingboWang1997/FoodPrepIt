@@ -137,7 +137,7 @@ class LoginView extends Component {
 				    
 				    {this.state.loginError? (<div><h5 style={{color:'red'}}>Wrong email / password.</h5></div>) 
 				      : this.state.passwordLengthError? (<div><h5 style={{color:'red'}}>Password length needs to be at least 6 charactors.</h5></div>)
-				      : this.state.registerSuccess? (<div><h5 style={{color:'red'}}>Registered successfully. Please sign in now.</h5></div>)    
+				      : this.state.registerSuccess? (<div><h5 style={{color:'green'}}>Registered successfully. Please sign in now.</h5></div>)    
 				      : (<div><h5>Please sign in or create an account</h5></div>)}
 
 				    <form className={classes.form}>
