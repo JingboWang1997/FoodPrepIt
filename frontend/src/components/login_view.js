@@ -15,6 +15,8 @@ import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import green from '@material-ui/core/colors/green';
+import fire from '../config/firebase';
+import DashboardView from './dashboard_view'
 
 const styles = theme => ({
   main: {
@@ -58,33 +60,68 @@ class LoginView extends Component {
 			password:'',
 			// 'logedin' indicates whether user has logged in
 			loggedin: false,
+			// login errors
 			loginError: false,
+			// register errors
+			passwordLengthError: false,
+			// register success
+			registerSuccess: false,
+
 		};
 	}
 
 	// called when the login button is clicked
 	loginButtonCallback = (e) => {
 		e.preventDefault();
-		if (this.state.email === 'fpiadmin@gmail.com' && this.state.password === 'password') {
+		fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u)=>{
 			this.setState({ 
 				loggedin: true,
 			});
-		} 
-		else {
-			this.setState({ 
+	    }).catch((error) => {
+	        console.log(error);
+	        this.setState({ 
 				loginError: true,
 			});
-		}
+	      });
 	}
+
+	// called when the register button is clicked
+	registerButtonCallback = (e) => {
+		e.preventDefault();
+		if (this.state.password.length < 6) {
+			this.setState({ 
+				passwordLengthError: true,
+			});
+		} else {
+			this.setState({ 
+				passwordLengthError: false,
+				registerSuccess: true,
+			});
+		}
+		
+		fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((u)=>{
+	    }).then((u)=>{console.log(u)})
+	    .catch((error) => {
+	        console.log(error);
+	      })
+	}
+
+	// called when the logout button is clicked
+    logoutButtonCallback = (e) => {
+        e.preventDefault();
+        console.log("logout.");
+        fire.auth().signOut();
+        this.setState({ 
+			loggedin: false,
+		});
+    }
 
 	render() {
 		const { classes } = this.props;
 
 		if (this.state.loggedin){
 			return (
-				<div>
-					<h1> You are Logged in </h1>
-				</div>		
+				<DashboardView logoutButtonCallback = {this.logoutButtonCallback}/>	
 			);
 		} else {
 			return (
@@ -97,13 +134,11 @@ class LoginView extends Component {
 				    <Typography component="h1" variant="h5">
 				      Sign in / Register
 				    </Typography>
-				    {this.state.loginError ? (
-				        <div><h5 style={{color:'red'}}>Wrong email / password.</h5></div>
-				    ) : (
-				        <div>
-				        	<h5>Please sign in or create an account</h5>
-				        </div>
-				    )}
+				    
+				    {this.state.loginError? (<div><h5 style={{color:'red'}}>Wrong email / password.</h5></div>) 
+				      : this.state.passwordLengthError? (<div><h5 style={{color:'red'}}>Password length needs to be at least 6 charactors.</h5></div>)
+				      : this.state.registerSuccess? (<div><h5 style={{color:'red'}}>Registered successfully. Please sign in now.</h5></div>)    
+				      : (<div><h5>Please sign in or create an account</h5></div>)}
 
 				    <form className={classes.form}>
 				      <FormControl margin="normal" required fullWidth>
