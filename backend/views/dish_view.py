@@ -6,6 +6,7 @@ from rest_framework.decorators import api_view
 
 from service import search_service
 from service import recipe_service
+from service import ingredient_service
 
 # demo
 @api_view(['GET'])
@@ -41,6 +42,16 @@ def getRecipe(request):
         id = request.data['id']
         info = recipe_service.get_spoonacular_recipe(id)
     serializer = dish_serializer.RecipeSerializer(instance=info, many=False)
+    return Response(serializer.data)
+
+
+# ingredient search
+@api_view(['POST'])
+def getDishFromIngredients(request):
+    ingredients = request.data['ingredients']
+    dishes = ingredient_service.get_spoonacular_from_ingredients(ingredients)
+    serializer = dish_serializer.DishSummarySerializer(
+        instance=dishes, many=True)
     return Response(serializer.data)
 
 

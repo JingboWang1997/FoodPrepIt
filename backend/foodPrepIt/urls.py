@@ -27,4 +27,5 @@ urlpatterns = [
     path('getDishByIngredientsDemo', dish_view.getDishByIngredient),
     path('getDishByKeywords', dish_view.getDishByKeywords),
     path('getRecipe', dish_view.getRecipe),
+    path('getDishFromIngredients', dish_view.getDishFromIngredients),
 ]
