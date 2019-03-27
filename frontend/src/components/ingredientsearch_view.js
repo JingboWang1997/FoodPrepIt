@@ -15,6 +15,7 @@ import FPITaginput from './fpitaginput_component';
 import FPIDropdown from './fpidropdown_component';
 import logo from '../resources/logo.jpg';
 import FoodDisplay from './food_display';
+import IngredientsFoodDisplay from './ingredients_food_display';
 // resources import
 import logo_small from '../resources/logo_small.jpg';
 import FoodDetail from './food_detail';
@@ -126,6 +127,14 @@ class IngredientsearchView extends Component {
     	});
     }
 
+    // called when go back from the food detail screen
+    exitFoodDetailCallBack = () => {
+        this.setState({ 
+            foodDetail: false,
+            foodData: null
+        });
+    }
+
     render() {
         const { classes } = this.props;
         if (!this.state.loading) {
@@ -143,8 +152,7 @@ class IngredientsearchView extends Component {
                                 <FPITaginput 
                                     text={"Search recipes with ingredients: (use enter to input)"}
                                     style={{ paddingBottom: '20%'}}
-                                    value={this.state.inputArr}
-                                    placeholder="Search…"
+                                    inputArr={this.state.inputArr}
                                     inputStateCallback={this.inputStateCallback}
                                     classes={{
                                         root: classes.inputRoot,
@@ -196,9 +204,8 @@ class IngredientsearchView extends Component {
                                         <FPITaginput 
                                             text={"Search recipes with ingredients: (use enter to input)"}
                                             style={{ paddingBottom: '20%'}}
-                                            value={this.state.inputArr}
-                                            onChange={(e) => this.setState({ inputArr: e.target.value })}
-                                            placeholder="Search…"
+                                            inputArr={this.state.inputArr}
+                                            inputStateCallback={this.inputStateCallback}
                                             classes={{
                                                 root: classes.inputRoot,
                                                 input: classes.inputInput,
@@ -232,12 +239,12 @@ class IngredientsearchView extends Component {
     						</div>
     					</div>
     					{/* end of the after search portion */}
-    					<FoodDisplay userInput={this.state.userInput} callbackFromParent={this.foodDetailCallback}/>
+    					<IngredientsFoodDisplay userInput={this.state.userInput} callbackFromParent={this.foodDetailCallback}/>
     				</div>
     			);
     		} else {
     			return (
-    				<FoodDetail data={this.state.foodData}/>
+    				<FoodDetail data={this.state.foodData} exitFoodDetailCallBack={this.exitFoodDetailCallBack}/>
     			);
     		}
     	} else {
