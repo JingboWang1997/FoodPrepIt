@@ -31,7 +31,7 @@ export default class FoodDisplay extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			data: null,
+			data: this.props.foodList,
 			ids: [],
 			tiles: []
 		};
@@ -39,27 +39,32 @@ export default class FoodDisplay extends React.Component {
 
 	// right after component mounting
 	componentDidMount() {
-		// make keyword search call
-		const keywords = this.props.userInput;
-		console.log('fetching data with keywords: ' + keywords);
-		fetch('http://127.0.0.1:8000/getDishByKeywords', {
-			method: 'POST',
-			headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				keywords
-			}),
-		}).then(response => {
-			console.log('fetched data: ' + response);
-			return response.json();
-		}).then(data => {
-			this.setState({ 
-				data: data
+		if (!this.state.data) {
+			// make keyword search call
+			const keywords = this.props.userInput;
+			console.log('fetching data with keywords: ' + keywords);
+			fetch('http://127.0.0.1:8000/getDishByKeywords', {
+				method: 'POST',
+				headers: {
+					'Accept': 'application/json',
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					keywords
+				}),
+			}).then(response => {
+				console.log('fetched data: ' + response);
+				return response.json();
+			}).then(data => {
+				this.setState({ 
+					data: data
+				});
+				this.generateList();
+				this.props.updateFoodList(data);
 			});
+		} else {
 			this.generateList();
-		});
+		}
 	}
 
 	// for each food card click
@@ -82,14 +87,17 @@ export default class FoodDisplay extends React.Component {
 
 		for (let i = 0; i < data.length; i++) { 
 			const tile = data[i];
+			const img = tile.image === '' ? 'https://freedesignfile.com/upload/2015/12/Tableware-with-empty-plate-vector-06.jpg' : tile.image;
 			tiles.push(
 				<GridListTile 
 					onClick={() => {
 						this.handleClick(i);
 					}}
 					cols={0.5} 
-					rows={0.5}>
-					<img src={tile.image} alt={tile.title} />
+					rows={0.5}
+					key={i}>
+					
+					<img src={img} alt={tile.title} />
 					<GridListTileBar
 						title={tile.title}
 						titlePosition="top"
