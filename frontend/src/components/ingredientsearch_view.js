@@ -152,8 +152,7 @@ class IngredientsearchView extends Component {
                                 <FPITaginput 
                                     text={"Search recipes with ingredients: (use enter to input)"}
                                     style={{ paddingBottom: '20%'}}
-                                    value={this.state.inputArr}
-                                    placeholder="Search…"
+                                    inputArr={this.state.inputArr}
                                     inputStateCallback={this.inputStateCallback}
                                     classes={{
                                         root: classes.inputRoot,
@@ -205,9 +204,8 @@ class IngredientsearchView extends Component {
                                         <FPITaginput 
                                             text={"Search recipes with ingredients: (use enter to input)"}
                                             style={{ paddingBottom: '20%'}}
-                                            value={this.state.inputArr}
-                                            onChange={(e) => this.setState({ inputArr: e.target.value })}
-                                            placeholder="Search…"
+                                            inputArr={this.state.inputArr}
+                                            inputStateCallback={this.inputStateCallback}
                                             classes={{
                                                 root: classes.inputRoot,
                                                 input: classes.inputInput,
