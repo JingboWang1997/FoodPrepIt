@@ -1,0 +1,154 @@
+/getDishFromIngredients
+
+Spoonacular, Yummly
+
+Input:
+{
+"ingredients":"carrot,chicken"
+}
+note: separate by comma, no space in between
+
+Output:
+[
+    {
+        "id": "545087",
+        "title": "Roasted Chicken",
+        "image": "https://spoonacular.com/recipeImages/545087-312x231.jpg",
+        "sourceAPI": "Spoonacular",
+        "recipeLink": ""
+    },
+    {
+        "id": "12099",
+        "title": "Chicken Stock",
+        "image": "https://spoonacular.com/recipeImages/12099-312x231.jpg",
+        "sourceAPI": "Spoonacular",
+        "recipeLink": ""
+    },
+    {
+        "id": "82488",
+        "title": "Light Chicken Stock",
+        "image": "https://spoonacular.com/recipeImages/82488-312x231.jpg",
+        "sourceAPI": "Spoonacular",
+        "recipeLink": ""
+    },
+    {
+        "id": "94960",
+        "title": "Classic Chicken Soup",
+        "image": "https://spoonacular.com/recipeImages/94960-312x231.jpg",
+        "sourceAPI": "Spoonacular",
+        "recipeLink": ""
+    },
+    {
+        "id": "165124",
+        "title": "Asian Chicken Noodle Soup",
+        "image": "https://spoonacular.com/recipeImages/165124-312x231.jpg",
+        "sourceAPI": "Spoonacular",
+        "recipeLink": ""
+    },
+    {
+        "id": "530550",
+        "title": "Simple Chicken Noodle Soup",
+        "image": "https://spoonacular.com/recipeImages/530550-312x231.jpg",
+        "sourceAPI": "Spoonacular",
+        "recipeLink": ""
+    },
+    {
+        "id": "729032",
+        "title": "Roast Chicken with Carrots and Potatoes",
+        "image": "https://spoonacular.com/recipeImages/729032-312x231.jpg",
+        "sourceAPI": "Spoonacular",
+        "recipeLink": ""
+    },
+    {
+        "id": "11830",
+        "title": "Homemade Chicken Stock",
+        "image": "https://spoonacular.com/recipeImages/11830-312x231.jpg",
+        "sourceAPI": "Spoonacular",
+        "recipeLink": ""
+    },
+    {
+        "id": "74249",
+        "title": "Transition Chicken With Chive Butter",
+        "image": "https://spoonacular.com/recipeImages/74249-312x231.jpg",
+        "sourceAPI": "Spoonacular",
+        "recipeLink": ""
+    },
+    {
+        "id": "527872",
+        "title": "{Video} Slow Cooker Whole Chicken",
+        "image": "https://spoonacular.com/recipeImages/527872-312x231.jpg",
+        "sourceAPI": "Spoonacular",
+        "recipeLink": ""
+    },
+    {
+        "id": "Crock-Pot-Creamy-Ranch-Chicken-2190580",
+        "title": "Crock Pot Creamy Ranch Chicken",
+        "image": "https://lh3.googleusercontent.com/IrJbvZJrMepZLpSQBDbDE1KEbDkR3Akz2PsrB1tjl7EFjZyke26YazQ1OQdiH-hBnQUfD7mBQahT9TI_sNVXpg=s90-c",
+        "sourceAPI": "Yummly",
+        "recipeLink": ""
+    },
+    {
+        "id": "Healthy-Chicken-Pad-Thai-2575729",
+        "title": "Healthy Chicken Pad Thai",
+        "image": "https://lh3.googleusercontent.com/YquEV7Me-7aj7S1VNdzjEmnxkrCOC2IfapTpN-UiXBZ5NvFwQjwHZmdwn2FNQUjsSruGXi9p5Dsv6R51k4zJsHg=s90-c",
+        "sourceAPI": "Yummly",
+        "recipeLink": ""
+    },
+    {
+        "id": "Thai-Chicken-Coconut-Curry-2556801",
+        "title": "Thai Chicken Coconut Curry",
+        "image": "https://lh3.googleusercontent.com/oUmFX9Z68g-t-X9PBaeXWJX7xPaqeZfhqn2Vobqc5aVOhFCPFeymC48fcz7iwiLa9ua2zwwEmJeGOJESivQPnQ=s90-c",
+        "sourceAPI": "Yummly",
+        "recipeLink": ""
+    },
+    {
+        "id": "Chicken-Pad-Thai-2213155",
+        "title": "Chicken Pad Thai",
+        "image": "https://lh3.googleusercontent.com/e2DuGFKLDaj_lzdDoTUQSHq-9KeUFtlsv7-W2meNBkzn42n308SAqVC1W1BEMw_zFkAg_K1SIvAg-EFcEbcREA=s90-c",
+        "sourceAPI": "Yummly",
+        "recipeLink": ""
+    },
+    {
+        "id": "Creamy-Potato-Soup-2225700",
+        "title": "Creamy Potato Soup",
+        "image": "https://lh3.googleusercontent.com/T6XM7j7mQfJlZPPXvgLYg-A7rw_qla7JOqL4-NI7CcLxCD7V3PqkliVOZr5lqGO3S2OY4uK3GDvv5p7aTXk4ew=s90-c",
+        "sourceAPI": "Yummly",
+        "recipeLink": ""
+    },
+    {
+        "id": "Vegetable-Soup-2624848",
+        "title": "Vegetable Soup",
+        "image": "https://lh3.googleusercontent.com/ha5PfOxWmgC_tIwbMSkeIRgv9FI0O0CaghIi-avX5wOpd9Hg-xmNAi_py5UJmtBZi82g1WceqY4FuRpabW5ENw=s90-c",
+        "sourceAPI": "Yummly",
+        "recipeLink": ""
+    },
+    {
+        "id": "Easy-Chicken-and-Dumplings-2318408",
+        "title": "Easy Chicken and Dumplings",
+        "image": "https://lh3.googleusercontent.com/OOXoovau-Th2g7rn9_kSs7-Q_q0_Z4TcZgDutCJFYZfZqPVXhpGuck6HY_28W0jDONNHXiNIWJ-lGL0UFyUG=s90-c",
+        "sourceAPI": "Yummly",
+        "recipeLink": ""
+    },
+    {
+        "id": "Chicken-Lo-Mein-2653546",
+        "title": "Chicken Lo Mein",
+        "image": "https://lh3.googleusercontent.com/l1DjvtbWdAyuptvozKQwh9lA_bvUCCpRWxggj6eCc8gzxYp56nl1V895zkjSyx4in4XqVOSNx1zeDk2i_mU-2g=s90-c",
+        "sourceAPI": "Yummly",
+        "recipeLink": ""
+    },
+    {
+        "id": "Easy-Chicken-Teriyaki-Bowls-2493857",
+        "title": "Easy Chicken Teriyaki Bowls",
+        "image": "https://lh3.googleusercontent.com/OZvw1euwiDEw91j__K3IGZpUL_DRE9JG36lX_LTnEYyDYmYOYa7bs4LBYjs4h_pUYcMiqM7Ne8Xt_YLNzJoVLi8=s90-c",
+        "sourceAPI": "Yummly",
+        "recipeLink": ""
+    },
+    {
+        "id": "Chicken-Stew-2577565",
+        "title": "Chicken Stew",
+        "image": "https://lh3.googleusercontent.com/vRsWSe38pttRC0B13NAyQWxoEFJjacCnmGOvsrcLXGp-En3-xK5JTERjsraZbkySst72jWvcTc6peRgsR7nubA=s90-c",
+        "sourceAPI": "Yummly",
+        "recipeLink": ""
+    }
+]
+

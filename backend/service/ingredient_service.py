@@ -1,4 +1,5 @@
 from database import spoonacular_api
+from database import yummly_api
 from dto import dish_summary_dto
  
 def get_spoonacular_from_ingredients(ingredients):
@@ -11,4 +12,14 @@ def get_spoonacular_from_ingredients(ingredients):
         image = dish['image'],
         recipeLink = '',
         sourceAPI = 'Spoonacular') for i, dish in enumerate(dish_list)]
+    return dish_summary_dto_list
+
+def get_yummly_from_ingredients(ingredients):
+    dish_list = yummly_api.searchFromIngredients(ingredients)
+    dish_summary_dto_list = [ dish_summary_dto.DishSummary(
+        id = dish['id'], 
+        title = dish['recipeName'], 
+        image = dish['imageUrlsBySize']['90'],
+        recipeLink = '',
+        sourceAPI = 'Yummly') for i, dish in enumerate(dish_list)]
     return dish_summary_dto_list
