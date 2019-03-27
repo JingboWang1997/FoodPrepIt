@@ -27,19 +27,19 @@ function DisplayPage(props) {
 
 export default class MainScreen extends React.Component {
 	constructor(props) {
-    super(props);
-    this.state = {
-      value: 1,
-      loggedin: false,
-    };
-  }
+		super(props);
+		this.state = {
+			value: 1,
+			loggedin: false,
+		};
+	}
 
   // called when the login button is clicked
   loginStateCallback = (dataFromChild) => {
-    console.log("datafromchild: ",dataFromChild);
-    this.setState({ 
-      loggedin: dataFromChild,
-    });
+  	console.log('datafromchild: ',dataFromChild);
+  	this.setState({ 
+  		loggedin: dataFromChild,
+  	});
   }
   
 
@@ -63,7 +63,7 @@ export default class MainScreen extends React.Component {
   				</AppBar>
   				{<DisplayPage value={value} loginStateCallback={this.loginStateCallback} loggedin={this.state.loggedin}/>}
 
-          {/*{{value} === "0"? (<LoginView loginCallback={this.loginCallback}/>)
+					{/*{{value} === "0"? (<LoginView loginCallback={this.loginCallback}/>)
             : {value} === 1? (<MainView />)
             : {value} === 2? (<MainView />)
             : {value} === 3?  (<h1>Currently Not Available</h1>)
