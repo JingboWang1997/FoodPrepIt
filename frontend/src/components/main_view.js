@@ -95,15 +95,13 @@ class MainView extends Component {
 		}
 	}
 
-	// called when the search button is clicked
+	// called when the icon is clicked
 	gobackButtonCallback = () => {
-		if (this.state.userInput !== '') {
-			this.setState({ 
-				searched: false,
-				loading: false,
-				userInput: ''
-			});
-		}
+		this.setState({ 
+			searched: false,
+			loading: false,
+			userInput: ''
+		});
 	}
 
 	// called when a food card is clicked

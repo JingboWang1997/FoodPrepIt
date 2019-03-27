@@ -73,6 +73,7 @@ class IngredientsearchView extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            inputArr: [],
             userInput: '',
             // 'searched' indicates change from inital search view to minimized search view
             searched: false,
@@ -85,25 +86,36 @@ class IngredientsearchView extends Component {
         };
     }
 
+    // called when user change input tag
+    inputStateCallback = (dataFromChild) => {
+        console.log("datafromchild: ",dataFromChild);
+        this.setState({ 
+          inputArr: dataFromChild,
+        });
+    }
+
     // called when the search button is clicked
-    searchButtonCallback = () => {
-        if (this.state.userInput !== '') {
+    searchButtonCallback = (dataFromChild) => {
+        var str = '';
+        this.state.inputArr.map((item) =>
+            str += item['text']+','
+        );
+        if (this.state.inputArr !== []) {
             this.setState({ 
+                userInput: str,
                 searched: true,
                 loading: true
             });
         }
     }
 
-    // called when the search button is clicked
+    // called when the icon is clicked
     gobackButtonCallback = () => {
-        if (this.state.userInput !== '') {
-            this.setState({ 
-                searched: false,
-                loading: false,
-                userInput: ''
-            });
-        }
+        this.setState({ 
+            searched: false,
+            loading: false,
+            inputArr: []
+        });
     }
 
     // called when a food card is clicked
@@ -131,9 +143,9 @@ class IngredientsearchView extends Component {
                                 <FPITaginput 
                                     text={"Search recipes with ingredients: (use enter to input)"}
                                     style={{ paddingBottom: '20%'}}
-                                    value={this.state.userInput}
-                                    onChange={(e) => this.setState({ userInput: e.target.value })}
+                                    value={this.state.inputArr}
                                     placeholder="Search…"
+                                    inputStateCallback={this.inputStateCallback}
                                     classes={{
                                         root: classes.inputRoot,
                                         input: classes.inputInput,
@@ -184,8 +196,8 @@ class IngredientsearchView extends Component {
                                         <FPITaginput 
                                             text={"Search recipes with ingredients: (use enter to input)"}
                                             style={{ paddingBottom: '20%'}}
-                                            value={this.state.userInput}
-                                            onChange={(e) => this.setState({ userInput: e.target.value })}
+                                            value={this.state.inputArr}
+                                            onChange={(e) => this.setState({ inputArr: e.target.value })}
                                             placeholder="Search…"
                                             classes={{
                                                 root: classes.inputRoot,

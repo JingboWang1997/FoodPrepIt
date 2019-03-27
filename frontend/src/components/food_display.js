@@ -40,16 +40,16 @@ export default class FoodDisplay extends React.Component {
 	// right after component mounting
 	componentDidMount() {
 		// make keyword search call
-		const keywords = this.props.userInput;
-		console.log('fetching data with keywords: ' + keywords);
-		fetch('http://127.0.0.1:8000/getDishByKeywords', {
+		const ingredients = this.props.userInput;
+		console.log('fetching data with ingredients: ' + ingredients);
+		fetch('http://127.0.0.1:8000/getDishFromIngredients', {
 			method: 'POST',
 			headers: {
 				'Accept': 'application/json',
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({
-				keywords
+				ingredients
 			}),
 		}).then(response => {
 			console.log('fetched data: ' + response);

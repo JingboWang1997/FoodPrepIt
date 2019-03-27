@@ -16,14 +16,17 @@ class FPITaginput extends Component {
 	}
 
 	handleDelete(i) {
-		this.setState({
-			tags: this.state.tags.filter((tag, index) => index !== i),
-		});
+		this.setState({tags: this.state.tags.filter((tag, index) => index !== i)}, () =>
+			this.props.inputStateCallback(this.state.tags)
+		);
 	}
 
 	handleAddition(tag) {
 		let { tags } = this.state;
-		this.setState({ tags: [...tags, { id: tags.length + 1, text: tag }] });
+		
+		this.setState({ tags: [...tags, {text: tag }] }, () =>
+			this.props.inputStateCallback(this.state.tags)
+		);
 	}
 
 	handleDrag(tag, currPos, newPos) {
