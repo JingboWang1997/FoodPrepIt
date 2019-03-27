@@ -39,6 +39,7 @@ export default class FoodDisplay extends React.Component {
 
 	// right after component mounting
 	componentDidMount() {
+    
 		if (!this.state.data) {
 			// make keyword search call
 			const keywords = this.props.userInput;

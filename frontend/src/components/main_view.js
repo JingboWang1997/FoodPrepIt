@@ -98,6 +98,7 @@ class MainView extends Component {
 		}
 	}
 
+
 	// called when food list data is set
 	foodListSave = list => {
 		this.setState({ 
