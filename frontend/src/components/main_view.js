@@ -176,9 +176,9 @@ class MainView extends Component {
 								<ExpansionPanelDetails>
 									<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', paddingBottom: '10%'}}>
 										<div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}>
-											<FPISlider value={2} name={'Food Supply Budget ($)'}/>
-											<FPISlider value={1} name={'Preperation Time (minutes)'}/>
-											<FPISlider value={0} name={'Calorie Limit (Cal)'}/>
+											<FPISlider value={0} name={'Food Supply Budget ($)'} max={100} step={20}/>
+											<FPISlider value={0} name={'Preperation Time (minutes)'} max={100} step={20}/>
+											<FPISlider value={0} name={'Calorie Limit (Cal)'} max={100} step={20}/>
 										</div>
 										<div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column', paddingLeft: '100px'}}>
 											<FPITaginput style={{ paddingBottom: '20%'}} text={'Input excluded ingredients:'}/>
@@ -227,9 +227,9 @@ class MainView extends Component {
 									<ExpansionPanelDetails>
 										<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', paddingBottom: '10%'}}>
 											<div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}>
-												<FPISlider value={2} name={'Food Supply Budget ($)'}/>
-												<FPISlider value={1} name={'Preperation Time (minutes)'}/>
-												<FPISlider value={0} name={'Calorie Limit (Cal)'}/>
+												<FPISlider value={0} name={'Food Supply Budget ($)'} max={100} step={20}/>
+												<FPISlider value={0} name={'Preperation Time (minutes)'} max={100} step={20}/>
+												<FPISlider value={0} name={'Calorie Limit (Cal)'} max={100} step={20}/>
 											</div>
 											<div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column', paddingLeft: '100px'}}>
 												<FPITaginput style={{ paddingBottom: '20%'}}/>

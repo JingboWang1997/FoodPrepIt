@@ -39,8 +39,8 @@ class FPISlider extends React.Component {
   				classes={{ container: classes.slider }}
   				value={value}
   				min={0}
-  				max={6}
-  				step={1}
+  				max={this.props.max}
+  				step={this.props.step}
   				onChange={this.handleChange}
   			/>
   		</div>
