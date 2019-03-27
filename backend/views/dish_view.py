@@ -22,9 +22,12 @@ def getDishByIngredient(request):
 @api_view(['POST'])
 def getDishByKeywords(request):
     keywords = request.data['keywords']
-    # dishes = search_service.get_puppy_data(keywords)
-    dishes = search_service.get_spoonacular_data(keywords) + search_service.get_edamam_data(keywords) + search_service.get_yummly_data(keywords) + search_service.get_puppy_data(keywords)
-
+    try:
+        # dishes = search_service.get_puppy_data(keywords)
+        dishes = search_service.get_spoonacular_data(keywords) + search_service.get_edamam_data(keywords) + search_service.get_yummly_data(keywords) + search_service.get_puppy_data(keywords)
+    except:
+        dishes = search_service.get_edamam_data(keywords) + search_service.get_yummly_data(keywords) + search_service.get_puppy_data(keywords)
+   
     serializer = dish_serializer.DishSummarySerializer(
         instance=dishes, many=True)
     return Response(serializer.data)
@@ -49,7 +52,11 @@ def getRecipe(request):
 @api_view(['POST'])
 def getDishFromIngredients(request):
     ingredients = request.data['ingredients']
-    dishes = ingredient_service.get_spoonacular_from_ingredients(ingredients)
+    try:
+        dishes = ingredient_service.get_spoonacular_from_ingredients(ingredients) + ingredient_service.get_yummly_from_ingredients(ingredients)
+    except:
+        dishes = ingredient_service.get_yummly_from_ingredients(ingredients)
+
     serializer = dish_serializer.DishSummarySerializer(
         instance=dishes, many=True)
     return Response(serializer.data)
