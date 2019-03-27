@@ -82,6 +82,8 @@ class MainView extends Component {
 			loading: false,
 			// 'foodData' contains foodData if viewing details
 			foodData: null,
+			// 'foodList' contains the list view if preloaded
+			foodList: null,
 		};
 	}
 
@@ -90,17 +92,36 @@ class MainView extends Component {
 		if (this.state.userInput !== '') {
 			this.setState({ 
 				searched: true,
-				loading: true
+				loading: true,
+				foodList: null
 			});
 		}
 	}
 
-	// called when the icon is clicked
-	gobackButtonCallback = () => {
+
+	// called when food list data is set
+	foodListSave = list => {
 		this.setState({ 
-			searched: false,
-			loading: false,
-			userInput: ''
+			foodList: list,
+		});
+	}
+
+	// called when go back from the secondary search view
+	gobackButtonCallback = () => {
+		if (this.state.userInput !== '') {
+			this.setState({ 
+				searched: false,
+				userInput: '',
+				foodList: null
+			});
+		}
+	}
+
+	// called when go back from the food detail screen
+	exitFoodDetailCallBack = () => {
+		this.setState({ 
+			foodDetail: false,
+			foodData: null
 		});
 	}
 
@@ -155,12 +176,12 @@ class MainView extends Component {
 								<ExpansionPanelDetails>
 									<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', paddingBottom: '10%'}}>
 										<div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}>
-											<FPISlider value={2} name={"Food Supply Budget ($)"}/>
-											<FPISlider value={1} name={"Preperation Time (minutes)"}/>
-											<FPISlider value={0} name={"Calorie Limit (Cal)"}/>
+											<FPISlider value={2} name={'Food Supply Budget ($)'}/>
+											<FPISlider value={1} name={'Preperation Time (minutes)'}/>
+											<FPISlider value={0} name={'Calorie Limit (Cal)'}/>
 										</div>
 										<div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column', paddingLeft: '100px'}}>
-											<FPITaginput style={{ paddingBottom: '20%'}} text={"Input excluded ingredients:"}/>
+											<FPITaginput style={{ paddingBottom: '20%'}} text={'Input excluded ingredients:'}/>
 											<FPIDropdown />
 										</div>
 									</div>
@@ -206,9 +227,9 @@ class MainView extends Component {
 									<ExpansionPanelDetails>
 										<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', paddingBottom: '10%'}}>
 											<div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}>
-												<FPISlider value={2} name={"Food Supply Budget ($)"}/>
-												<FPISlider value={1} name={"Preperation Time (minutes)"}/>
-												<FPISlider value={0} name={"Calorie Limit (Cal)"}/>
+												<FPISlider value={2} name={'Food Supply Budget ($)'}/>
+												<FPISlider value={1} name={'Preperation Time (minutes)'}/>
+												<FPISlider value={0} name={'Calorie Limit (Cal)'}/>
 											</div>
 											<div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column', paddingLeft: '100px'}}>
 												<FPITaginput style={{ paddingBottom: '20%'}}/>
@@ -220,12 +241,18 @@ class MainView extends Component {
 							</div>
 						</div>
 						{/* end of the after search portion */}
-						<FoodDisplay userInput={this.state.userInput} callbackFromParent={this.foodDetailCallback}/>
+						<FoodDisplay 
+							userInput={this.state.userInput} 
+							foodList={this.state.foodList}
+							callbackFromParent={this.foodDetailCallback} 
+							updateFoodList={this.foodListSave}
+						/>
 					</div>
 				);
 			} else {
+				console.log(this.state.foodData);
 				return (
-					<FoodDetail data={this.state.foodData}/>
+					<FoodDetail data={this.state.foodData} exitFoodDetailCallBack={this.exitFoodDetailCallBack}/>
 				);
 			}
 		} else {
