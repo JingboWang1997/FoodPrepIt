@@ -111,6 +111,10 @@ export default class FoodDisplay extends React.Component {
 				ids.push(tile.sourceAPI + counter_id++);
 			}
 		}
+		if (tiles.length === 0) {
+			tiles = <h1>No Result!</h1>;
+		}
+		
 		this.setState({ 
 			ids: ids,
 			tiles: tiles
