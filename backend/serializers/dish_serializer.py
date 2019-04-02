@@ -25,3 +25,13 @@ class RecipeSerializer(serializers.Serializer):
     instruction = serializers.CharField(max_length=200)
     ingredients = serializers.ListField(
         child=serializers.CharField(max_length=200))
+
+class FoodHistory(serializers.Serializer):
+    title = serializers.CharField(max_length=300)
+    image = serializers.URLField()
+    sourceAPI = serializers.CharField(max_length=20)
+    recipeLink = serializers.URLField()
+    readyInMinutes = serializers.IntegerField()
+    instruction = serializers.CharField(max_length=10000)
+    ingredients = serializers.CharField(max_length=1000)
+    date = serializers.DateTimeField()

@@ -7,6 +7,7 @@ from rest_framework.decorators import api_view
 from service import search_service
 from service import recipe_service
 from service import ingredient_service
+from service import history_service
 
 # demo
 @api_view(['GET'])
@@ -22,14 +23,14 @@ def getDishByIngredient(request):
 @api_view(['POST'])
 def getDishByKeywords(request):
     keywords = request.data['keywords']
-    # try:
-    #     # dishes = search_service.get_puppy_data(keywords)
-    #     dishes = search_service.get_spoonacular_data(keywords) + search_service.get_edamam_data(keywords) + search_service.get_yummly_data(keywords) + search_service.get_puppy_data(keywords)
-    # except:
-    #     dishes = search_service.get_edamam_data(keywords) + search_service.get_yummly_data(keywords) + search_service.get_puppy_data(keywords)
+    try:
+        # dishes = search_service.get_puppy_data(keywords)
+        dishes = search_service.get_spoonacular_data(keywords) + search_service.get_edamam_data(keywords) + search_service.get_yummly_data(keywords) + search_service.get_puppy_data(keywords)
+    except:
+        dishes = search_service.get_edamam_data(keywords) + search_service.get_yummly_data(keywords) + search_service.get_puppy_data(keywords)
     
     # for evaluation
-    dishes = search_service.get_spoonacular_data(keywords)
+    # dishes = search_service.get_puppy_data(keywords)
     ############
    
     serializer = dish_serializer.DishSummarySerializer(
@@ -65,6 +66,22 @@ def getDishFromIngredients(request):
         instance=dishes, many=True)
     return Response(serializer.data)
 
+# get all history
+@api_view(['GET'])
+def getHistory(request):
+    histories = history_service.get_history()
+    serializer = dish_serializer.FoodHistory(
+        instance=histories, many=True)
+    return Response(serializer.data)
+
+# save the food entry
+@api_view(['POST'])
+def saveFood(request):
+    food = request.data['food']
+    save = history_service.save_food()
+    serializer = dish_serializer.FoodHistory(
+        instance=histories, many=True)
+    return Response(serializer.data)
 
 
 
