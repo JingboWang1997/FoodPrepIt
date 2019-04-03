@@ -30,3 +30,10 @@ def get_spoonacular_recipe(id):
     instruction = recipe['instructions'],
     ingredients = ingredients_list)
     return returned_info
+
+def get_unorganized_recipe(data):
+    returned_info = recipe_summary_dto.RecipeSummary(
+    sourceAPI = data['source'],
+    recipeLink = data['recipeLink'],
+    title = data['title'])
+    return returned_info

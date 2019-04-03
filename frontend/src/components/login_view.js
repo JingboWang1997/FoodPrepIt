@@ -118,7 +118,8 @@ class LoginView extends Component {
     render() {
     	const { classes } = this.props;
 
-    	if (this.state.loggedin){
+    	// if (this.state.loggedin){
+    	if (true){
     		return (
     			<DashboardView logoutButtonCallback = {this.logoutButtonCallback}/>	
     		);

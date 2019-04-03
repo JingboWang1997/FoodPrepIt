@@ -14,7 +14,7 @@ import FPISlider from './fpislider_component';
 import FPITaginput from './fpitaginput_component';
 import FPIDropdown from './fpidropdown_component';
 import logo from '../resources/logo.jpg';
-import FoodDisplay from './food_display';
+// import FoodDisplay from './food_display';
 import IngredientsFoodDisplay from './ingredients_food_display';
 // resources import
 import logo_small from '../resources/logo_small.jpg';
@@ -69,54 +69,54 @@ const styles = theme => ({
 
 // the main view of the app
 class IngredientsearchView extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            inputArr: [],
-            userInput: '',
-            // 'searched' indicates change from inital search view to minimized search view
-            searched: false,
-            // 'foodDetail' indicates if a foodDetial is requested by a user click
-            foodDetail: false,
-            // 'loading' is to handle reloading of page when seach button is clicked in the minimized search view
-            loading: false,
-            // 'foodData' contains foodData if viewing details
-            foodData: null,
-        };
-    }
+	constructor(props) {
+		super(props);
+		this.state = {
+			inputArr: [],
+			userInput: '',
+			// 'searched' indicates change from inital search view to minimized search view
+			searched: false,
+			// 'foodDetail' indicates if a foodDetial is requested by a user click
+			foodDetail: false,
+			// 'loading' is to handle reloading of page when seach button is clicked in the minimized search view
+			loading: false,
+			// 'foodData' contains foodData if viewing details
+			foodData: null,
+		};
+	}
 
     // called when user change input tag
     inputStateCallback = (dataFromChild) => {
-        console.log("datafromchild: ",dataFromChild);
-        this.setState({ 
-          inputArr: dataFromChild,
-        });
+    	console.log('datafromchild: ',dataFromChild);
+    	this.setState({ 
+    		inputArr: dataFromChild,
+    	});
     }
 
     // called when the search button is clicked
 
     searchButtonCallback = (dataFromChild) => {
-        var str = '';
-        this.state.inputArr.map((item) =>
-            str += item['text']+','
-        );
-        if (this.state.inputArr !== []) {
-            this.setState({ 
-                userInput: str,
-                searched: true,
-                loading: true
-            });
-        }
+    	var str = '';
+    	this.state.inputArr.map((item) =>
+    		str += item['text']+','
+    	);
+    	if (this.state.inputArr !== []) {
+    		this.setState({ 
+    			userInput: str,
+    			searched: true,
+    			loading: true
+    		});
+    	}
 
     }
 
     // called when the icon is clicked
     gobackButtonCallback = () => {
-        this.setState({ 
-            searched: false,
-            loading: false,
-            inputArr: []
-        });
+    	this.setState({ 
+    		searched: false,
+    		loading: false,
+    		inputArr: []
+    	});
     }
 
     // called when a food card is clicked
@@ -129,91 +129,91 @@ class IngredientsearchView extends Component {
 
     // called when go back from the food detail screen
     exitFoodDetailCallBack = () => {
-        this.setState({ 
-            foodDetail: false,
-            foodData: null
-        });
+    	this.setState({ 
+    		foodDetail: false,
+    		foodData: null
+    	});
     }
 
     render() {
-        const { classes } = this.props;
-        if (!this.state.loading) {
-            if (!this.state.searched) {
-                // the initial screen with the search bar in the center
-                return (
-                    <div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column', paddingTop: '5%' }}>
-                        {/* content line up vertically */}
-                        <div style={{ margin: 20 }}>
-                            <img src={logo} alt='logo' />
-                        </div>
-                        {/* search section */}
-                        <div style={{ display: 'flex', flexDirection: 'row', width:'50%', alignItems: 'center', marginBottom: 40 }}>
-                            <div className={classes.search}>
-                                <FPITaginput 
-                                    text={"Search recipes with ingredients: (use enter to input)"}
-                                    style={{ paddingBottom: '20%'}}
-                                    inputArr={this.state.inputArr}
-                                    inputStateCallback={this.inputStateCallback}
-                                    classes={{
-                                        root: classes.inputRoot,
-                                        input: classes.inputInput,
-                                    }}
-                                />
-                            </div>
+    	const { classes } = this.props;
+    	if (!this.state.loading) {
+    		if (!this.state.searched) {
+    			// the initial screen with the search bar in the center
+    			return (
+    				<div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column', paddingTop: '5%' }}>
+    					{/* content line up vertically */}
+    					<div style={{ margin: 20 }}>
+    						<img src={logo} alt='logo' />
+    					</div>
+    					{/* search section */}
+    					<div style={{ display: 'flex', flexDirection: 'row', width:'50%', alignItems: 'center', marginBottom: 40 }}>
+    						<div className={classes.search}>
+    							<FPITaginput 
+    								text={'Search recipes with ingredients: (use enter to input)'}
+    								style={{ paddingBottom: '20%'}}
+    								inputArr={this.state.inputArr}
+    								inputStateCallback={this.inputStateCallback}
+    								classes={{
+    									root: classes.inputRoot,
+    									input: classes.inputInput,
+    								}}
+    							/>
+    						</div>
 
     						<div style={{marginLeft: '2%'}}>
     							<Button onClick={this.searchButtonCallback} variant="contained" style={{ backgroundColor: green[300]}}>
                                     Search
-                                </Button>
-                            </div>
-                        </div>
-                        {/* expandable */}
-                        <div className={classes.root} style={{ width:'50%'}}>
-                            <ExpansionPanel>
-                                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                                    <Typography className={classes.heading}>Advanced Filters</Typography>
-                                </ExpansionPanelSummary>
-                                <ExpansionPanelDetails>
-                                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', paddingBottom: '10%'}}>
-                                        <div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}>
-                                            <FPISlider value={0} name={'Food Supply Budget ($)'} max={100} step={20}/>
-                                            <FPISlider value={0} name={'Preperation Time (minutes)'} max={100} step={20}/>
-                                            <FPISlider value={0} name={'Calorie Limit (Cal)'} max={100} step={20}/>
-                                        </div>
-                                        <div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column', paddingLeft: '100px'}}>
-                                            <FPITaginput style={{ paddingBottom: '20%'}}/>
-                                            <FPIDropdown />
-                                        </div>
-                                    </div>
-                                </ExpansionPanelDetails>
-                            </ExpansionPanel>    
-                        </div>
-                    </div>
-                );
-              } else if (!this.state.foodDetail) {
-                // the view with the search bar on top of the card view
-                return (
-                    <div>
-                        {/* after search view */}
-                        <div style={{marginTop: '1%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                            <div style={{display: 'flex', flexDirection: 'row', width:'60%', alignItems: 'center'}}>
-                                <img src={logo_small} alt='logo' onClick={this.gobackButtonCallback}/>
-                                <div style={{marginTop: '1%', marginLeft: '5%', width:'100%'}}>
-                                    {/* <FPISearchbar /> */}
-                                    <div className={classes.search}>
-                                        <FPITaginput 
-                                            text={"Search recipes with ingredients: (use enter to input)"}
-                                            style={{ paddingBottom: '20%'}}
-                                            inputArr={this.state.inputArr}
-                                            inputStateCallback={this.inputStateCallback}
-                                            classes={{
-                                                root: classes.inputRoot,
-                                                input: classes.inputInput,
-                                            }}
-                                        />
-                                    </div>
-                                </div>
-                                <Button onClick={this.searchButtonCallback} variant="contained" style={{ backgroundColor: green[300], marginLeft: '2%'}}>
+    							</Button>
+    						</div>
+    					</div>
+    					{/* expandable */}
+    					<div className={classes.root} style={{ width:'50%'}}>
+    						<ExpansionPanel>
+    							<ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+    								<Typography className={classes.heading}>Advanced Filters</Typography>
+    							</ExpansionPanelSummary>
+    							<ExpansionPanelDetails>
+    								<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', paddingBottom: '10%'}}>
+    									<div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}>
+    										<FPISlider value={0} name={'Food Supply Budget ($)'} max={100} step={20}/>
+    										<FPISlider value={0} name={'Preperation Time (minutes)'} max={100} step={20}/>
+    										<FPISlider value={0} name={'Calorie Limit (Cal)'} max={100} step={20}/>
+    									</div>
+    									<div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column', paddingLeft: '100px'}}>
+    										<FPITaginput style={{ paddingBottom: '20%'}}/>
+    										<FPIDropdown />
+    									</div>
+    								</div>
+    							</ExpansionPanelDetails>
+    						</ExpansionPanel>    
+    					</div>
+    				</div>
+    			);
+    		} else if (!this.state.foodDetail) {
+    			// the view with the search bar on top of the card view
+    			return (
+    				<div>
+    					{/* after search view */}
+    					<div style={{marginTop: '1%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+    						<div style={{display: 'flex', flexDirection: 'row', width:'60%', alignItems: 'center'}}>
+    							<img src={logo_small} alt='logo' onClick={this.gobackButtonCallback}/>
+    							<div style={{marginTop: '1%', marginLeft: '5%', width:'100%'}}>
+    								{/* <FPISearchbar /> */}
+    								<div className={classes.search}>
+    									<FPITaginput 
+    										text={'Search recipes with ingredients: (use enter to input)'}
+    										style={{ paddingBottom: '20%'}}
+    										inputArr={this.state.inputArr}
+    										inputStateCallback={this.inputStateCallback}
+    										classes={{
+    											root: classes.inputRoot,
+    											input: classes.inputInput,
+    										}}
+    									/>
+    								</div>
+    							</div>
+    							<Button onClick={this.searchButtonCallback} variant="contained" style={{ backgroundColor: green[300], marginLeft: '2%'}}>
                                     Search
     							</Button>
     						</div>
@@ -226,8 +226,8 @@ class IngredientsearchView extends Component {
     									<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', paddingBottom: '10%'}}>
     										<div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}>
     											<FPISlider value={0} name={'Food Supply Budget ($)'} max={100} step={20}/>
-                                                <FPISlider value={0} name={'Preperation Time (minutes)'} max={100} step={20}/>
-                                                <FPISlider value={0} name={'Calorie Limit (Cal)'} max={100} step={20}/>
+    											<FPISlider value={0} name={'Preperation Time (minutes)'} max={100} step={20}/>
+    											<FPISlider value={0} name={'Calorie Limit (Cal)'} max={100} step={20}/>
     										</div>
     										<div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column', paddingLeft: '100px'}}>
     											<FPITaginput style={{ paddingBottom: '20%'}}/>

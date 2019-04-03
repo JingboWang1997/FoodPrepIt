@@ -48,7 +48,7 @@ export default class FoodDisplay extends React.Component {
 				method: 'POST',
 				headers: {
 					'Accept': 'application/json',
-					'Content-Type': 'application/json',
+					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({
 					keywords
@@ -70,8 +70,8 @@ export default class FoodDisplay extends React.Component {
 
 	// for each food card click
 	// index is the corresponding item in the two state arrays:
-	// 	some uses ids to retrieve detail information
-	// 	some uses information in the data for details
+	// some uses ids to retrieve detail information
+	// some uses information in the data for details
 	handleClick(index) {
 		console.log('clicked: ' + this.state.ids[index]);
 		this.props.callbackFromParent(this.state.data[index]);
@@ -114,7 +114,7 @@ export default class FoodDisplay extends React.Component {
 		if (tiles.length === 0) {
 			tiles = <h1>No Result!</h1>;
 		}
-		
+
 		this.setState({ 
 			ids: ids,
 			tiles: tiles
