@@ -15,13 +15,13 @@ def get_spoonacular_data(keywords,dietRestriction,excludedIngredients):
 
     # store into cache
     for dish in dish_list:
+        print('id: ', str(dish['id']))
         recipe = spoonacular_api.getRecipe(str(dish['id']))
-        print(str(dish['id']))
-        priceBreakdown = spoonacular_api.getPriceBreakdown(str(dish['id']))
-        print(priceBreakdown)
+        # priceBreakdown = spoonacular_api.getPriceBreakdown(str(dish['id']))
         nutrition = spoonacular_api.getNutrition(str(dish['id']))
 
         store_diet = ''
+        store_image = ''
         if recipe['vegetarian']:
             store_diet += 'vegetarian,'
         if recipe['vegan']:
@@ -31,17 +31,21 @@ def get_spoonacular_data(keywords,dietRestriction,excludedIngredients):
         for item in ingredients_raw:
             ingredients_list.append(item['originalString'])
 
+        if len(dish['imageUrls']) > 0:
+            store_image = baseUri + dish['imageUrls'][0]
+
         try:
             cachEntry = CacheRecipeDetail(
                 title = dish['title'], 
-                image = baseUri + dish['imageUrls'][0], 
+                image = store_image, 
                 sourceAPI = 'Spoonacular', 
                 recipeLink = recipe['sourceUrl'],
                 readyInMinutes = recipe['readyInMinutes'],
                 instruction = recipe['instructions'],
                 ingredients = ingredients_list,
                 diet = store_diet,
-                budget = priceBreakdown['totalCostPerServing'],
+                # budget = priceBreakdown['totalCostPerServing'],
+                budget = -1,
                 calories = str(nutrition['calories'])
                 )
             cachEntry.save()
@@ -51,9 +55,9 @@ def get_spoonacular_data(keywords,dietRestriction,excludedIngredients):
     dish_summary_dto_list = [ dish_summary_dto.DishSummary(
         id = dish['id'], 
         title = dish['title'], 
-        image = baseUri + dish['imageUrls'][0],
+        image = store_image,
         recipeLink = '',
-        sourceAPI = 'Spoonacular') for i, dish in enumerate(dish_list)]
+        sourceAPI = 'Spoonacular') for dish in dish_list]
     return dish_summary_dto_list
 
 def get_edamam_data(keywords,excludedIngredients,prepTime,calorieLimit):
