@@ -22,7 +22,6 @@ def get_spoonacular_data(keywords,dietRestriction,excludedIngredients,prepTime,c
         nutrition = spoonacular_api.getNutrition(str(dish['id']))
 
         store_diet = ''
-        store_image = ''
         if recipe['vegetarian']:
             store_diet += 'vegetarian,'
         if recipe['vegan']:
@@ -31,9 +30,6 @@ def get_spoonacular_data(keywords,dietRestriction,excludedIngredients,prepTime,c
         ingredients_list = []
         for item in ingredients_raw:
             ingredients_list.append(item['originalString'])
-
-        if len(dish['imageUrls']) > 0:
-            store_image = baseUri + dish['imageUrls'][0]
 
         # filter
         if prepTime != '' and calorieLimit != '':
@@ -49,7 +45,7 @@ def get_spoonacular_data(keywords,dietRestriction,excludedIngredients,prepTime,c
         try:
             cachEntry = CacheRecipeDetail(
                 title = dish['title'], 
-                image = store_image, 
+                image = dish['image'], 
                 sourceAPI = 'Spoonacular', 
                 recipeLink = recipe['sourceUrl'],
                 readyInMinutes = recipe['readyInMinutes'],
