@@ -34,4 +34,4 @@ class FoodHistory(serializers.Serializer):
     readyInMinutes = serializers.IntegerField()
     instruction = serializers.CharField(max_length=10000)
     ingredients = serializers.CharField(max_length=1000)
-    date = serializers.DateTimeField()
+    date = serializers.DateField()

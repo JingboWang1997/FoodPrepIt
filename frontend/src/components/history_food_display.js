@@ -70,52 +70,67 @@ export default class HistoryFoodDisplay extends React.Component {
 	generateList() {
 		// if no data is fetched yet, use empty list
 		// once there is data, state will be changed and component rerendered
-		const data = this.state.data == null ? [] : this.state.data;
-		let tiles = [];
+		const data = this.state.data == null ? [] : this.state.data.reverse();
 		let ids = [];
 		let counter_id = 0;
-
-		for (let i = 0; i < data.length; i++) { 
-			const tile = data[i];
-			const img = tile.image === '' ? 'https://freedesignfile.com/upload/2015/12/Tableware-with-empty-plate-vector-06.jpg' : tile.image;
-			tiles.push(
-				<GridListTile 
-					onClick={() => {
-						this.handleClick(i);
-					}}
-					cols={0.5} 
-					rows={0.5}
-					key={i}>
-					
-					<img src={img} alt={tile.title} />
-					<GridListTileBar
-						title={tile.title}
-						titlePosition="top"
-						className={styles.titleBar} />
-				</GridListTile>
-			);
-			if (Number(tile.id) !== -1) {
-				ids.push(tile.id);
+		let index = 0;
+		let curDate = '';
+		let tiles = [];
+		let display = [];
+		for (let index = 0; index <= data.length; index++) {
+			if (index === data.length || data[index]['date'] !== curDate) {
+				display.push(
+					<div>
+						<h3>{curDate}</h3>
+					</div>
+				);
+				display.push(
+					<GridList cellHeight={500} spacing={20} className={styles.gridList}>
+						{tiles}
+					</GridList>
+				);
+				curDate = index === data.length ? '' : data[index]['date'];
+				tiles = [];
 			} else {
-				ids.push(tile.sourceAPI + counter_id++);
+				const tile = data[index];
+				const img = tile.image === '' ? 'https://freedesignfile.com/upload/2015/12/Tableware-with-empty-plate-vector-06.jpg' : tile.image;
+				tiles.push(
+					<GridListTile 
+						onClick={() => {
+							this.handleClick(index);
+						}}
+						cols={0.5} 
+						rows={0.5}
+						key={index}>
+					
+						<img src={img} alt={tile.title} />
+						<GridListTileBar
+							title={tile.title}
+							titlePosition="top"
+							className={styles.titleBar} />
+					</GridListTile>
+				);
+				if (Number(tile.id) !== -1) {
+					ids.push(tile.id);
+				} else {
+					ids.push(tile.sourceAPI + counter_id++);
+				}
 			}
 		}
-		if (tiles.length === 0) {
-			tiles = <h1>No Result!</h1>;
+        
+		if (data.length === 0) {
+			display = <h1>No History!</h1>;
 		}
-
 		this.setState({ 
 			ids: ids,
-			tiles: tiles
+			tiles: display
 		});
 	}
 
 	render() {
 		return (
 			<div className={styles.root}>
-				<GridList cellHeight={500} spacing={20} className={styles.gridList}>
-					{this.state.tiles}
-				</GridList>
+				{this.state.tiles}
 			</div>
 		);
 	}
