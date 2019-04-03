@@ -73,10 +73,10 @@ export default class HistoryFoodDisplay extends React.Component {
 		const data = this.state.data == null ? [] : this.state.data.reverse();
 		let ids = [];
 		let counter_id = 0;
-		let index = 0;
 		let curDate = '';
 		let tiles = [];
 		let display = [];
+		console.log(data.length);
 		for (let index = 0; index <= data.length; index++) {
 			if (index === data.length || data[index]['date'] !== curDate) {
 				display.push(
@@ -91,6 +91,9 @@ export default class HistoryFoodDisplay extends React.Component {
 				);
 				curDate = index === data.length ? '' : data[index]['date'];
 				tiles = [];
+				if (index !== data.length) {
+					index--;
+				}
 			} else {
 				const tile = data[index];
 				const img = tile.image === '' ? 'https://freedesignfile.com/upload/2015/12/Tableware-with-empty-plate-vector-06.jpg' : tile.image;
