@@ -8,29 +8,26 @@ from service import search_service
 from service import recipe_service
 from service import ingredient_service
 
-# demo
-@api_view(['GET'])
-def getDishByIngredient(request):
-    dishes = search_service.get_yummly_data()
-    # search_service.get_spoonacular_data() + search_service.get_edamam_data() 
-    # + search_service.get_yummly_data() + search_service.get_puppy_data()
-    serializer = dish_serializer.DishSummarySerializer(
-        instance=dishes, many=True)
-    return Response(serializer.data)
-
 # keyword search
 @api_view(['POST'])
 def getDishByKeywords(request):
     keywords = request.data['keywords']
+    dietRestriction = request.data['dietRestriction']
+    excludedIngredients = request.data['excludedIngredients']
+    budget = request.data['budget']
+    prepTime = request.data['prepTime']
+    calorieLimit = request.data['calorieLimit']
+
     # try:
-    #     # dishes = search_service.get_puppy_data(keywords)
-    #     dishes = search_service.get_spoonacular_data(keywords) + search_service.get_edamam_data(keywords) + search_service.get_yummly_data(keywords) + search_service.get_puppy_data(keywords)
+    #     dishes = search_service.get_spoonacular_data(keywords,dietRestriction,excludedIngredients) 
+    # + search_service.get_edamam_data(keywords,excludedIngredients,prepTime,calorieLimit)
+    # + search_service.get_yummly_data(keywords) 
+    # + search_service.get_puppy_data(keywords)
     # except:
     #     dishes = search_service.get_edamam_data(keywords) + search_service.get_yummly_data(keywords) + search_service.get_puppy_data(keywords)
     
     # for evaluation
-    dishes = search_service.get_spoonacular_data(keywords)
-    ############
+    dishes = search_service.get_yummly_data(keywords,dietRestriction,excludedIngredients,prepTime)
    
     serializer = dish_serializer.DishSummarySerializer(
         instance=dishes, many=True)
