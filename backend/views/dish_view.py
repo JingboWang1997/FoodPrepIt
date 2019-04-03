@@ -40,15 +40,19 @@ def getDishByKeywords(request):
 # get recipe
 @api_view(['POST'])
 def getRecipe(request):
-    print(request.data['id'])
     info = ''
     sourceAPI = request.data['source']
+    print('fetching detail from ', sourceAPI)
     if sourceAPI == 'Yummly':
         id = request.data['id']
         info = recipe_service.get_yummly_recipe(id)
     elif sourceAPI == 'Spoonacular':
         id = request.data['id']
         info = recipe_service.get_spoonacular_recipe(id)
+    else:
+        info = recipe_service.get_unorganized_recipe(request.data)
+        # history_service.save_food(request.data, request.data['img'], recipeLink=request.data['recipeLink'])
+    history_service.save_food(info, request.data['img'])
     serializer = dish_serializer.RecipeSerializer(instance=info, many=False)
     return Response(serializer.data)
 
@@ -70,15 +74,6 @@ def getDishFromIngredients(request):
 @api_view(['GET'])
 def getHistory(request):
     histories = history_service.get_history()
-    serializer = dish_serializer.FoodHistory(
-        instance=histories, many=True)
-    return Response(serializer.data)
-
-# save the food entry
-@api_view(['POST'])
-def saveFood(request):
-    food = request.data['food']
-    save = history_service.save_food()
     serializer = dish_serializer.FoodHistory(
         instance=histories, many=True)
     return Response(serializer.data)

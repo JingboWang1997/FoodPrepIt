@@ -29,5 +29,4 @@ urlpatterns = [
     path('getRecipe', dish_view.getRecipe),
     path('getDishFromIngredients', dish_view.getDishFromIngredients),
     path('getHistory', dish_view.getHistory),
-    path('saveFood', dish_view.saveFood)
 ]

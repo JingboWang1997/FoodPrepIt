@@ -17,6 +17,7 @@ import FPITaginput from './fpitaginput_component';
 import FPIDropdown from './fpidropdown_component';
 import logo from '../resources/logo.jpg';
 import FoodDisplay from './food_display';
+import HistoryFoodDisplay from './history_food_display';
 // resources import
 import logo_small from '../resources/logo_small.jpg';
 import FoodDetail from './food_detail';
@@ -145,8 +146,8 @@ class DashboardView extends React.Component {
 			<div>
 				<h1>History</h1>
 				<h3>April 4th</h3>
-				<FoodDisplay 
-					userInput='chicken' 
+				<HistoryFoodDisplay 
+					userInput='' 
 					foodList={null}
 					callbackFromParent={this.foodDetailCallback} 
 					updateFoodList={this.foodListSave}
