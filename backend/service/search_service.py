@@ -7,11 +7,12 @@ from foodPrepIt.models import CacheRecipeDetail
 from django.db import IntegrityError
 
 # file for keyword searches
-def get_spoonacular_data(keywords,dietRestriction,excludedIngredients):
+def get_spoonacular_data(keywords,dietRestriction,excludedIngredients,prepTime,calorieLimit):
     search_result = spoonacular_api.search(keywords,dietRestriction,excludedIngredients)
-    # print(search_result)
     dish_list = search_result['results']
     baseUri = search_result['baseUri']
+
+    filtered_list = []
 
     # store into cache
     for dish in dish_list:
@@ -34,6 +35,17 @@ def get_spoonacular_data(keywords,dietRestriction,excludedIngredients):
         if len(dish['imageUrls']) > 0:
             store_image = baseUri + dish['imageUrls'][0]
 
+        # filter
+        if prepTime != '' and calorieLimit != '':
+            if int(prepTime) > recipe['readyInMinutes'] and int(calorieLimit) > int(nutrition['calories']):
+                filtered_list.append(dish)
+        elif prepTime != '' and calorieLimit == '':
+            if int(prepTime) > recipe['readyInMinutes']:
+                filtered_list.append(dish)
+        elif prepTime == '' and calorieLimit != '':
+            if int(calorieLimit) > int(nutrition['calories']):
+                filtered_list.append(dish)
+
         try:
             cachEntry = CacheRecipeDetail(
                 title = dish['title'], 
@@ -52,28 +64,38 @@ def get_spoonacular_data(keywords,dietRestriction,excludedIngredients):
         except IntegrityError:
             pass
 
+    if prepTime == '' and calorieLimit == '':
+        filtered_list = dish_list
+
     dish_summary_dto_list = [ dish_summary_dto.DishSummary(
         id = dish['id'], 
         title = dish['title'], 
         image = store_image,
         recipeLink = '',
-        sourceAPI = 'Spoonacular') for dish in dish_list]
+        sourceAPI = 'Spoonacular') for dish in filtered_list]
     return dish_summary_dto_list
 
-def get_edamam_data(keywords,excludedIngredients,prepTime,calorieLimit):
+def get_edamam_data(keywords,dietRestriction,excludedIngredients,prepTime,calorieLimit):
     dish_list = edamam_api.search(keywords,excludedIngredients,prepTime,calorieLimit)
     # print("dish list",dish_list)
-
+    filtered_list = []
+    
     # store into cache
     for dish in dish_list:
-        store_diet = ''
+        
+        store_diet = ''  
         healthLabels = dish['recipe']['healthLabels']
         print(healthLabels)
         for item in healthLabels:
             if item == 'Vegetarian':
                 store_diet += 'vegetarian,'
+                if dietRestriction == 'vegetarian':
+                    filtered_list.append(dish)
             if item == 'Vegan':
                 store_diet += 'vegan,'
+                if dietRestriction == 'vegan':
+                    filtered_list.append(dish)
+
         try:
             cachEntry = CacheRecipeDetail(
                 title = dish['recipe']['label'], 
@@ -91,17 +113,21 @@ def get_edamam_data(keywords,excludedIngredients,prepTime,calorieLimit):
         except IntegrityError:
             pass
 
+    if dietRestriction == '':
+        filtered_list = dish_list
+
     dish_summary_dto_list = [ dish_summary_dto.DishSummary(
         id = -1, 
         title = dish['recipe']['label'], 
         image = dish['recipe']['image'],
         recipeLink = dish['recipe']['url'],
-        sourceAPI = 'Edamam') for i, dish in enumerate(dish_list)]
+        sourceAPI = 'Edamam') for i, dish in enumerate(filtered_list)]
     return dish_summary_dto_list
 
-def get_yummly_data(keywords,dietRestriction,excludedIngredients,prepTime):
+def get_yummly_data(keywords,dietRestriction,excludedIngredients,prepTime,calorieLimit):
     dish_list = yummly_api.search(keywords,dietRestriction,excludedIngredients,prepTime)
     
+    filtered_list = []
     # store into cache
     store_diet = ''
     store_calories = -1
@@ -114,7 +140,11 @@ def get_yummly_data(keywords,dietRestriction,excludedIngredients,prepTime):
         for nutrient in recipe['nutritionEstimates']:
             if nutrient['attribute'] == 'ENERC_KCAL':
                 store_calories = nutrient['value']
-                print('cal_per_serving: ' ,store_calories)
+                # print(store_calories)
+
+        if calorieLimit != '' and int(calorieLimit) > store_calories:
+            filtered_list.append(dish)
+
         try:
             cachEntry = CacheRecipeDetail(
                 title = dish['recipeName'], 
@@ -132,12 +162,15 @@ def get_yummly_data(keywords,dietRestriction,excludedIngredients,prepTime):
         except IntegrityError:
             pass
 
+    if calorieLimit == '':
+        filtered_list = dish_list
+
     dish_summary_dto_list = [ dish_summary_dto.DishSummary(
         id = dish['id'], 
         title = dish['recipeName'], 
         image = dish['imageUrlsBySize']['90'],
         recipeLink = '',
-        sourceAPI = 'Yummly') for i, dish in enumerate(dish_list)]
+        sourceAPI = 'Yummly') for i, dish in enumerate(filtered_list)]
     return dish_summary_dto_list
 
 def get_puppy_data(keywords):
