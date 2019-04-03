@@ -63,15 +63,16 @@ def get_spoonacular_data(keywords,dietRestriction,excludedIngredients):
 def get_edamam_data(keywords,excludedIngredients,prepTime,calorieLimit):
     dish_list = edamam_api.search(keywords,excludedIngredients,prepTime,calorieLimit)
     # print("dish list",dish_list)
-    store_diet = ''
 
     # store into cache
     for dish in dish_list:
+        store_diet = ''
         healthLabels = dish['recipe']['healthLabels']
+        print(healthLabels)
         for item in healthLabels:
-            if item == 'vegetarian':
+            if item == 'Vegetarian':
                 store_diet += 'vegetarian,'
-            if item == 'vegan':
+            if item == 'Vegan':
                 store_diet += 'vegan,'
         try:
             cachEntry = CacheRecipeDetail(
