@@ -121,7 +121,7 @@ def get_edamam_data(keywords,dietRestriction,excludedIngredients,prepTime,calori
     return dish_summary_dto_list
 
 def get_yummly_data(keywords,dietRestriction,excludedIngredients,prepTime,calorieLimit):
-    dish_list = yummly_api.search(keywords,dietRestriction,excludedIngredients,prepTime)
+    dish_list = yummly_api.search(keywords,'',dietRestriction,excludedIngredients,prepTime)
     
     filtered_list = []
     # store into cache
