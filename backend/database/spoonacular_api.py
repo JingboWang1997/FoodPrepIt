@@ -37,3 +37,22 @@ def searchFromIngredients(ingredients):
         headers={"X-RapidAPI-Key": "e0908c685fmsh31f97109ebb2e50p1372a2jsncb26aea897b1"
     })
     return response.json()
+
+def getPriceBreakdown(id):
+    finalURL = 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/' + id + '/priceBreakdownWidget.json'
+    response = requests.get(finalURL,
+        headers={"X-RapidAPI-Key": "e0908c685fmsh31f97109ebb2e50p1372a2jsncb26aea897b1"})
+    return response.json()
+
+def getNutrition(id):
+    finalURL = 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/' + id + '/nutritionWidget.json'
+    response = requests.get(finalURL,
+        headers={"X-RapidAPI-Key": "e0908c685fmsh31f97109ebb2e50p1372a2jsncb26aea897b1"})
+    return response.json()
+
+
+
+
+
+
+

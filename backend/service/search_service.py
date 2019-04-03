@@ -12,6 +12,42 @@ def get_spoonacular_data(keywords,dietRestriction,excludedIngredients):
     # print(search_result)
     dish_list = search_result['results']
     baseUri = search_result['baseUri']
+
+    # store into cache
+    for dish in dish_list:
+        recipe = spoonacular_api.getRecipe(str(dish['id']))
+        print(str(dish['id']))
+        priceBreakdown = spoonacular_api.getPriceBreakdown(str(dish['id']))
+        print(priceBreakdown)
+        nutrition = spoonacular_api.getNutrition(str(dish['id']))
+
+        store_diet = ''
+        if recipe['vegetarian']:
+            store_diet += 'vegetarian,'
+        if recipe['vegan']:
+            store_diet += 'vegan,'
+        ingredients_raw = recipe['extendedIngredients']
+        ingredients_list = []
+        for item in ingredients_raw:
+            ingredients_list.append(item['originalString'])
+
+        try:
+            cachEntry = CacheRecipeDetail(
+                title = dish['title'], 
+                image = baseUri + dish['imageUrls'][0], 
+                sourceAPI = 'Spoonacular', 
+                recipeLink = recipe['sourceUrl'],
+                readyInMinutes = recipe['readyInMinutes'],
+                instruction = recipe['instructions'],
+                ingredients = ingredients_list,
+                diet = store_diet,
+                budget = priceBreakdown['totalCostPerServing'],
+                calories = str(nutrition['calories'])
+                )
+            cachEntry.save()
+        except IntegrityError:
+            pass
+
     dish_summary_dto_list = [ dish_summary_dto.DishSummary(
         id = dish['id'], 
         title = dish['title'], 
@@ -23,6 +59,33 @@ def get_spoonacular_data(keywords,dietRestriction,excludedIngredients):
 def get_edamam_data(keywords,excludedIngredients,prepTime,calorieLimit):
     dish_list = edamam_api.search(keywords,excludedIngredients,prepTime,calorieLimit)
     # print("dish list",dish_list)
+    store_diet = ''
+
+    # store into cache
+    for dish in dish_list:
+        healthLabels = dish['recipe']['healthLabels']
+        for item in healthLabels:
+            if item == 'vegetarian':
+                store_diet += 'vegetarian,'
+            if item == 'vegan':
+                store_diet += 'vegan,'
+        try:
+            cachEntry = CacheRecipeDetail(
+                title = dish['recipe']['label'], 
+                image = dish['recipe']['image'], 
+                sourceAPI = 'Edamam', 
+                recipeLink = dish['recipe']['url'],
+                readyInMinutes = -1,
+                instruction = '',
+                ingredients = dish['recipe']['ingredientLines'],
+                diet = store_diet,
+                budget = -1,
+                calories = dish['recipe']['calories']
+                )
+            cachEntry.save()
+        except IntegrityError:
+            pass
+
     dish_summary_dto_list = [ dish_summary_dto.DishSummary(
         id = -1, 
         title = dish['recipe']['label'], 
@@ -74,6 +137,28 @@ def get_yummly_data(keywords,dietRestriction,excludedIngredients,prepTime):
 
 def get_puppy_data(keywords):
     dish_list = puppy_api.search(keywords)
+    ingredientsList = []
+    
+    # store to cache
+    for dish in dish_list:
+        ingredientsList.append(dish['ingredients'])
+        try:
+            cachEntry = CacheRecipeDetail(
+                title = dish['title'], 
+                image = dish['thumbnail'],
+                sourceAPI = 'Puppy', 
+                recipeLink = dish['href'],
+                readyInMinutes = -1,
+                instruction = '',
+                ingredients = ingredientsList,
+                diet = '',
+                budget = -1,
+                calories = -1
+                )
+            cachEntry.save()
+        except IntegrityError:
+            pass
+
     dish_summary_dto_list = [ dish_summary_dto.DishSummary(
         id = -1, 
         title = dish['title'],
