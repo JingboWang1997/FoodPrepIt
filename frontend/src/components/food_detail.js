@@ -13,27 +13,29 @@ export default class FoodDetail extends React.Component {
 	}
 
 	componentDidMount() {
-		if (this.props.data.sourceAPI === 'Spoonacular' || this.props.data.sourceAPI === 'Yummly') {
-			const source = this.state.source;
-			const id = this.state.id;
-			console.log('source: ' + source);
-			console.log('id: ' + id);
-			fetch('http://127.0.0.1:8000/getRecipe', {
-				method: 'POST',
-				headers: {
-					'Accept': 'application/json',
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({
-					source, id
-				}),
-			}).then(response => {
-				return response.json();
-			}).then(data => {
-				console.log('fetching data: ' + data);
-				this.setState({ detail: data });
-			});
-		}
+		const source = this.state.source;
+		const id = this.state.id;
+		const img = this.props.data.image;
+		const recipeLink = this.props.data.recipeLink;
+		const title = this.props.data.title;
+		console.log('source: ' + source);
+		console.log('id: ' + id);
+		fetch('http://127.0.0.1:8000/getRecipe', {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				source, id, img, recipeLink, title
+			}),
+		}).then(response => {
+			return response.json();
+		}).then(data => {
+			console.log('fetching data: ');
+			console.log(data);
+			this.setState({ detail: data });
+		});
 	}
 
 	formatDetails(detailData) {

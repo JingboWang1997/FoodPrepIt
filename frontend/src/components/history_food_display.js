@@ -27,30 +27,25 @@ const styles = theme => ({
 });
 
 // display the grid view of food cards 
-export default class IngredientsFoodDisplay extends React.Component {
+export default class HistoryFoodDisplay extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			data: null,
-			ids: [],
-			tiles: []
+		// 	ids: [],
+		// 	tiles: []
 		};
 	}
 
 	// right after component mounting
 	componentDidMount() {
-		// make keyword search call
-		const ingredients = this.props.userInput;
-		console.log('fetching data with ingredients: ' + ingredients);
-		fetch('http://127.0.0.1:8000/getDishFromIngredients', {
-			method: 'POST',
+		console.log('fetching history data');
+		fetch('http://127.0.0.1:8000/getHistory', {
+			method: 'GET',
 			headers: {
 				'Accept': 'application/json',
-				'Content-Type': 'application/json',
+				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify({
-				ingredients
-			}),
 		}).then(response => {
 			console.log('fetched data: ' + response);
 			return response.json();
@@ -64,8 +59,8 @@ export default class IngredientsFoodDisplay extends React.Component {
 
 	// for each food card click
 	// index is the corresponding item in the two state arrays:
-	//     some uses ids to retrieve detail information
-	//     some uses information in the data for details
+	// some uses ids to retrieve detail information
+	// some uses information in the data for details
 	handleClick(index) {
 		console.log('clicked: ' + this.state.ids[index]);
 		this.props.callbackFromParent(this.state.data[index]);
@@ -82,14 +77,17 @@ export default class IngredientsFoodDisplay extends React.Component {
 
 		for (let i = 0; i < data.length; i++) { 
 			const tile = data[i];
+			const img = tile.image === '' ? 'https://freedesignfile.com/upload/2015/12/Tableware-with-empty-plate-vector-06.jpg' : tile.image;
 			tiles.push(
 				<GridListTile 
 					onClick={() => {
 						this.handleClick(i);
 					}}
 					cols={0.5} 
-					rows={0.5}>
-					<img src={tile.image} alt={tile.title} />
+					rows={0.5}
+					key={i}>
+					
+					<img src={img} alt={tile.title} />
 					<GridListTileBar
 						title={tile.title}
 						titlePosition="top"
@@ -102,6 +100,10 @@ export default class IngredientsFoodDisplay extends React.Component {
 				ids.push(tile.sourceAPI + counter_id++);
 			}
 		}
+		if (tiles.length === 0) {
+			tiles = <h1>No Result!</h1>;
+		}
+
 		this.setState({ 
 			ids: ids,
 			tiles: tiles
