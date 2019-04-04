@@ -42,7 +42,9 @@ def get_spoonacular_from_ingredients(ingredients,dietRestriction,excludedIngredi
                 if item in ingredients_string:
                     filtered_list.remove(dish)
                     break
-
+        # store_instructions = recipe['instructions'] if recipe['instructions'] != None else ''
+        # print('store_instructions',store_instructions)
+        
         try:
             cachEntry = CacheRecipeDetail(
                 title = dish['title'], 
@@ -50,7 +52,7 @@ def get_spoonacular_from_ingredients(ingredients,dietRestriction,excludedIngredi
                 sourceAPI = 'Spoonacular', 
                 recipeLink = recipe['sourceUrl'],
                 readyInMinutes = recipe['readyInMinutes'],
-                instruction = recipe['instructions'],
+                instruction = recipe['instructions'] if recipe['instructions'] != None else '',
                 ingredients = ingredients_list,
                 diet = store_diet,
                 # budget = priceBreakdown['totalCostPerServing'],

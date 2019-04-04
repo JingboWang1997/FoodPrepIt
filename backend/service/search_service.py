@@ -22,6 +22,11 @@ def get_spoonacular_data(keywords,dietRestriction,excludedIngredients,prepTime,c
 
         recipePrepTime = -1
         recipeCalories = -1
+        store_image = ''
+        try:
+            store_image = dish['image']
+        except:
+            store_image = ''
 
         with connection.cursor() as cursor:
             sql = "select exists(select 1 from foodPrepIt_cacherecipedetail where title=%s and sourceAPI=%s) limit 1"
@@ -55,12 +60,6 @@ def get_spoonacular_data(keywords,dietRestriction,excludedIngredients,prepTime,c
                 for item in ingredients_raw:
                     ingredients_list.append(item['originalString'])
 
-                store_image = ''
-                try:
-                    store_image = dish['image']
-                except:
-                    store_image = ''
-
                 recipePrepTime = recipe['readyInMinutes']
                 recipeCalories = int(nutrition['calories'])
 
@@ -71,7 +70,7 @@ def get_spoonacular_data(keywords,dietRestriction,excludedIngredients,prepTime,c
                         sourceAPI = 'Spoonacular', 
                         recipeLink = recipe['sourceUrl'],
                         readyInMinutes = recipe['readyInMinutes'],
-                        instruction = recipe['instructions'],
+                        instruction = recipe['instructions'] if recipe['instructions'] != None else '',
                         ingredients = ingredients_list,
                         diet = store_diet,
                         # budget = priceBreakdown['totalCostPerServing'],
