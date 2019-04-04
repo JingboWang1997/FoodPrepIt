@@ -31,5 +31,5 @@ __pycache__/
 venv/
 
 # db
-**/backend/db.sqlite3
+backend/db.sqlite3
 
