@@ -82,6 +82,16 @@ class IngredientsearchView extends Component {
 			loading: false,
 			// 'foodData' contains foodData if viewing details
 			foodData: null,
+			// 'timeSliderValue' keeps track of the time restriction slider value
+			timeSliderValue: 0,
+			// 'calorieSliderValue' keeps track of the time restriction slider value
+			calorieSliderValue: 0,
+			// 'exclusionTags' keeps track of all the ingredients to be excluded
+			exclusionTags: [],
+			// 'dietaryRestriction' notes dietary restriction selected by user
+			dietaryRestriction: '',
+			// 'userFilter' marks if filters are used
+			useFilter: false,
 		};
 	}
 
@@ -94,7 +104,6 @@ class IngredientsearchView extends Component {
     }
 
     // called when the search button is clicked
-
     searchButtonCallback = (dataFromChild) => {
     	var str = '';
     	this.state.inputArr.map((item) =>

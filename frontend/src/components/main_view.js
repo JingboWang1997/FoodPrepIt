@@ -4,20 +4,12 @@ import InputBase from '@material-ui/core/InputBase';
 import { withStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import grey from '@material-ui/core/colors/grey';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Button from '@material-ui/core/Button';
 import green from '@material-ui/core/colors/green';
-import Slider from '@material-ui/lab/Slider';
 // react component import
-import FPISlider from './fpislider_component';
-import FPITaginput from './fpitaginput_component';
-import FPIDropdown from './fpidropdown_component';
 import logo from '../resources/logo.jpg';
 import FoodDisplay from './food_display';
+import FilterView from './filter_view';
 // resources import
 import logo_small from '../resources/logo_small.jpg';
 import FoodDetail from './food_detail';
@@ -111,7 +103,8 @@ class MainView extends Component {
 	}
 
 	// called when the advanced search button is clicked
-	advancedSearchButtonCallback = () => {
+	advancedSearchButton = () => {
+		console.log('clicked');
 		if (this.state.userInput !== '') {
 			this.setState({ 
 				searched: true,
@@ -158,19 +151,19 @@ class MainView extends Component {
 	}
 
 	// called when the time restriction slider's value changed
-	timeSliderChange = (event, value) => {
+	timeSliderChange = (value) => {
 		this.setState({ timeSliderValue: value });
 	};
 
 	// called when the calorie restriction slider's value changed
-	calorieSliderChange = (event, value) => {
+	calorieSliderChange = (value) => {
 		this.setState({ calorieSliderValue: value });
 	};
 
 	// called when user change input tag
-    exclusionTagsChange = (dataFromChild) => {
+    exclusionTagsChange = (value) => {
     	this.setState({ 
-    		exclusionTags: dataFromChild,
+    		exclusionTags: value,
     	});
     }
 	
@@ -214,51 +207,19 @@ class MainView extends Component {
     							</Button>
     						</div>
     					</div>
-    					{/* expandable */}
-    					<div className={classes.root} style={{ width:'50%'}}>
-    						<ExpansionPanel>
-    							<ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-    								<Typography className={classes.heading}>Advanced Filters</Typography>
-    							</ExpansionPanelSummary>
-    							<ExpansionPanelDetails>
-    								<div>
-    									<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', paddingBottom: '7%'}}>
-    										<div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column'}}>
-    											<div style={{width: 300, marginLeft: '2%'}}>
-    												{'Preperation Time'}: {this.state.timeSliderValue === 0 ? 'No Restriction' : ('<' + this.state.timeSliderValue + ' Minutes')}
-    												<Slider
-    													style = {{padding: '22px 0px'}}
-    													value={this.state.timeSliderValue}
-    													min={0}
-    													max={100}
-    													step={20}
-    													onChange={this.timeSliderChange}
-    												/>
-    											</div>
-    											<div style={{width: 300, marginLeft: '2%'}}>
-    												{'Calorie Limit'}: {this.state.calorieSliderValue === 0 ? 'No Restriction' : ('<' + this.state.calorieSliderValue + ' Cal')}
-    												<Slider
-    													style = {{padding: '22px 0px'}}
-    													value={this.state.calorieSliderValue}
-    													min={0}
-    													max={100}
-    													step={20}
-    													onChange={this.calorieSliderChange}
-    												/>
-    											</div>
-    										</div>
-    										<div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column', paddingLeft: '100px'}}>
-    											<FPITaginput style={{ paddingBottom: '20%'}} text={'Input excluded ingredients:'} inputStateCallback={this.exclusionTagsChange} inputArr={this.state.exclusionTags}/>
-    											<FPIDropdown changeCallBack={this.dietaryRestrictionChange}/>
-    										</div>
-    									</div>
-    									<div>
-    										<Button variant="contained" style={{ backgroundColor: green[200]}} onClick={this.advancedSearchButtonCallback}>Advanced Search</Button>
-    									</div>
-    								</div>
-    							</ExpansionPanelDetails>
-    						</ExpansionPanel>	
-    					</div>
+    					{/* expandable filter */}
+    					<FilterView 
+    						timeSliderValue={this.state.timeSliderValue}
+    						calorieSliderValue={this.state.calorieSliderValue}
+    						exclusionTags={this.state.exclusionTags}
+    						dietaryRestriction={this.state.dietaryRestriction}
+    						useFilter={this.state.useFilter}
+    						timeSliderChangeCallBack={this.timeSliderChange}
+    						calorieSliderChangeCallBack={this.calorieSliderChange}
+    						exclusionTagsChangeCallBack={this.exclusionTagsChange}
+    						dietaryRestrictionChangeCallBack={this.dietaryRestrictionChange}
+    						advancedSearchButtonCallback={this.advancedSearchButton}
+    					/>
     				</div>
     			);
   			} else if (!this.state.foodDetail) {
@@ -290,26 +251,18 @@ class MainView extends Component {
 									Search
     							</Button>
     						</div>
-    						<div className={classes.root} style={{marginBottom: '3%'}}>
-    							<ExpansionPanel>
-    								<ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-    									<Typography className={classes.heading}>Advanced Filters</Typography>
-    								</ExpansionPanelSummary>
-    								<ExpansionPanelDetails>
-    									<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', paddingBottom: '10%'}}>
-    										<div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}>
-    											<FPISlider value={0} name={'Food Supply Budget ($)'} max={100} step={20}/>
-    											<FPISlider value={0} name={'Preperation Time (minutes)'} max={100} step={20}/>
-    											<FPISlider value={0} name={'Calorie Limit (Cal)'} max={100} step={20}/>
-    										</div>
-    										<div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column', paddingLeft: '100px'}}>
-    											<FPITaginput style={{ paddingBottom: '20%'}}/>
-    											<FPIDropdown />
-    										</div>
-    									</div>
-    								</ExpansionPanelDetails>
-    							</ExpansionPanel>	
-    						</div>
+    						<FilterView 
+    							timeSliderValue={this.state.timeSliderValue}
+    							calorieSliderValue={this.state.calorieSliderValue}
+    							exclusionTags={this.state.exclusionTags}
+    							dietaryRestriction={this.state.dietaryRestriction}
+    							useFilter={this.state.useFilter}
+    							timeSliderChangeCallBack={this.timeSliderChange}
+    							calorieSliderChangeCallBack={this.calorieSliderChange}
+    							exclusionTagsChangeCallBack={this.exclusionTagsChange}
+    							dietaryRestrictionChangeCallBack={this.dietaryRestrictionChange}
+    							advancedSearchButtonCallback={this.advancedSearchButton}
+    						/>
     					</div>
     					{/* end of the after search portion */}
     					<FoodDisplay 
@@ -328,7 +281,9 @@ class MainView extends Component {
     		} else {
     			console.log(this.state.foodData);
     			return (
-    				<FoodDetail data={this.state.foodData} exitFoodDetailCallBack={this.exitFoodDetailCallBack}/>
+    				<FoodDetail 
+    					data={this.state.foodData} 
+    					exitFoodDetailCallBack={this.exitFoodDetailCallBack}/>
     			);
     		}
     	} else {

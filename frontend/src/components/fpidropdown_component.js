@@ -15,7 +15,7 @@ const styles = theme => ({
 
 class ControlledOpenSelect extends React.Component {
   state = {
-  	dietaryRestriction: '',
+  	dietaryRestriction: this.props.value,
   	open: false,
   };
 
