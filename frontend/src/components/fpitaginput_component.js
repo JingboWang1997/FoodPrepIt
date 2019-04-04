@@ -27,6 +27,7 @@ class FPITaginput extends Component {
 		this.setState({ tags: [...tags, {text: tag }] }, () =>
 			this.props.inputStateCallback(this.state.tags)
 		);
+		
 	}
 
 	handleDrag(tag, currPos, newPos) {

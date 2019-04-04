@@ -14,6 +14,7 @@ import FPISlider from './fpislider_component';
 import FPITaginput from './fpitaginput_component';
 import FPIDropdown from './fpidropdown_component';
 import logo from '../resources/logo.jpg';
+import FilterView from '../components/filter_view';
 // import FoodDisplay from './food_display';
 import IngredientsFoodDisplay from './ingredients_food_display';
 // resources import
@@ -82,6 +83,18 @@ class IngredientsearchView extends Component {
 			loading: false,
 			// 'foodData' contains foodData if viewing details
 			foodData: null,
+			// 'foodList' contains the list view if preloaded
+			foodList: null,
+			// 'timeSliderValue' keeps track of the time restriction slider value
+			timeSliderValue: 0,
+			// 'calorieSliderValue' keeps track of the time restriction slider value
+			calorieSliderValue: 0,
+			// 'exclusionTags' keeps track of all the ingredients to be excluded
+			exclusionTags: [],
+			// 'dietaryRestriction' notes dietary restriction selected by user
+			dietaryRestriction: '',
+			// 'userFilter' marks if filters are used
+			useFilter: false,
 		};
 	}
 
@@ -94,7 +107,6 @@ class IngredientsearchView extends Component {
     }
 
     // called when the search button is clicked
-
     searchButtonCallback = (dataFromChild) => {
     	var str = '';
     	this.state.inputArr.map((item) =>
@@ -104,7 +116,8 @@ class IngredientsearchView extends Component {
     		this.setState({ 
     			userInput: str,
     			searched: true,
-    			loading: true
+    			loading: true,
+    			useFilter: false,
     		});
     	}
 
@@ -135,7 +148,48 @@ class IngredientsearchView extends Component {
     	});
     }
 
-    render() {
+    // called when the time restriction slider's value changed
+	timeSliderChange = (value) => {
+		this.setState({ timeSliderValue: value });
+	};
+
+	// called when the calorie restriction slider's value changed
+	calorieSliderChange = (value) => {
+		this.setState({ calorieSliderValue: value });
+	};
+
+	// called when user change input tag
+    exclusionTagsChange = (value) => {
+    	this.setState({ 
+    		exclusionTags: value,
+    	});
+    }
+	
+    // called when user change input tag
+    dietaryRestrictionChange = (value) => {
+    	this.setState({ 
+    		dietaryRestriction: value,
+    	});
+    }
+
+    // called when the advanced search button is clicked
+	advancedSearchButton = () => {
+		var str = '';
+    	this.state.inputArr.map((item) =>
+    		str += item['text']+','
+    	);
+		if (this.state.inputArr !== []) {
+			this.setState({ 
+				userInput: str,
+				searched: true,
+				loading: true,
+				foodList: null,
+				useFilter: true
+			});
+		}
+	}
+
+	render() {
     	const { classes } = this.props;
     	if (!this.state.loading) {
     		if (!this.state.searched) {
@@ -168,26 +222,18 @@ class IngredientsearchView extends Component {
     						</div>
     					</div>
     					{/* expandable */}
-    					<div className={classes.root} style={{ width:'50%'}}>
-    						<ExpansionPanel>
-    							<ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-    								<Typography className={classes.heading}>Advanced Filters</Typography>
-    							</ExpansionPanelSummary>
-    							<ExpansionPanelDetails>
-    								<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', paddingBottom: '10%'}}>
-    									<div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}>
-    										<FPISlider value={0} name={'Food Supply Budget ($)'} max={100} step={20}/>
-    										<FPISlider value={0} name={'Preperation Time (minutes)'} max={100} step={20}/>
-    										<FPISlider value={0} name={'Calorie Limit (Cal)'} max={100} step={20}/>
-    									</div>
-    									<div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column', paddingLeft: '100px'}}>
-    										<FPITaginput style={{ paddingBottom: '20%'}}/>
-    										<FPIDropdown />
-    									</div>
-    								</div>
-    							</ExpansionPanelDetails>
-    						</ExpansionPanel>    
-    					</div>
+    					<FilterView 
+    						timeSliderValue={this.state.timeSliderValue}
+    						calorieSliderValue={this.state.calorieSliderValue}
+    						exclusionTags={this.state.exclusionTags}
+    						dietaryRestriction={this.state.dietaryRestriction}
+    						useFilter={this.state.useFilter}
+    						timeSliderChangeCallBack={this.timeSliderChange}
+    						calorieSliderChangeCallBack={this.calorieSliderChange}
+    						exclusionTagsChangeCallBack={this.exclusionTagsChange}
+    						dietaryRestrictionChangeCallBack={this.dietaryRestrictionChange}
+    						advancedSearchButtonCallback={this.advancedSearchButton}
+    					/>
     				</div>
     			);
     		} else if (!this.state.foodDetail) {
@@ -217,26 +263,18 @@ class IngredientsearchView extends Component {
                                     Search
     							</Button>
     						</div>
-    						<div className={classes.root} style={{marginBottom: '3%'}}>
-    							<ExpansionPanel>
-    								<ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-    									<Typography className={classes.heading}>Advanced Filters</Typography>
-    								</ExpansionPanelSummary>
-    								<ExpansionPanelDetails>
-    									<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', paddingBottom: '10%'}}>
-    										<div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}>
-    											<FPISlider value={0} name={'Food Supply Budget ($)'} max={100} step={20}/>
-    											<FPISlider value={0} name={'Preperation Time (minutes)'} max={100} step={20}/>
-    											<FPISlider value={0} name={'Calorie Limit (Cal)'} max={100} step={20}/>
-    										</div>
-    										<div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column', paddingLeft: '100px'}}>
-    											<FPITaginput style={{ paddingBottom: '20%'}}/>
-    											<FPIDropdown />
-    										</div>
-    									</div>
-    								</ExpansionPanelDetails>
-    							</ExpansionPanel>    
-    						</div>
+							<FilterView 
+								timeSliderValue={this.state.timeSliderValue}
+								calorieSliderValue={this.state.calorieSliderValue}
+								exclusionTags={this.state.exclusionTags}
+								dietaryRestriction={this.state.dietaryRestriction}
+								useFilter={this.state.useFilter}
+								timeSliderChangeCallBack={this.timeSliderChange}
+								calorieSliderChangeCallBack={this.calorieSliderChange}
+								exclusionTagsChangeCallBack={this.exclusionTagsChange}
+								dietaryRestrictionChangeCallBack={this.dietaryRestrictionChange}
+								advancedSearchButtonCallback={this.advancedSearchButton}
+							/>
     					</div>
     					{/* end of the after search portion */}
     					<IngredientsFoodDisplay userInput={this.state.userInput} callbackFromParent={this.foodDetailCallback}/>
@@ -253,7 +291,7 @@ class IngredientsearchView extends Component {
     			<div></div>
     		);
     	}
-    }
+	}
 }
 
 export default withStyles(styles)(IngredientsearchView);

@@ -6,10 +6,19 @@ def find_by_ingredients():
     })
     return response.json()
 
-def search(keywords):
+def search(keywords,dietRestriction,excludedIngredients):
     baseURL = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search?"
+    
     addKeywords = "query=" + keywords
-    finalURL = baseURL + addKeywords
+    addDietRestriction = ''
+    addExcludedIngredients = ''
+    if dietRestriction != '':
+        addDietRestriction = '&diet=' + dietRestriction
+    if excludedIngredients != '':
+        addExcludedIngredients = '&excludeIngredients=' + excludedIngredients
+    
+    finalURL = baseURL + addKeywords + addDietRestriction + addExcludedIngredients
+    print(finalURL)
     response = requests.get(finalURL,
         headers={"X-RapidAPI-Key": "e0908c685fmsh31f97109ebb2e50p1372a2jsncb26aea897b1"})
     return response.json()
@@ -22,9 +31,28 @@ def getRecipe(id):
 
 
 def searchFromIngredients(ingredients):
-    baseURL = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?number=60&ranking=1&ingredients="
+    baseURL = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?number=40&ranking=1&ingredients="
     finalURL = baseURL + ingredients
     response = requests.get(finalURL,
         headers={"X-RapidAPI-Key": "e0908c685fmsh31f97109ebb2e50p1372a2jsncb26aea897b1"
     })
     return response.json()
+
+def getPriceBreakdown(id):
+    finalURL = 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/' + id + '/priceBreakdownWidget.json'
+    response = requests.get(finalURL,
+        headers={"X-RapidAPI-Key": "e0908c685fmsh31f97109ebb2e50p1372a2jsncb26aea897b1"})
+    return response.json()
+
+def getNutrition(id):
+    finalURL = 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/' + id + '/nutritionWidget.json'
+    response = requests.get(finalURL,
+        headers={"X-RapidAPI-Key": "e0908c685fmsh31f97109ebb2e50p1372a2jsncb26aea897b1"})
+    return response.json()
+
+
+
+
+
+
+

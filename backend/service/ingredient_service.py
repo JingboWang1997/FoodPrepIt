@@ -14,8 +14,8 @@ def get_spoonacular_from_ingredients(ingredients):
         sourceAPI = 'Spoonacular') for i, dish in enumerate(dish_list)]
     return dish_summary_dto_list
 
-def get_yummly_from_ingredients(ingredients):
-    dish_list = yummly_api.searchFromIngredients(ingredients)
+def get_yummly_from_ingredients(ingredients,dietRestriction,excludedIngredients,prepTime,calorieLimit):
+    dish_list = yummly_api.search('',ingredients,dietRestriction,excludedIngredients,prepTime)
     dish_summary_dto_list = [ dish_summary_dto.DishSummary(
         id = dish['id'], 
         title = dish['recipeName'], 
