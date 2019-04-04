@@ -76,7 +76,7 @@ def getDishFromIngredients(request):
         dishes = ingredient_service.get_spoonacular_from_ingredients(ingredients,dietRestriction,excludedIngredients,prepTime,calorieLimit) \
         + ingredient_service.get_yummly_from_ingredients(ingredients,dietRestriction,excludedIngredients,prepTime,calorieLimit)
     except:
-        dishes = ingredient_service.get_yummly_from_ingredients(ingredients,dietRestriction,excludedIngredients,prepTime,calorieLimit)
+        dishes = ingredient_service.get_spoonacular_from_ingredients(ingredients,dietRestriction,excludedIngredients,prepTime,calorieLimit)
 
     # for evaluation
     # dishes = ingredient_service.get_spoonacular_from_ingredients(ingredients,dietRestriction,excludedIngredients,prepTime,calorieLimit)
