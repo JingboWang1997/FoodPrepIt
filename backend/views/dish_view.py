@@ -19,18 +19,18 @@ def getDishByKeywords(request):
     prepTime = request.data['prepTime']
     calorieLimit = request.data['calorieLimit']
 
-    # try:
-    #     dishes = search_service.get_spoonacular_data(keywords,dietRestriction,excludedIngredients,prepTime,calorieLimit) \
-    #     + search_service.get_edamam_data(keywords,dietRestriction,excludedIngredients,prepTime,calorieLimit) \
-    #     + search_service.get_yummly_data(keywords,'',dietRestriction,excludedIngredients,prepTime,calorieLimit) \
-    #     + search_service.get_puppy_data(keywords)
-    # except:
-    #     print('Using only 2 APIs')
-    #     dishes = search_service.get_yummly_data(keywords,'',dietRestriction,excludedIngredients,prepTime,calorieLimit) \
-    #     + search_service.get_puppy_data(keywords)
+    try:
+        dishes = search_service.get_spoonacular_data(keywords,dietRestriction,excludedIngredients,prepTime,calorieLimit) \
+        + search_service.get_edamam_data(keywords,dietRestriction,excludedIngredients,prepTime,calorieLimit) \
+        + search_service.get_yummly_data(keywords,'',dietRestriction,excludedIngredients,prepTime,calorieLimit) \
+        + search_service.get_puppy_data(keywords)
+    except:
+        print('Using only 2 APIs')
+        dishes = search_service.get_yummly_data(keywords,'',dietRestriction,excludedIngredients,prepTime,calorieLimit) \
+        + search_service.get_puppy_data(keywords)
     
     # for evaluation
-    dishes = search_service.get_edamam_data(keywords,dietRestriction,excludedIngredients,prepTime,calorieLimit)
+    # dishes = search_service.get_spoonacular_data(keywords,dietRestriction,excludedIngredients,prepTime,calorieLimit)
 
     serializer = dish_serializer.DishSummarySerializer(
         instance=dishes, many=True)
@@ -78,7 +78,7 @@ def getDishFromIngredients(request):
     except:
         dishes = ingredient_service.get_yummly_from_ingredients(ingredients,dietRestriction,excludedIngredients,prepTime,calorieLimit)
 
-     # for evaluation
+    # for evaluation
     # dishes = ingredient_service.get_spoonacular_from_ingredients(ingredients,dietRestriction,excludedIngredients,prepTime,calorieLimit)
 
     serializer = dish_serializer.DishSummarySerializer(

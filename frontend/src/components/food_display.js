@@ -70,7 +70,11 @@ export default class FoodDisplay extends React.Component {
 				});
 			} else {
 				const dietRestriction = this.props.dietaryRestriction === 'none' || this.props.dietaryRestriction === '' ? '' : this.props.dietaryRestriction;
-				const excludedIngredients = this.props.exclusionTags.length === 0 ? '' : this.props.exclusionTags.toString() + ',';
+				let ingredientString = '';
+    			this.props.exclusionTags.map((item) =>
+					ingredientString += item['text']+','
+    			);
+				const excludedIngredients = this.props.exclusionTags.length === 0 ? '' : ingredientString;
 				const budget = '';
 				const prepTime = this.props.time;
 				const calorieLimit = this.props.calorie;

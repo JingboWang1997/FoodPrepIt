@@ -47,7 +47,18 @@ export default class FoodDetail extends React.Component {
 			ingredients.push(<li>{detailData.ingredients[i]}</li>);
 		}
 		if (detailData.sourceAPI === 'Spoonacular') {
-			result =
+			if (detailData.instruction === null) {
+				result =
+				<div>
+					<h2>Ready In {detailData.readyInMinutes} Minutes</h2>
+					<h2>Ingredients</h2>
+					<ul>
+						{ingredients}
+					</ul> 
+					<a href={detailData.recipeLink}>View Instruction</a>
+				</div>;
+			} else{
+				result =
 				<div>
 					<h2>Ready In {detailData.readyInMinutes} Minutes</h2>
 					<h2>Ingredients</h2>
@@ -57,6 +68,7 @@ export default class FoodDetail extends React.Component {
 					<h2>Instruction</h2>
 					<p>{detailData.instruction}</p>
 				</div>;
+			}
 		} else {
 			result =
 				<div>
