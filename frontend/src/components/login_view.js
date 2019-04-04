@@ -56,7 +56,7 @@ class LoginView extends Component {
 			email: '',
 			password:'',
 			// 'logedin' indicates whether user has logged in
-			loggedin: this.props.loggedin,
+			userid: this.props.userid,
 			// login errors
 			loginError: false,
 			// register errors
@@ -72,15 +72,15 @@ class LoginView extends Component {
 		e.preventDefault();
 		fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u)=>{
 			this.setState({ 
-				loggedin: true,
+				userid: this.state.email,
 			});
-			this.props.loginStateCallback(true);
+			this.props.loginStateCallback(this.state.email);
 	    }).catch((error) => {
-	        console.log(error);
-	        this.setState({ 
+			console.log(error);
+			this.setState({ 
 				loginError: true,
 			});
-	      });
+		});
 	}
 
 	// called when the register button is clicked
@@ -110,17 +110,17 @@ class LoginView extends Component {
     	fire.auth().signOut();
     	console.log('logout.');	
     	this.setState({ 
-    		loggedin: false,
+    		userid: null,
     	});
-    	this.props.loginStateCallback(false);
+    	this.props.loginStateCallback(null);
     }
 
     render() {
     	const { classes } = this.props;
 
-    	if (this.state.loggedin){
+    	if (this.state.userid !== null){
     		return (
-    			<DashboardView logoutButtonCallback = {this.logoutButtonCallback}/>	
+    			<DashboardView logoutButtonCallback = {this.logoutButtonCallback} userid={this.state.userid}/>	
     		);
     	} else {
     		return (

@@ -2,17 +2,10 @@ import React, { Component } from 'react';
 // ui import
 import { withStyles } from '@material-ui/core/styles';
 import grey from '@material-ui/core/colors/grey';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Button from '@material-ui/core/Button';
 import green from '@material-ui/core/colors/green';
 // react component import
-import FPISlider from './fpislider_component';
 import FPITaginput from './fpitaginput_component';
-import FPIDropdown from './fpidropdown_component';
 import logo from '../resources/logo.jpg';
 import FilterView from '../components/filter_view';
 // import FoodDisplay from './food_display';
@@ -118,6 +111,7 @@ class IngredientsearchView extends Component {
     			searched: true,
     			loading: true,
     			useFilter: false,
+    			foodList: null,
     		});
     	}
 
@@ -184,10 +178,18 @@ class IngredientsearchView extends Component {
 				searched: true,
 				loading: true,
 				foodList: null,
-				useFilter: true
+				useFilter: true,
 			});
 		}
 	}
+
+	// called when food list data is fetched and to be stored
+	foodListSave = list => {
+		this.setState({ 
+			foodList: list,
+		});
+	}
+
 
 	render() {
     	const { classes } = this.props;
@@ -277,12 +279,24 @@ class IngredientsearchView extends Component {
 							/>
     					</div>
     					{/* end of the after search portion */}
-    					<IngredientsFoodDisplay userInput={this.state.userInput} callbackFromParent={this.foodDetailCallback}/>
+						<IngredientsFoodDisplay 
+							updateFoodList={this.foodListSave}
+							foodList={this.state.foodList}
+							userInput={this.state.userInput} 
+							callbackFromParent={this.foodDetailCallback} 
+							useFilter={this.state.useFilter}
+    						calorie={this.state.calorieSliderValue}
+    						time={this.state.timeSliderValue}
+    						exclusionTags={this.state.exclusionTags}
+    						dietaryRestriction={this.state.dietaryRestriction}/>
     				</div>
     			);
     		} else {
     			return (
-    				<FoodDetail data={this.state.foodData} exitFoodDetailCallBack={this.exitFoodDetailCallBack}/>
+					<FoodDetail 
+						data={this.state.foodData} 
+						exitFoodDetailCallBack={this.exitFoodDetailCallBack} 
+						userid={this.props.userid}/>
     			);
     		}
     	} else {

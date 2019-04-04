@@ -31,7 +31,7 @@ export default class IngredientsFoodDisplay extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			data: null,
+			data: this.props.foodList,
 			ids: [],
 			tiles: []
 		};
@@ -39,27 +39,71 @@ export default class IngredientsFoodDisplay extends React.Component {
 
 	// right after component mounting
 	componentDidMount() {
-		// make keyword search call
-		const ingredients = this.props.userInput;
-		console.log('fetching data with ingredients: ' + ingredients);
-		fetch('http://127.0.0.1:8000/getDishFromIngredients', {
-			method: 'POST',
-			headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				ingredients
-			}),
-		}).then(response => {
-			console.log('fetched data: ' + response);
-			return response.json();
-		}).then(data => {
-			this.setState({ 
-				data: data
-			});
+		if (!this.state.data) {
+			if (!this.props.useFilter) {
+				const dietRestriction = '';
+				const excludedIngredients = '';
+				const budget = '';
+				const prepTime = '';
+				const calorieLimit = '';
+				// make keyword search call
+				const ingredients = this.props.userInput;
+				console.log('fetching data with ingredients: ' + ingredients);
+				fetch('http://127.0.0.1:8000/getDishFromIngredients', {
+					method: 'POST',
+					headers: {
+						'Accept': 'application/json',
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						ingredients, dietRestriction, excludedIngredients, budget, prepTime, calorieLimit
+					}),
+				}).then(response => {
+					console.log('fetched data: ' + response);
+					return response.json();
+				}).then(data => {
+					this.setState({ 
+						data: data
+					});
+					this.generateList();
+					this.props.updateFoodList(data);
+				});
+			} else {
+				const dietRestriction = this.props.dietaryRestriction === 'none' || this.props.dietaryRestriction === '' ? '' : this.props.dietaryRestriction;
+				let ingredientString = '';
+    			this.props.exclusionTags.map((item) =>
+					ingredientString += item['text']+','
+    			);
+				const excludedIngredients = this.props.exclusionTags.length === 0 ? '' : ingredientString;
+				const budget = '';
+				const prepTime = this.props.time;
+				const calorieLimit = this.props.calorie;
+				// make keyword search call
+				const ingredients = this.props.userInput;
+				console.log('fetching data with ingredients: ' + ingredients);
+				fetch('http://127.0.0.1:8000/getDishFromIngredients', {
+					method: 'POST',
+					headers: {
+						'Accept': 'application/json',
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						ingredients, dietRestriction, excludedIngredients, budget, prepTime, calorieLimit
+					}),
+				}).then(response => {
+					console.log('fetched data: ' + response);
+					return response.json();
+				}).then(data => {
+					this.setState({ 
+						data: data
+					});
+					this.generateList();
+					this.props.updateFoodList(data);
+				});
+			}
+		} else {
 			this.generateList();
-		});
+		}
 	}
 
 	// for each food card click

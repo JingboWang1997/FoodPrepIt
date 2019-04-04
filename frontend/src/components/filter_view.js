@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 // ui import
 import { withStyles } from '@material-ui/core/styles';
 import grey from '@material-ui/core/colors/grey';

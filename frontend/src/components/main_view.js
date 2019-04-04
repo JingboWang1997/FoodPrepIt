@@ -282,7 +282,8 @@ class MainView extends Component {
     			return (
     				<FoodDetail 
     					data={this.state.foodData} 
-    					exitFoodDetailCallBack={this.exitFoodDetailCallBack}/>
+    					exitFoodDetailCallBack={this.exitFoodDetailCallBack}
+    					userid={this.props.userid}/>
     			);
     		}
     	} else {
