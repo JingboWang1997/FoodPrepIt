@@ -5,6 +5,7 @@ from database import puppy_api
 from dto import dish_summary_dto
 from foodPrepIt.models import CacheRecipeDetail
 from django.db import IntegrityError
+from django.db import connection
 
 # file for keyword searches
 def get_spoonacular_data(keywords,dietRestriction,excludedIngredients,prepTime,calorieLimit):
@@ -12,57 +13,80 @@ def get_spoonacular_data(keywords,dietRestriction,excludedIngredients,prepTime,c
     dish_list = search_result['results']
     baseUri = search_result['baseUri']
 
-    filtered_list = []
+    filtered_list = dish_list
 
     # store into cache
     for dish in dish_list:
         print('id: ', str(dish['id']))
-        recipe = spoonacular_api.getRecipe(str(dish['id']))
-        # priceBreakdown = spoonacular_api.getPriceBreakdown(str(dish['id']))
-        nutrition = spoonacular_api.getNutrition(str(dish['id']))
+        print('title: ',dish['title'])
 
-        store_diet = ''
-        if recipe['vegetarian']:
-            store_diet += 'vegetarian,'
-        if recipe['vegan']:
-            store_diet += 'vegan,'
+        recipePrepTime = -1
+        recipeCalories = -1
+
+        with connection.cursor() as cursor:
+            sql = "select exists(select 1 from foodPrepIt_cacherecipedetail where title=%s and sourceAPI=%s) limit 1"
+            check = cursor.execute(sql,(dish['title'],'Spoonacular'))
+            if check.fetchone()[0]!=0:
+                print('existing key')
+                sql = "select readyInMinutes from foodPrepIt_cacherecipedetail where title=%s and sourceAPI=%s"
+                cursor.execute(sql,(dish['title'],'Spoonacular'))
+                recipePrepTime = cursor.fetchone()[0]
+                # print('time: ', recipePrepTime)
+                sql = "select calories from foodPrepIt_cacherecipedetail where title=%s and sourceAPI=%s"
+                cursor.execute(sql,(dish['title'],'Spoonacular'))
+                recipeCalories = cursor.fetchone()[0]
+                # print('calories: ', recipeCalories)
+
+            else:
+                print('no key')
         
-        ingredients_raw = recipe['extendedIngredients']
-        ingredients_list = []
-        for item in ingredients_raw:
-            ingredients_list.append(item['originalString'])
+                recipe = spoonacular_api.getRecipe(str(dish['id']))
+                # priceBreakdown = spoonacular_api.getPriceBreakdown(str(dish['id']))
+                nutrition = spoonacular_api.getNutrition(str(dish['id']))
+
+                store_diet = ''
+                if recipe['vegetarian']:
+                    store_diet += 'vegetarian,'
+                if recipe['vegan']:
+                    store_diet += 'vegan,'
+                
+                ingredients_raw = recipe['extendedIngredients']
+                ingredients_list = []
+                for item in ingredients_raw:
+                    ingredients_list.append(item['originalString'])
+
+                store_image = ''
+                try:
+                    store_image = dish['image']
+                except:
+                    store_image = ''
+
+                recipePrepTime = recipe['readyInMinutes']
+                recipeCalories = int(nutrition['calories'])
+
+                try:
+                    cachEntry = CacheRecipeDetail(
+                        title = dish['title'], 
+                        image = store_image, 
+                        sourceAPI = 'Spoonacular', 
+                        recipeLink = recipe['sourceUrl'],
+                        readyInMinutes = recipe['readyInMinutes'],
+                        instruction = recipe['instructions'],
+                        ingredients = ingredients_list,
+                        diet = store_diet,
+                        # budget = priceBreakdown['totalCostPerServing'],
+                        budget = -1,
+                        calories = str(nutrition['calories'])
+                        )
+                    cachEntry.save()
+                except IntegrityError:
+                    pass
 
         # filter
-        if prepTime != '' and calorieLimit != '':
-            if int(prepTime) > recipe['readyInMinutes'] and int(calorieLimit) > int(nutrition['calories']):
-                filtered_list.append(dish)
-        elif prepTime != '' and calorieLimit == '':
-            if int(prepTime) > recipe['readyInMinutes']:
-                filtered_list.append(dish)
-        elif prepTime == '' and calorieLimit != '':
-            if int(calorieLimit) > int(nutrition['calories']):
-                filtered_list.append(dish)
-
-        try:
-            cachEntry = CacheRecipeDetail(
-                title = dish['title'], 
-                image = dish['image'], 
-                sourceAPI = 'Spoonacular', 
-                recipeLink = recipe['sourceUrl'],
-                readyInMinutes = recipe['readyInMinutes'],
-                instruction = recipe['instructions'],
-                ingredients = ingredients_list,
-                diet = store_diet,
-                # budget = priceBreakdown['totalCostPerServing'],
-                budget = -1,
-                calories = str(nutrition['calories'])
-                )
-            cachEntry.save()
-        except IntegrityError:
-            pass
-
-    if prepTime == '' and calorieLimit == '':
-        filtered_list = dish_list
+        if prepTime != '' and int(prepTime) < recipePrepTime:
+            dish_list.remove(dish)
+        elif calorieLimit != '' and int(calorieLimit) < recipeCalories:
+            dish_list.remove(dish)
 
     dish_summary_dto_list = [ dish_summary_dto.DishSummary(
         id = dish['id'], 
