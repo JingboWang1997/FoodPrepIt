@@ -29,3 +29,7 @@ __pycache__/
 
 # env
 venv/
+
+# db
+backend/db.sqlite3
+
