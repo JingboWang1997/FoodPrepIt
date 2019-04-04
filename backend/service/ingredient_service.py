@@ -62,7 +62,7 @@ def get_spoonacular_from_ingredients(ingredients,dietRestriction,excludedIngredi
                     image = dish['image'], 
                     sourceAPI = 'Spoonacular', 
                     recipeLink = recipe['sourceUrl'],
-                    readyInMinutes = recipePrepTime,
+                    readyInMinutes = store_prepTime,
                     instruction = recipe['instructions'] if recipe['instructions'] != None else '',
                     ingredients = ingredients_list,
                     diet = store_diet,
@@ -95,8 +95,6 @@ def get_spoonacular_from_ingredients(ingredients,dietRestriction,excludedIngredi
                 image = dish['image'],
                 recipeLink = '',
                 sourceAPI = 'Spoonacular'))
-
-
 
     # dish_summary_dto_list = [ dish_summary_dto.DishSummary(
     #     id = dish['id'], 
