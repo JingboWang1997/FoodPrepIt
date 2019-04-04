@@ -14,10 +14,10 @@ def search(keywords, excludedIngredients, prepTime, calorieLimit):
             addExcludedIngredients = addExcludedIngredients + '&excluded=' + item
     
     if prepTime != '':
-        addPrepTime = '&time=' + prepTime
+        addPrepTime = '&time=' + str(prepTime)
 
     if calorieLimit != '':
-        addCalorieLimit = '&calories=' + calorieLimit
+        addCalorieLimit = '&calories=' + str(calorieLimit)
 
     finalURL = baseURL + addKeywords + addExcludedIngredients + addPrepTime + addCalorieLimit
     print(finalURL)

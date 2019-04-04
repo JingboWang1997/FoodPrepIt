@@ -11,9 +11,10 @@ from django.db import connection
 def get_spoonacular_data(keywords,dietRestriction,excludedIngredients,prepTime,calorieLimit):
     search_result = spoonacular_api.search(keywords,dietRestriction,excludedIngredients)
     dish_list = search_result['results']
-    baseUri = search_result['baseUri']
 
     filtered_list = dish_list
+    dish_summary_dto_list = []
+    store_image = ''
 
     # store into cache
     for dish in dish_list:
@@ -22,11 +23,6 @@ def get_spoonacular_data(keywords,dietRestriction,excludedIngredients,prepTime,c
 
         recipePrepTime = -1
         recipeCalories = -1
-        store_image = ''
-        try:
-            store_image = dish['image']
-        except:
-            store_image = ''
 
         with connection.cursor() as cursor:
             sql = "select exists(select 1 from foodPrepIt_cacherecipedetail where title=%s and sourceAPI=%s) limit 1"
@@ -41,12 +37,15 @@ def get_spoonacular_data(keywords,dietRestriction,excludedIngredients,prepTime,c
                 cursor.execute(sql,(dish['title'],'Spoonacular'))
                 recipeCalories = cursor.fetchone()[0]
                 # print('calories: ', recipeCalories)
+                sql = "select image from foodPrepIt_cacherecipedetail where title=%s and sourceAPI=%s"
+                cursor.execute(sql,(dish['title'],'Spoonacular'))
+                store_image = cursor.fetchone()[0]
 
             else:
                 print('no key')
         
                 recipe = spoonacular_api.getRecipe(str(dish['id']))
-                # priceBreakdown = spoonacular_api.getPriceBreakdown(str(dish['id']))
+                priceBreakdown = spoonacular_api.getPriceBreakdown(str(dish['id']))
                 nutrition = spoonacular_api.getNutrition(str(dish['id']))
 
                 store_diet = ''
@@ -63,6 +62,8 @@ def get_spoonacular_data(keywords,dietRestriction,excludedIngredients,prepTime,c
                 recipePrepTime = recipe['readyInMinutes']
                 recipeCalories = int(nutrition['calories'])
 
+                store_image = recipe['image']
+
                 try:
                     cachEntry = CacheRecipeDetail(
                         title = dish['title'], 
@@ -73,8 +74,8 @@ def get_spoonacular_data(keywords,dietRestriction,excludedIngredients,prepTime,c
                         instruction = recipe['instructions'] if recipe['instructions'] != None else '',
                         ingredients = ingredients_list,
                         diet = store_diet,
-                        # budget = priceBreakdown['totalCostPerServing'],
-                        budget = -1,
+                        budget = priceBreakdown['totalCostPerServing'],
+                        # budget = -1,
                         calories = str(nutrition['calories'])
                         )
                     cachEntry.save()
@@ -87,12 +88,14 @@ def get_spoonacular_data(keywords,dietRestriction,excludedIngredients,prepTime,c
         elif calorieLimit != '' and int(calorieLimit) < recipeCalories:
             dish_list.remove(dish)
 
-    dish_summary_dto_list = [ dish_summary_dto.DishSummary(
-        id = dish['id'], 
-        title = dish['title'], 
-        image = store_image,
-        recipeLink = '',
-        sourceAPI = 'Spoonacular') for dish in filtered_list]
+        if dish in filtered_list:
+            dish_summary_dto_list.append(dish_summary_dto.DishSummary(
+                id = dish['id'], 
+                title = dish['title'], 
+                image = store_image,
+                recipeLink = '',
+                sourceAPI = 'Spoonacular'))
+
     return dish_summary_dto_list
 
 def get_edamam_data(keywords,dietRestriction,excludedIngredients,prepTime,calorieLimit):
@@ -115,7 +118,6 @@ def get_edamam_data(keywords,dietRestriction,excludedIngredients,prepTime,calori
                 store_diet += 'vegan,'
                 if dietRestriction == 'vegan':
                     filtered_list.append(dish)
-
         try:
             cachEntry = CacheRecipeDetail(
                 title = dish['recipe']['label'], 
