@@ -1,15 +1,20 @@
-from foodPrepIt.models import Food
+from foodPrepIt.models import History
 import datetime
 from django.db import IntegrityError
 
-def get_history():
-    history_list = Food.objects.all()
-    return history_list
+def get_history(userid):
+    history_list = History.objects.all()
+    return_list = []
+    for history in history_list:
+        if (history.userid == userid):
+            return_list.append(history)
+    return return_list
 
-def save_food(food, image):
+def save_food(food, image, userid):
     print('saving')
     print(food)
-    food = Food(
+    food = History(
+        userid = userid,
         title = food.title, 
         image = image, 
         sourceAPI = food.sourceAPI, 

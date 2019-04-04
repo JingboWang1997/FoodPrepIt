@@ -19,18 +19,18 @@ def getDishByKeywords(request):
     prepTime = request.data['prepTime']
     calorieLimit = request.data['calorieLimit']
 
-    # try:
-    #     dishes = search_service.get_spoonacular_data(keywords,dietRestriction,excludedIngredients,prepTime,calorieLimit) \
-    #     + search_service.get_edamam_data(keywords,dietRestriction,excludedIngredients,prepTime,calorieLimit) \
-    #     + search_service.get_yummly_data(keywords,'',dietRestriction,excludedIngredients,prepTime,calorieLimit) \
-    #     + search_service.get_puppy_data(keywords)
-    # except:
-    #     print('Using only 2 APIs')
-    #     dishes = search_service.get_yummly_data(keywords,'',dietRestriction,excludedIngredients,prepTime,calorieLimit) \
-    #     + search_service.get_puppy_data(keywords)
+    try:
+        dishes = search_service.get_spoonacular_data(keywords,dietRestriction,excludedIngredients,prepTime,calorieLimit) \
+        + search_service.get_edamam_data(keywords,dietRestriction,excludedIngredients,prepTime,calorieLimit) \
+        + search_service.get_yummly_data(keywords,'',dietRestriction,excludedIngredients,prepTime,calorieLimit) \
+        + search_service.get_puppy_data(keywords)
+    except:
+        print('Using only 2 APIs')
+        dishes = search_service.get_yummly_data(keywords,'',dietRestriction,excludedIngredients,prepTime,calorieLimit) \
+        + search_service.get_puppy_data(keywords)
     
     # for evaluation
-    dishes = search_service.get_spoonacular_data(keywords,dietRestriction,excludedIngredients,prepTime,calorieLimit)
+    # dishes = search_service.get_spoonacular_data(keywords,dietRestriction,excludedIngredients,prepTime,calorieLimit)
 
     serializer = dish_serializer.DishSummarySerializer(
         instance=dishes, many=True)
@@ -51,7 +51,7 @@ def getRecipe(request):
     else:
         info = recipe_service.get_unorganized_recipe(request.data)
         # history_service.save_food(request.data, request.data['img'], recipeLink=request.data['recipeLink'])
-    history_service.save_food(info, request.data['img'])
+    history_service.save_food(info, request.data['img'], request.data['userid'])
     serializer = dish_serializer.RecipeSerializer(instance=info, many=False)
     return Response(serializer.data)
 
@@ -86,9 +86,9 @@ def getDishFromIngredients(request):
     return Response(serializer.data)
 
 # get all history
-@api_view(['GET'])
+@api_view(['POST'])
 def getHistory(request):
-    histories = history_service.get_history()
+    histories = history_service.get_history(request.data['userid'])
     serializer = dish_serializer.FoodHistory(
         instance=histories, many=True)
     return Response(serializer.data)

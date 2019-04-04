@@ -27,6 +27,7 @@ class RecipeSerializer(serializers.Serializer):
         child=serializers.CharField(max_length=200))
 
 class FoodHistory(serializers.Serializer):
+    userid = serializers.CharField(max_length=50)
     title = serializers.CharField(max_length=300)
     image = serializers.URLField()
     sourceAPI = serializers.CharField(max_length=20)

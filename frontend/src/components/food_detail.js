@@ -18,6 +18,7 @@ export default class FoodDetail extends React.Component {
 		const img = this.props.data.image;
 		const recipeLink = this.props.data.recipeLink;
 		const title = this.props.data.title;
+		const userid = this.props.userid;
 		console.log('displaying food detail: ');
 		console.log('source: ' + source);
 		console.log('id: ' + id);
@@ -28,7 +29,7 @@ export default class FoodDetail extends React.Component {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({
-				source, id, img, recipeLink, title
+				source, id, img, recipeLink, title, userid
 			}),
 		}).then(response => {
 			return response.json();
@@ -47,7 +48,18 @@ export default class FoodDetail extends React.Component {
 			ingredients.push(<li>{detailData.ingredients[i]}</li>);
 		}
 		if (detailData.sourceAPI === 'Spoonacular') {
-			result =
+			if (detailData.instruction === null) {
+				result =
+				<div>
+					<h2>Ready In {detailData.readyInMinutes} Minutes</h2>
+					<h2>Ingredients</h2>
+					<ul>
+						{ingredients}
+					</ul> 
+					<a href={detailData.recipeLink}>View Instruction</a>
+				</div>;
+			} else{
+				result =
 				<div>
 					<h2>Ready In {detailData.readyInMinutes} Minutes</h2>
 					<h2>Ingredients</h2>
@@ -57,6 +69,7 @@ export default class FoodDetail extends React.Component {
 					<h2>Instruction</h2>
 					<p>{detailData.instruction}</p>
 				</div>;
+			}
 		} else {
 			result =
 				<div>
