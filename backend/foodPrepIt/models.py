@@ -1,7 +1,8 @@
 from django.db import models
 
-class Food(models.Model):
-    title = models.CharField(max_length=300, unique=True)
+class History(models.Model):
+    userid = models.CharField(max_length=50)
+    title = models.CharField(max_length=300)
     image = models.URLField()
     sourceAPI = models.CharField(max_length=100)
     recipeLink = models.URLField()

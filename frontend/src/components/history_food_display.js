@@ -39,13 +39,17 @@ export default class HistoryFoodDisplay extends React.Component {
 
 	// right after component mounting
 	componentDidMount() {
+		const userid = this.props.userid;
 		console.log('fetching history data');
 		fetch('http://127.0.0.1:8000/getHistory', {
-			method: 'GET',
+			method: 'POST',
 			headers: {
 				'Accept': 'application/json',
 				'Content-Type': 'application/json'
 			},
+			body: JSON.stringify({
+				userid
+			}),
 		}).then(response => {
 			console.log('fetched data: ' + response);
 			return response.json();

@@ -3,6 +3,8 @@ import React from 'react';
 import HistoryFoodDisplay from './history_food_display';
 import HistoryFoodDetail from './history_food_detail';
 
+import Button from '@material-ui/core/Button';
+
 // the dashboard (history view) of the first tab
 export default class DashboardView extends React.Component {
 	constructor(props) {
@@ -32,9 +34,11 @@ export default class DashboardView extends React.Component {
 		if (this.state.foodData === null) {
 			return (
 				<div>
+					<Button onClick={this.props.logoutButtonCallback} variant="contained">Log Out</Button>
 					<h1>History</h1>
 					<HistoryFoodDisplay 
-						callbackFromParent={this.foodDetailCallback} 
+						callbackFromParent={this.foodDetailCallback}
+						userid = {this.props.userid}
 					/>
 				</div>
 			);

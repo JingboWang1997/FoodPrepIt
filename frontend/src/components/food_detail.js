@@ -18,6 +18,7 @@ export default class FoodDetail extends React.Component {
 		const img = this.props.data.image;
 		const recipeLink = this.props.data.recipeLink;
 		const title = this.props.data.title;
+		const userid = this.props.userid;
 		console.log('displaying food detail: ');
 		console.log('source: ' + source);
 		console.log('id: ' + id);
@@ -28,7 +29,7 @@ export default class FoodDetail extends React.Component {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({
-				source, id, img, recipeLink, title
+				source, id, img, recipeLink, title, userid
 			}),
 		}).then(response => {
 			return response.json();

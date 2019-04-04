@@ -293,7 +293,10 @@ class IngredientsearchView extends Component {
     			);
     		} else {
     			return (
-    				<FoodDetail data={this.state.foodData} exitFoodDetailCallBack={this.exitFoodDetailCallBack}/>
+					<FoodDetail 
+						data={this.state.foodData} 
+						exitFoodDetailCallBack={this.exitFoodDetailCallBack} 
+						userid={this.props.userid}/>
     			);
     		}
     	} else {
