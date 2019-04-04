@@ -55,7 +55,7 @@ export default class MainScreen extends React.Component {
   			<div>
   				<AppBar position="static" style={{ backgroundColor: green[300] }}>
   					<Tabs variant="fullWidth" value={value} onChange={this.handleChange}>
-  						<LinkTab label="Dashboard" href="page1"/>
+  						<LinkTab label="History" href="page1"/>
   						<LinkTab label="Keyword Search" href="page2" />
   						<LinkTab label="Ingredient Search" href="page3" />
   						<LinkTab label="Not Available" href="page4" disabled="true"/>

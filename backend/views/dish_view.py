@@ -27,6 +27,13 @@ def getDishByKeywords(request):
     # except:
     #     dishes = search_service.get_yummly_data(keywords,dietRestriction,excludedIngredients,prepTime,calorieLimit) \
     #     + search_service.get_puppy_data(keywords)
+
+#     try:
+#         # dishes = search_service.get_puppy_data(keywords)
+#         dishes = search_service.get_spoonacular_data(keywords) + search_service.get_edamam_data(keywords) + search_service.get_yummly_data(keywords) + search_service.get_puppy_data(keywords)
+#     except:
+#         dishes = search_service.get_yummly_data(keywords) + search_service.get_puppy_data(keywords)
+
     
     # for evaluation
     dishes = search_service.get_yummly_data(keywords,dietRestriction,excludedIngredients,prepTime,calorieLimit)

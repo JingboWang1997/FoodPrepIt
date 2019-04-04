@@ -2,50 +2,24 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 
 // display the page with food details on a user selected food
-export default class FoodDetail extends React.Component {
+export default class HistoryFoodDetail extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			detail: null,
-			source: this.props.data.sourceAPI,
-			id: this.props.data.id
+			detail: this.props.data
 		};
 	}
-
-	componentDidMount() {
-		const source = this.state.source;
-		const id = this.state.id;
-		const img = this.props.data.image;
-		const recipeLink = this.props.data.recipeLink;
-		const title = this.props.data.title;
-		console.log('displaying food detail: ');
-		console.log('source: ' + source);
-		console.log('id: ' + id);
-		fetch('http://127.0.0.1:8000/getRecipe', {
-			method: 'POST',
-			headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				source, id, img, recipeLink, title
-			}),
-		}).then(response => {
-			return response.json();
-		}).then(data => {
-			console.log('fetching detailed data: ');
-			console.log(data);
-			this.setState({ detail: data });
-		});
-	}
-
+    
 	formatDetails(detailData) {
 		let result = null;
 		let ingredients = [];
-		// format the ingredients into a list
-		for (let i = 0; i < detailData.ingredients.length; i++) {
-			ingredients.push(<li>{detailData.ingredients[i]}</li>);
+		let ingredientData = detailData.ingredients.substring(2, detailData.ingredients.length-2);
+		let ingredientList = ingredientData.split('\', \'');
+
+		for (let i = 0; i < ingredientList.length; i++) {
+			ingredients.push(<li>{ingredientList[i]}</li>);
 		}
+
 		if (detailData.sourceAPI === 'Spoonacular') {
 			result =
 				<div>
@@ -76,13 +50,7 @@ export default class FoodDetail extends React.Component {
 		if (this.props.data.sourceAPI === 'Puppy' || this.props.data.sourceAPI === 'Edamam') {
 			detail = <a href={this.props.data.recipeLink}>View Details</a>;
 		} else {
-			if (this.state.detail === null) {
-				detail = <div></div>;
-			}
-			else {
-				console.log('fetched detailed data: ' + this.state.detail);
-				detail = this.formatDetails(this.state.detail);
-			}
+			detail = this.formatDetails(this.state.detail);
 		}
 		return (
 			<div>
