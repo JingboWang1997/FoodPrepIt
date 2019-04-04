@@ -26,6 +26,7 @@ def get_spoonacular_data(keywords,dietRestriction,excludedIngredients,prepTime,c
             store_diet += 'vegetarian,'
         if recipe['vegan']:
             store_diet += 'vegan,'
+        
         ingredients_raw = recipe['extendedIngredients']
         ingredients_list = []
         for item in ingredients_raw:

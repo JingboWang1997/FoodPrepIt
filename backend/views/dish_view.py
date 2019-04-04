@@ -72,12 +72,12 @@ def getDishFromIngredients(request):
     # calorieLimit = ''
     
     # try:
-    #     dishes = ingredient_service.get_spoonacular_from_ingredients(ingredients) + ingredient_service.get_yummly_from_ingredients(ingredients)
+    #     dishes = ingredient_service.get_spoonacular_from_ingredients(ingredients) + ingredient_service.get_yummly_from_ingredients(ingredients,dietRestriction,excludedIngredients,prepTime,calorieLimit)
     # except:
-    #     dishes = ingredient_service.get_yummly_from_ingredients(ingredients)
+    #     dishes = ingredient_service.get_yummly_from_ingredients(ingredients,dietRestriction,excludedIngredients,prepTime,calorieLimit)
 
      # for evaluation
-    dishes = ingredient_service.get_yummly_from_ingredients(ingredients,dietRestriction,excludedIngredients,prepTime,calorieLimit)
+    dishes = ingredient_service.get_spoonacular_from_ingredients(ingredients,dietRestriction,excludedIngredients,prepTime,calorieLimit)
 
     serializer = dish_serializer.DishSummarySerializer(
         instance=dishes, many=True)
