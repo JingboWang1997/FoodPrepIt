@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 // ui import
-import InputBase from '@material-ui/core/InputBase';
 import { withStyles } from '@material-ui/core/styles';
-import SearchIcon from '@material-ui/icons/Search';
 import grey from '@material-ui/core/colors/grey';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -13,14 +11,8 @@ import Button from '@material-ui/core/Button';
 import green from '@material-ui/core/colors/green';
 import Slider from '@material-ui/lab/Slider';
 // react component import
-import FPISlider from './fpislider_component';
 import FPITaginput from './fpitaginput_component';
 import FPIDropdown from './fpidropdown_component';
-import logo from '../resources/logo.jpg';
-import FoodDisplay from './food_display';
-// resources import
-import logo_small from '../resources/logo_small.jpg';
-import FoodDetail from './food_detail';
 
 // css definition
 const styles = theme => ({
@@ -81,8 +73,6 @@ class FilterView extends React.Component {
 			exclusionTags: this.props.exclusionTags,
 			// 'dietaryRestriction' notes dietary restriction selected by user
 			dietaryRestriction: this.props.dietaryRestriction,
-			// 'userFilter' marks if filters are used
-			useFilter: this.props.useFilter,
 		};
 	}
     

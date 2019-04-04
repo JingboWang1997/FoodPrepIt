@@ -148,7 +148,6 @@ export default class FoodDisplay extends React.Component {
 		if (tiles.length === 0) {
 			tiles = <h1>No Result!</h1>;
 		}
-
 		this.setState({ 
 			ids: ids,
 			tiles: tiles

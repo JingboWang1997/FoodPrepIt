@@ -104,7 +104,6 @@ class MainView extends Component {
 
 	// called when the advanced search button is clicked
 	advancedSearchButton = () => {
-		console.log('clicked');
 		if (this.state.userInput !== '') {
 			this.setState({ 
 				searched: true,
