@@ -39,30 +39,64 @@ export default class FoodDisplay extends React.Component {
 
 	// right after component mounting
 	componentDidMount() {
-    
 		if (!this.state.data) {
-			// make keyword search call
-			const keywords = this.props.userInput;
-			console.log('fetching data with keywords: ' + keywords);
-			fetch('http://127.0.0.1:8000/getDishByKeywords', {
-				method: 'POST',
-				headers: {
-					'Accept': 'application/json',
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({
-					keywords
-				}),
-			}).then(response => {
-				console.log('fetched data: ' + response);
-				return response.json();
-			}).then(data => {
-				this.setState({ 
-					data: data
+			if (!this.props.useFilter) {
+				const dietRestriction = '';
+				const excludedIngredients = '';
+				const budget = '';
+				const prepTime = '';
+				const calorieLimit = '';
+				// make keyword search call
+				const keywords = this.props.userInput;
+				console.log('fetching data with keywords: ' + keywords);
+				fetch('http://127.0.0.1:8000/getDishByKeywords', {
+					method: 'POST',
+					headers: {
+						'Accept': 'application/json',
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						keywords, dietRestriction, excludedIngredients, budget, prepTime, calorieLimit
+					}),
+				}).then(response => {
+					console.log('fetched data: ' + response);
+					return response.json();
+				}).then(data => {
+					this.setState({ 
+						data: data
+					});
+					this.generateList();
+					this.props.updateFoodList(data);
 				});
-				this.generateList();
-				this.props.updateFoodList(data);
-			});
+			} else {
+				const dietRestriction = this.props.dietaryRestriction === 'none' || this.props.dietaryRestriction === '' ? '' : this.props.dietaryRestriction;
+				const excludedIngredients = this.props.exclusionTags.length === 0 ? '' : this.props.exclusionTags.toString() + ',';
+				const budget = '';
+				const prepTime = this.props.time;
+				const calorieLimit = this.props.calorie;
+				// make filtered keyword search call
+				const keywords = this.props.userInput;
+				console.log('fetching data with keywords: ' + keywords);
+				fetch('http://127.0.0.1:8000/getDishByKeywords', {
+					method: 'POST',
+					headers: {
+						'Accept': 'application/json',
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						keywords, dietRestriction, excludedIngredients, budget, prepTime, calorieLimit
+					}),
+				}).then(response => {
+					console.log('fetched data: ' + response);
+					return response.json();
+				}).then(data => {
+					this.setState({ 
+						data: data
+					});
+					this.generateList();
+					this.props.updateFoodList(data);
+				});
+			}
 		} else {
 			this.generateList();
 		}
