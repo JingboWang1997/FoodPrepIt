@@ -22,14 +22,14 @@ def getDishByKeywords(request):
     # try:
     #     dishes = search_service.get_spoonacular_data(keywords,dietRestriction,excludedIngredients,prepTime,calorieLimit) \
     #     + search_service.get_edamam_data(keywords,dietRestriction,excludedIngredients,prepTime,calorieLimit) \
-    #     + search_service.get_yummly_data(keywords,dietRestriction,excludedIngredients,prepTime,calorieLimit) \
+    #     + search_service.get_yummly_data(keywords,'',dietRestriction,excludedIngredients,prepTime,calorieLimit) \
     #     + search_service.get_puppy_data(keywords)
     # except:
     #     dishes = search_service.get_yummly_data(keywords,dietRestriction,excludedIngredients,prepTime,calorieLimit) \
     #     + search_service.get_puppy_data(keywords)
     
     # for evaluation
-    dishes = search_service.get_yummly_data(keywords,dietRestriction,excludedIngredients,prepTime,calorieLimit)
+    dishes = search_service.get_yummly_data(keywords,'',dietRestriction,excludedIngredients,prepTime,calorieLimit)
 
     serializer = dish_serializer.DishSummarySerializer(
         instance=dishes, many=True)
@@ -59,17 +59,17 @@ def getRecipe(request):
 @api_view(['POST'])
 def getDishFromIngredients(request):
     ingredients = request.data['ingredients']
-    # dietRestriction = request.data['dietRestriction']
-    # excludedIngredients = request.data['excludedIngredients']
-    # budget = request.data['budget']
-    # prepTime = request.data['prepTime']
-    # calorieLimit = request.data['calorieLimit']
+    dietRestriction = request.data['dietRestriction']
+    excludedIngredients = request.data['excludedIngredients']
+    budget = request.data['budget']
+    prepTime = request.data['prepTime']
+    calorieLimit = request.data['calorieLimit']
 
-    dietRestriction = ''
-    excludedIngredients = ''
-    budget = ''
-    prepTime = ''
-    calorieLimit = ''
+    # dietRestriction = ''
+    # excludedIngredients = ''
+    # budget = ''
+    # prepTime = ''
+    # calorieLimit = ''
     
     # try:
     #     dishes = ingredient_service.get_spoonacular_from_ingredients(ingredients) + ingredient_service.get_yummly_from_ingredients(ingredients)
