@@ -36,3 +36,9 @@ class FoodHistory(serializers.Serializer):
     instruction = serializers.CharField(max_length=10000)
     ingredients = serializers.CharField(max_length=1000)
     date = serializers.DateField()
+
+class NutritionSerializer(serializers.Serializer):
+    title = serializers.CharField(max_length=300)
+    amount = serializers.CharField(max_length=300)
+    indented = serializers.BooleanField()
+    percentOfDailyNeeds = serializers.DecimalField(max_digits=5, decimal_places=2)
