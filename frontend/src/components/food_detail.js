@@ -1,5 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
+import green from '@material-ui/core/colors/green';
+// import nutritionData from '../resources/nutritionData';
 
 // display the page with food details on a user selected food
 export default class FoodDetail extends React.Component {
@@ -8,7 +10,8 @@ export default class FoodDetail extends React.Component {
 		this.state = {
 			detail: null,
 			source: this.props.data.sourceAPI,
-			id: this.props.data.id
+			id: this.props.data.id,
+			nutritionData: null,
 		};
 	}
 
@@ -36,8 +39,33 @@ export default class FoodDetail extends React.Component {
 		}).then(data => {
 			console.log('fetching detailed data: ');
 			console.log(data);
-			this.setState({ detail: data });
+			this.setState({ 
+				detail: data,
+			});
 		});
+		if (source === 'Spoonacular') {
+			fetch('http://127.0.0.1:8000/getNutrition', {
+				method: 'POST',
+				headers: {
+					'Accept': 'application/json',
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					source, id
+				}),
+			}).then(response => {
+				return response.json();
+			}).then(data => {
+				console.log('fetching nutrition data: ');
+				console.log(data);
+				this.setState({ 
+					nutritionData: data, 
+				});
+			});
+		}
+		// this.setState({
+		// 	nutritionData: nutritionData
+		// });
 	}
 
 	formatDetails(detailData) {
@@ -97,12 +125,27 @@ export default class FoodDetail extends React.Component {
 				detail = this.formatDetails(this.state.detail);
 			}
 		}
+		let nutrition = <div></div>;
+		let nutritionTitle = null;
+		if (this.state.nutritionData !== null) {
+			nutrition = [];
+			for (let i = 0; i < this.state.nutritionData.length; i++) {
+				nutrition.push(
+					<li>{this.state.nutritionData[i].title} : {this.state.nutritionData[i].amount}</li>
+				);
+			}
+			nutritionTitle = <h2>Nutrition</h2>;
+		}
+
 		return (
 			<div>
 				<Button onClick={this.props.exitFoodDetailCallBack} variant="contained">Back</Button>
-				<h1>{this.props.data.title}</h1>
-				<h2>{this.props.data.sourceAPI}</h2>
+				<h1 style={{color: green[400]}}>{this.props.data.title}</h1>
+				<img src={this.props.data.image} alt='' />
 				{detail}
+				{nutritionTitle}
+				<ul>{nutrition}</ul>
+				<p>From: {this.props.data.sourceAPI}</p>
 			</div> 
 		);
 	}

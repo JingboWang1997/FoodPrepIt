@@ -8,6 +8,7 @@ from service import search_service
 from service import recipe_service
 from service import ingredient_service
 from service import history_service
+from service import nutrition_service
 
 # keyword search
 @api_view(['POST'])
@@ -60,17 +61,17 @@ def getRecipe(request):
 @api_view(['POST'])
 def getDishFromIngredients(request):
     ingredients = request.data['ingredients']
-    # dietRestriction = request.data['dietRestriction']
-    # excludedIngredients = request.data['excludedIngredients']
-    # budget = request.data['budget']
-    # prepTime = request.data['prepTime']
-    # calorieLimit = request.data['calorieLimit']
+    dietRestriction = request.data['dietRestriction']
+    excludedIngredients = request.data['excludedIngredients']
+    budget = request.data['budget']
+    prepTime = request.data['prepTime']
+    calorieLimit = request.data['calorieLimit']
 
-    dietRestriction = ''
-    excludedIngredients = ''
-    budget = ''
-    prepTime = ''
-    calorieLimit = ''
+    # dietRestriction = ''
+    # excludedIngredients = ''
+    # budget = ''
+    # prepTime = ''
+    # calorieLimit = ''
     
     try:
         dishes = ingredient_service.get_spoonacular_from_ingredients(ingredients,dietRestriction,excludedIngredients,prepTime,calorieLimit) \
@@ -92,6 +93,19 @@ def getHistory(request):
     serializer = dish_serializer.FoodHistory(
         instance=histories, many=True)
     return Response(serializer.data)
+
+
+# get nutrition data
+@api_view(['POST'])
+def getNutrition(request):
+    nutritionResponse = ''
+    id = request.data['id']
+    sourceAPI = request.data['source']
+    nutrition_response = nutrition_service.get_spoonacular_nutrition(id)
+    serializer = dish_serializer.NutritionSerializer(instance=nutrition_response,many = True)
+    return Response(serializer.data)
+
+
 
 
 

@@ -76,8 +76,8 @@ export default class IngredientsFoodDisplay extends React.Component {
     			);
 				const excludedIngredients = this.props.exclusionTags.length === 0 ? '' : ingredientString;
 				const budget = '';
-				const prepTime = this.props.time;
-				const calorieLimit = this.props.calorie;
+				const prepTime = this.props.time === 0 ? '' : this.props.time.toString();
+				const calorieLimit = this.props.calorie === 0 ? '' : this.props.calorie.toString();
 				// make keyword search call
 				const ingredients = this.props.userInput;
 				console.log('fetching data with ingredients: ' + ingredients);
