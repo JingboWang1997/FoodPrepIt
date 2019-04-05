@@ -125,7 +125,7 @@ class FilterView extends React.Component {
     										style = {{padding: '22px 0px'}}
     										value={this.state.timeSliderValue}
     										min={0}
-    										max={100}
+    										max={300}
     										step={20}
     										onChange={this.timeSliderChange}
     									/>
@@ -136,8 +136,8 @@ class FilterView extends React.Component {
     										style = {{padding: '22px 0px'}}
     										value={this.state.calorieSliderValue}
     										min={0}
-    										max={100}
-    										step={20}
+    										max={1500}
+    										step={200}
     										onChange={this.calorieSliderChange}
     									/>
     								</div>
