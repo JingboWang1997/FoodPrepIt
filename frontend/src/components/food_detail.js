@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
+import green from '@material-ui/core/colors/green';
 // import nutritionData from '../resources/nutritionData';
 
 // display the page with food details on a user selected food
@@ -125,24 +126,26 @@ export default class FoodDetail extends React.Component {
 			}
 		}
 		let nutrition = <div></div>;
+		let nutritionTitle = null;
 		if (this.state.nutritionData !== null) {
-			nutrition = [<h2>Nutrition</h2>];
+			nutrition = [];
 			for (let i = 0; i < this.state.nutritionData.length; i++) {
 				nutrition.push(
-					<div>
-						<p>{this.state.nutritionData[i].title} : {this.state.nutritionData[i].amount}</p>
-					</div>);
+					<li>{this.state.nutritionData[i].title} : {this.state.nutritionData[i].amount}</li>
+				);
 			}
-
+			nutritionTitle = <h2>Nutrition</h2>;
 		}
 
 		return (
 			<div>
 				<Button onClick={this.props.exitFoodDetailCallBack} variant="contained">Back</Button>
-				<h1>{this.props.data.title}</h1>
-				<h2>{this.props.data.sourceAPI}</h2>
+				<h1 style={{color: green[400]}}>{this.props.data.title}</h1>
+				<img src={this.props.data.image} alt='' />
 				{detail}
-				{nutrition}
+				{nutritionTitle}
+				<ul>{nutrition}</ul>
+				<p>From: {this.props.data.sourceAPI}</p>
 			</div> 
 		);
 	}

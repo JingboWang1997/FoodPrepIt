@@ -148,7 +148,7 @@ class FilterView extends React.Component {
     							</div>
     						</div>
     						<div>
-    							<Button variant="contained" style={{ backgroundColor: green[200]}} onClick={this.searchButtonClick}>Advanced Search</Button>
+    							<Button variant="contained" style={{ backgroundColor: green[300]}} onClick={this.searchButtonClick}>Advanced Search</Button>
     						</div>
     					</div>
     				</ExpansionPanelDetails>
