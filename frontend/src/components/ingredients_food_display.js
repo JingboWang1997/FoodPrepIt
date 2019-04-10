@@ -3,6 +3,7 @@ import React from 'react';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 // css styles
 const styles = theme => ({
@@ -156,12 +157,20 @@ export default class IngredientsFoodDisplay extends React.Component {
 	}
 
 	render() {
-		return (
-			<div className={styles.root}>
-				<GridList cellHeight={500} spacing={20} className={styles.gridList}>
-					{this.state.tiles}
-				</GridList>
-			</div>
-		);
+		if (this.state.tiles.length === 0) {
+			return (
+				<div style={{marginLeft: '50%', marginTop: '10%'}}>
+    				<CircularProgress styles={{color: 'green'}} size={30} thickness={5} />
+    			</div>
+			);
+		} else {
+			return (
+				<div className={styles.root}>
+					<GridList cellHeight={500} spacing={20} className={styles.gridList}>
+						{this.state.tiles}
+					</GridList>
+				</div>
+			);
+		}
 	}
 }
