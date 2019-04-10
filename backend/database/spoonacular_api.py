@@ -7,7 +7,7 @@ def find_by_ingredients():
     return response.json()
 
 def search(keywords,dietRestriction,excludedIngredients):
-    baseURL = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search?"
+    baseURL = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search?number=20&"
     
     addKeywords = "query=" + keywords
     addDietRestriction = ''
@@ -31,11 +31,12 @@ def getRecipe(id):
 
 
 def searchFromIngredients(ingredients):
-    baseURL = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?number=10&ranking=1&ingredients="
+    baseURL = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?number=30&ranking=1&ingredients="
     finalURL = baseURL + ingredients
     response = requests.get(finalURL,
         headers={"X-RapidAPI-Key": "e0908c685fmsh31f97109ebb2e50p1372a2jsncb26aea897b1"
     })
+    print("here",response.json())
     return response.json()
 
 def getPriceBreakdown(id):
