@@ -30,6 +30,7 @@ def get_spoonacular_from_ingredients(ingredients,dietRestriction,excludedIngredi
             store_prepTime = -1
             store_calories = -1
             ingredients_string = ''
+            excludeList = []
 
             check = sql_service.check_key_exist(dish['title'],'Spoonacular')
             if check!=0:
@@ -86,9 +87,9 @@ def get_spoonacular_from_ingredients(ingredients,dietRestriction,excludedIngredi
             print('calories',store_calories)
             if dietRestriction != '' and dietRestriction not in store_diet:
                 filtered_list.remove(dish)
-            elif prepTime != '' and store_prepTime > int(prepTime):
+            elif prepTime != '' and int(store_prepTime) > int(prepTime):
                 filtered_list.remove(dish)
-            elif calorieLimit != '' and store_calories > int(calorieLimit):
+            elif calorieLimit != '' and int(store_calories) > int(calorieLimit):
                 filtered_list.remove(dish)
             elif excludedIngredients != '':
                 for item in excludeList:
