@@ -19,19 +19,34 @@ def getDishByKeywords(request):
     budget = request.data['budget']
     prepTime = request.data['prepTime']
     calorieLimit = request.data['calorieLimit']
+    dishes = []
 
     try:
-        dishes = search_service.get_spoonacular_data(keywords,dietRestriction,excludedIngredients,prepTime,calorieLimit) \
-        + search_service.get_edamam_data(keywords,dietRestriction,excludedIngredients,prepTime,calorieLimit) \
-        + search_service.get_yummly_data(keywords,'',dietRestriction,excludedIngredients,prepTime,calorieLimit) \
-        + search_service.get_puppy_data(keywords)
+        if dietRestriction == '' and excludedIngredients == '' and prepTime == '' and calorieLimit == '':   
+            dishes = search_service.get_spoonacular_data(keywords,dietRestriction,excludedIngredients,prepTime,calorieLimit) \
+            + search_service.get_edamam_data(keywords,dietRestriction,excludedIngredients,prepTime,calorieLimit) \
+            + search_service.get_yummly_data(keywords,'',dietRestriction,excludedIngredients,prepTime,calorieLimit) \
+            + search_service.get_puppy_data(keywords)
+        else:
+            dishes = search_service.get_spoonacular_data(keywords,dietRestriction,excludedIngredients,prepTime,calorieLimit) \
+            + search_service.get_edamam_data(keywords,dietRestriction,excludedIngredients,prepTime,calorieLimit) \
+            + search_service.get_yummly_data(keywords,'',dietRestriction,excludedIngredients,prepTime,calorieLimit) \
+
     except:
         print('Using only 2 APIs')
         dishes = search_service.get_yummly_data(keywords,'',dietRestriction,excludedIngredients,prepTime,calorieLimit) \
         + search_service.get_puppy_data(keywords)
     
     # for evaluation
-    # dishes = search_service.get_spoonacular_data(keywords,dietRestriction,excludedIngredients,prepTime,calorieLimit)
+    # if dietRestriction == '' and excludedIngredients == '' and prepTime == '' and calorieLimit == '':   
+    #     dishes = search_service.get_spoonacular_data(keywords,dietRestriction,excludedIngredients,prepTime,calorieLimit) \
+    #     + search_service.get_edamam_data(keywords,dietRestriction,excludedIngredients,prepTime,calorieLimit) \
+    #     + search_service.get_yummly_data(keywords,'',dietRestriction,excludedIngredients,prepTime,calorieLimit) \
+    #     + search_service.get_puppy_data(keywords)
+    # else:
+    #     dishes = search_service.get_spoonacular_data(keywords,dietRestriction,excludedIngredients,prepTime,calorieLimit) \
+    #     + search_service.get_edamam_data(keywords,dietRestriction,excludedIngredients,prepTime,calorieLimit) \
+    #     + search_service.get_yummly_data(keywords,'',dietRestriction,excludedIngredients,prepTime,calorieLimit) \
 
     serializer = dish_serializer.DishSummarySerializer(
         instance=dishes, many=True)
