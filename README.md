@@ -2,18 +2,12 @@
 ---
 ## Backend
 ### Set Up
-- Install [python3](https://www.python.org/downloads/) and django `pip install django`
-- Install rest framework: `pip install djangorestframework`
-- Install API request: `pip install requests`
+- pip install -r requirements.txt
+- python manage.py migrate
 ### Run
 - `cd backend`
 - Run `python manage.py runserver`
 - Go to the link in the termial
-
-### REST
-| Rest API | Content | Description |
-|---|---|---|
-| | | |
 
 ### Modules
 - foodPrepIt (settings & urls)
@@ -21,9 +15,9 @@
   - standardize object representations
 - serializers
   - standardize json formats
-- database (access db)
-- service (logic)
-- views (REST endpoints)
+- database (functions to retrieve)
+- service (all business logic: filters, cache)
+- views (packaging return data for REST endpoints)
 
 ##### Dependencies
 > DATABASE <--- SERVICE <--- VIEW <--- URL 
